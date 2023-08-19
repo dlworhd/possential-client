@@ -1,26 +1,23 @@
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from 'node:url'; // 모듈 경로는 이렇게 수정해야 합니다.
+import { defineConfig } from 'vite';
+import view from 'vite-plugin-view';
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    view(),
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    }, // 여기에 콤마를 추가해야 합니다.
   },
   server: {
     proxy: {
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true,
-        configure: (proxy, options) => {
-          // proxy 변수에는 'http-proxy'의 인스턴스가 전달됩니다
-        }
+        // configure는 사용되지 않습니다.
+      },
     },
   },
-}})
+});

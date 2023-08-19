@@ -12,14 +12,14 @@
 <script lang="ts">
 import axios from 'axios';
 import { defineComponent } from 'vue'
-import { mapState, mapMutations } from 'vuex/types/helpers.js';
-
+import { mapState, mapMutations } from 'vuex';
 
 
 export interface Menu {
     menuId: number,
     menuName: string
-    price: number
+    price: number,
+    quantity: number
 }
 
 //임시 스토어 아이디
@@ -43,7 +43,7 @@ export default defineComponent({
     },
     methods: {
         fetchMenuList() {
-            axios.get(`/api/stores/${storeId}/menu?size=${this.maxSize}&page=${this.currentPage}`)
+            axios.get(`http://localhost:8080/api/stores/${storeId}/menu?size=${this.maxSize}&page=${this.currentPage}`)
             .then((response) => {
                 this.MenuList = response.data.content
                 this.currentPage = response.data.pageable.pageNumber
@@ -67,7 +67,7 @@ export default defineComponent({
         //mapMutations을 사용하여 'addCartItem' 뮤테이션을 컴포넌트에 매핑한다. 
         //이렇게 매핑하면 this.addCartItem 메서드를 컴포넌트 내에서 사용할 수 있음
         ...mapMutations(['addToCart']),  
-        addItem(menu: Menu){
+        addCartItem(menu: Menu){
             this.addToCart(menu)
         }
     }
@@ -79,7 +79,8 @@ export default defineComponent({
 
 <style scoped>
 .menu {
-    color: white;
+    background-color: black;
+    color: rgb(85, 58, 58);
     width: 200px;
     height: 200px;
     border: 1px solid blue;

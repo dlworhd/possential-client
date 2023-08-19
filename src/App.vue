@@ -1,7 +1,6 @@
 <script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { defineComponent } from 'vue';
-import NewMenuComponentVue from './components/NewMenuComponent.vue';
 import MenuBoard from './components/MenuBoard.vue';
 
 export default defineComponent({
