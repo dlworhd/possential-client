@@ -1,10 +1,9 @@
 <template>
     <div class="menu-grid">
-    <li class="menu" v-for="(menu, menuId) in menuList" :key="menuId">
+    <button @click="addToCart(menu)" class="menu" v-for="menu in MenuList" :key="menu.menuId">
     {{ menu.menuName }}
     {{ menu.price }}
-    </li>
-
+    </button>
     <button @click="previousPage">이전</button>
     <button @click="nextPage">다음</button>
 </div>
@@ -13,11 +12,14 @@
 <script lang="ts">
 import axios from 'axios';
 import { defineComponent } from 'vue'
+import { mapState, mapMutations } from 'vuex/types/helpers.js';
 
-export interface MenuList {
-    menuId: String,
-    menuName: String
-    price: Number
+
+
+export interface Menu {
+    menuId: number,
+    menuName: string
+    price: number
 }
 
 //임시 스토어 아이디
@@ -26,7 +28,7 @@ const storeId = "09efa9fe-79d9-4f11-a3bd-9507c24aab5b"
 export default defineComponent({
     data(){
         return {
-            menuList: [] as MenuList[],
+            MenuList: [] as Menu[],
             pageInfo: {},
             currentPage: 0,
             totalPages: 0,
@@ -36,11 +38,14 @@ export default defineComponent({
     mounted() {
         this.fetchMenuList();
     },
+    computed: {
+        ...mapState(['cartItems'])
+    },
     methods: {
         fetchMenuList() {
             axios.get(`/api/stores/${storeId}/menu?size=${this.maxSize}&page=${this.currentPage}`)
             .then((response) => {
-                this.menuList = response.data.content
+                this.MenuList = response.data.content
                 this.currentPage = response.data.pageable.pageNumber
                 this.totalPages = response.data.totalPages
             }).catch((error) => {
@@ -58,8 +63,13 @@ export default defineComponent({
                 this.currentPage += 1;
                 this.fetchMenuList();
             }
+        },
+        //mapMutations을 사용하여 'addCartItem' 뮤테이션을 컴포넌트에 매핑한다. 
+        //이렇게 매핑하면 this.addCartItem 메서드를 컴포넌트 내에서 사용할 수 있음
+        ...mapMutations(['addToCart']),  
+        addItem(menu: Menu){
+            this.addToCart(menu)
         }
-
     }
 })   
 

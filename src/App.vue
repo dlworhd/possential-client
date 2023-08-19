@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { defineComponent } from 'vue';
 import NewMenuComponentVue from './components/NewMenuComponent.vue';
+import MenuBoard from './components/MenuBoard.vue';
 
 export default defineComponent({
     data() {
@@ -11,7 +12,7 @@ export default defineComponent({
             }
         };
     },
-    components: { NewMenuComponentVue }
+    components: { MenuBoard }
 })
 
 </script>
@@ -19,7 +20,7 @@ export default defineComponent({
 <template>
   <div id="app">
     <RouterView />
-    <NewMenuComponentVue />
+    <MenuBoard />
   </div>
 </template>
 
