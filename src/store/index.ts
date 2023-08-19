@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { createStore } from 'vuex';
 import { Menu } from '../components/MenuItem.vue'; 
+=======
+import { createStore } from 'vuex/types/index.js';
+import { Menu } from '../components/NewMenuComponent.vue'; 
+>>>>>>> develop
 
 interface State{
     cartItems: Menu[]
@@ -12,7 +17,10 @@ interface State{
  * 
  */
 
+<<<<<<< HEAD
 // commit을 사용할 때 뮤테이션 이름과, 추가 인자를 넣어주면 해당 뮤테이션이 실행이 되면서 상태가 변경이 되는 것. 즉, mutation은 상태를 변경하는 유일한 방법이라는 것의 방증
+=======
+>>>>>>> develop
 export default createStore({
     state:{
         cartItems: [] as State['cartItems'], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
