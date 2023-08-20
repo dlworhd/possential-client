@@ -1,17 +1,24 @@
 import { createStore } from 'vuex';
 import { Menu, CartDetail } from '../components/menu/MenuItem.vue'; 
 import { createEmitAndSemanticDiagnosticsBuilderProgram } from 'typescript';
+import axios from 'axios';
+
+export enum OptionType {
+    IN = 'IN',
+    OUT = 'OUT'
+}
 
 interface State{
     cartItems: Menu[]
-    cartDetail: CartDetail
+    cartDetail: CartDetail,
+    selectOption: OptionType
 }
 
 /**
  * 1. Menu Item 클릭
- * 2. 
- * 
- * 
+ * 2. Store에서 관리하는 state의 cartItem에 담김 즉, 관리하고자 하는 것들을 state에 담고, Mutation을 통해서 상태를 관리하는 것임
+ * 3. 다만, Mutation을 직접 호출하는 건 안 되고, Actions를 만들어서 데이터를 변경한다.
+ * 4. 그리고 나서 데이터에 접근할 때 getter을 쓰면 됨
  */
 
 // commit을 사용할 때 뮤테이션 이름과, 추가 인자를 넣어주면 해당 뮤테이션이 실행이 되면서 상태가 변경이 되는 것. 즉, mutation은 상태를 변경하는 유일한 방법이라는 것의 방증
@@ -20,7 +27,8 @@ export default createStore({
         cartItems: [] as State['cartItems'], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
         cartDetail: {
             totalPrice: 0
-        }
+        },
+        selectOption: OptionType.IN
     },
     mutations: { // Mutation은 상태를 변경하는 유일한 방법
         addToCart(state: State, menuItem: Menu){
@@ -55,18 +63,44 @@ export default createStore({
                     state.cartDetail.totalPrice -= item.price
                 }
             }
+        },
+        setSelectedOption(state, option: OptionType){
+            state.selectOption = option;
         }
 
     },
     actions: { // 비동기 작업 처리 및 여러 번의 Mutation 실행 가능 -> 주로 비동기 작업 및 데이터 가져오기
         addToCartAction(context: any, menuItem: Menu){
-            context.commit('addToCart', menuItem)
+            context.commit('addToCart', menuItem);
         },
         increaseQuantityAction({ commit, state }, menu: Menu) {
-            commit('increaseQuantity', menu.menuId)
+            commit('increaseQuantity', menu.menuId);
         },
         decreaseQuantityAction({ commit, state }, menu: Menu) {
-            commit('decreaseQuantity', menu.menuId)
+            commit('decreaseQuantity', menu.menuId);
+        },
+        async sendOrder({state}){
+            try{
+
+                const cartItems: {[id: number]: number} = {};
+                state.cartItems.forEach(menu => {
+                    cartItems[menu.menuId] = menu.quantity;
+                })
+                const data = {
+                    orderMap: cartItems,
+                    orderType: state.selectOption
+                }
+                const response = await axios.post('http://localhost:8080/api/orders', data);
+                state.cartItems = []
+                state.cartDetail.totalPrice = 0
+                console.log(response.data);
+            } catch {
+                console.log("error");
+            }
+        },
+        updateSelectOption({commit}, option: OptionType){
+            console.log("action 호출");
+            commit('setSelectedOption', option);
         }
     },
     getters: { // 상태 저장소의 데이터를 계산된 속성 형태로 제공하는 메서드이다.
@@ -75,6 +109,9 @@ export default createStore({
         },
         getTotalPrice(state: State){
             return state.cartDetail.totalPrice;
+        },
+        getSelectOption(state: State){
+            return state.selectOption;
         }
     }
 

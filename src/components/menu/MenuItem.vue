@@ -83,11 +83,13 @@ export default defineComponent({
 
 <style scoped>
 .menu {
-    background-color: black;
-    color: rgb(85, 58, 58);
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(255, 255, 255);
     width: 200px;
     height: 200px;
-    border: 1px solid blue;
+    border: 1px solid rgb(108, 183, 68);
+    border-radius: 15px;
+    cursor: pointer;
 }
 
 .menu-grid {

@@ -1,12 +1,12 @@
 <template>
-    <div class="cartItem" v-for="menu in cartItems" :key="menu.menuId">
+    <div class="cart-item" v-for="menu in cartItems" :key="menu.menuId">
         {{ menu.menuName }}
         {{ menu.price }}
         {{ menu.quantity }}
         <button @click="increaseQuantity(menu)"> + </button>
         <button @click="decreaseQuantity(menu)"> - </button>
     </div>
-    <div> totalPrice = {{ totalPrice }}</div>
+    <div class="total-price" v-if="totalPrice > 0"> totalPrice = {{ totalPrice }}</div>
     
 </template>
 
@@ -43,7 +43,7 @@ export default defineComponent({
     },
     decreaseQuantity(menu: Menu) {
       this.$store.dispatch('decreaseQuantityAction', menu)
-    }
+    },
   }
 })
 
@@ -51,4 +51,11 @@ export default defineComponent({
 </script>
 
 <style>
+.cart-item {
+  color: white;
+}
+
+.total-price {
+  color: white;
+}
 </style>
