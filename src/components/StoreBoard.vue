@@ -2,7 +2,9 @@
     <div class="container">
         <MenuItem/>
         <div>
+            <InAndOut />
             <MenuCart />
+            <OrderButton /> 
         </div>
     </div>
 </template>
@@ -11,13 +13,17 @@
 import { defineComponent } from 'vue';
 import MenuItem from './menu/MenuItem.vue';
 import MenuCart from './menu/MenuCart.vue';
+import OrderButton from './order/OrderButton.vue'
+import InAndOut from './order/InAndOut.vue'
 
 export default defineComponent({
 
 
 components: {
     MenuItem,
-    MenuCart
+    MenuCart,
+    OrderButton,
+    InAndOut
 }
 })
 
