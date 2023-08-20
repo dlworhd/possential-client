@@ -19,7 +19,11 @@ export interface Menu {
     menuId: number,
     menuName: string
     price: number,
-    quantity: number
+    quantity: number,
+}
+
+export interface CartDetail {
+    totalPrice: number
 }
 
 //임시 스토어 아이디

@@ -1,11 +1,12 @@
 <template>
     <div class="cartItem" v-for="menu in cartItems" :key="menu.menuId">
         {{ menu.menuName }}
-        {{ menu.price }}
+        {{ menu.totalPrice }}
         {{ menu.quantity }}
         <button @click="increaseQuantity(menu)"> + </button>
         <button @click="decreaseQuantity(menu)"> - </button>
     </div>
+    <div> totalPrice = {{ totalPrice }}</div>
     
 </template>
 
@@ -29,8 +30,11 @@ export default defineComponent({
     }
   },
   computed: {
-    cartItems() {
+    cartItems(): Menu[] {
       return this.$store.getters.getCartItems
+    },
+    totalPrice(){
+      return this.$store.getters.getTotalPrice
     }
   },
   methods: {
