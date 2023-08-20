@@ -1,14 +1,16 @@
 <template>
-    <div>
+    <div class="container">
         <MenuItem/>
-        <MenuCart />
+        <div>
+            <MenuCart />
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import MenuItem from './MenuItem.vue';
-import MenuCart from './MenuCart.vue';
+import MenuItem from './menu/MenuItem.vue';
+import MenuCart from './menu/MenuCart.vue';
 
 export default defineComponent({
 
@@ -19,11 +21,10 @@ components: {
 }
 })
 
-
-
-
 </script>
 
 <style scoped>
-
+.container {
+    display: flex;
+}
 </style>

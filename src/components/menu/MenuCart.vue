@@ -6,6 +6,7 @@
         <button @click="increaseQuantity(menu)"> + </button>
         <button @click="decreaseQuantity(menu)"> - </button>
     </div>
+    <div> totalPrice = {{ totalPrice }}</div>
     
 </template>
 
@@ -29,8 +30,11 @@ export default defineComponent({
     }
   },
   computed: {
-    cartItems() {
+    cartItems(): Menu[] {
       return this.$store.getters.getCartItems
+    },
+    totalPrice(){
+      return this.$store.getters.getTotalPrice
     }
   },
   methods: {
