@@ -1,7 +1,8 @@
 <script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { defineComponent } from 'vue';
-import StoreBoard from './components/StoreBoard.vue';
+// import SignUpView from './views/SignUpView.vue';
+
 
 export default defineComponent({
     data() {
@@ -11,7 +12,10 @@ export default defineComponent({
             }
         };
     },
-    components: { StoreBoard }
+    components: {
+      // SignUpView
+    }
+  
 })
 
 </script>
@@ -19,7 +23,6 @@ export default defineComponent({
 <template>
   <div id="app">
     <RouterView />
-    <StoreBoard />
   </div>
 </template>
 
