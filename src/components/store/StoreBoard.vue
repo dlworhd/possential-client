@@ -13,8 +13,8 @@
 import { defineComponent } from 'vue';
 import MenuItem from './menu/MenuItem.vue';
 import MenuCart from './menu/MenuCart.vue';
-import OrderButton from './order/OrderButton.vue'
-import InAndOut from './order/InAndOut.vue'
+import OrderButton from '../order/OrderButton.vue'
+import InAndOut from '../order/InAndOut.vue'
 
 export default defineComponent({
 

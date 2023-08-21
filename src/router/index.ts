@@ -1,17 +1,15 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue';
+import SignUpView from '@/views/SignUpView.vue';
 
-const routes: Array<RouteRecordRaw> = [
-  {
+export default createRouter({
+  history: createWebHistory(),
+  routes: [{
     path: '/',
-    name: 'home',
     component: HomeView
-  }
-]
-
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes
+  },
+  {
+    path: '/sign-up',
+    component: SignUpView
+  }],
 })
-
-export default router

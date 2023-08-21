@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { Menu, CartDetail } from '../components/menu/MenuItem.vue'; 
+import { Menu, CartDetail } from '../components/store/menu/MenuItem.vue'; 
 import { createEmitAndSemanticDiagnosticsBuilderProgram } from 'typescript';
 import axios from 'axios';
 
