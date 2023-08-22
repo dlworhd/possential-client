@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import LoginForm from '@/components/user/LoginForm.vue';
+import PosView from '@/views/PosView.vue';
 
 export default createRouter({
   history: createWebHistory(),
@@ -16,6 +17,10 @@ export default createRouter({
   {
     path: '/login',
     component: LoginForm
+  },
+  {
+    path: '/pos',
+    component: PosView
   }
 ],
 })
