@@ -1,7 +1,7 @@
 <script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { defineComponent } from 'vue';
-// import SignUpView from './views/SignUpView.vue';
+
 
 
 export default defineComponent({
@@ -11,11 +11,7 @@ export default defineComponent({
                 backgroundColor: "black"
             }
         };
-    },
-    components: {
-      // SignUpView
-    }
-  
+    }, 
 })
 
 </script>

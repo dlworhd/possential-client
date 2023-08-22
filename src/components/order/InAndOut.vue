@@ -1,7 +1,7 @@
 <template>
     <select v-model="selectOption" @change="updateOption">
-        <option :value="optionType.IN">IN</option>
-        <option :value="optionType.OUT">OUT</option>
+        <option value="IN">IN</option>
+        <option value="OUT">OUT</option>
     </select>
 </template>
 
@@ -9,8 +9,6 @@
 import { defineComponent } from 'vue';
 import { mapActions, mapState } from 'vuex';
 import { Store } from 'vuex'
-import { OptionType } from '@/store';
-
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -21,9 +19,6 @@ declare module '@vue/runtime-core' {
 export default defineComponent({
     computed:{
         ...mapState(['selectOption']),
-        optionType() {
-            return OptionType;
-        }
     },
     methods: {
         ...mapActions(['updateSelectOption']),

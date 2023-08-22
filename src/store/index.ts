@@ -1,17 +1,11 @@
 import { createStore } from 'vuex';
 import { Menu, CartDetail } from '../components/store/menu/MenuItem.vue'; 
-import { createEmitAndSemanticDiagnosticsBuilderProgram } from 'typescript';
 import axios from 'axios';
-
-export enum OptionType {
-    IN = 'IN',
-    OUT = 'OUT'
-}
 
 interface State{
     cartItems: Menu[]
     cartDetail: CartDetail,
-    selectOption: OptionType
+    selectOption: string
 }
 
 /**
@@ -28,7 +22,7 @@ export default createStore({
         cartDetail: {
             totalPrice: 0
         },
-        selectOption: OptionType.IN
+        selectOption: "IN"
     },
     mutations: { // Mutation은 상태를 변경하는 유일한 방법
         addToCart(state: State, menuItem: Menu){
@@ -64,7 +58,7 @@ export default createStore({
                 }
             }
         },
-        setSelectedOption(state, option: OptionType){
+        setSelectedOption(state, option: string){
             state.selectOption = option;
         }
 
@@ -98,7 +92,7 @@ export default createStore({
                 console.log("error");
             }
         },
-        updateSelectOption({commit}, option: OptionType){
+        updateSelectOption({commit}, option: string){
             console.log("action 호출");
             commit('setSelectedOption', option);
         }
