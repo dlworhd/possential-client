@@ -42,11 +42,6 @@
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
-enum GenderType {
-    MAN = "MAN",
-    WOMAN = "WOMAN"
-}
-
 interface User {
     email: string,
     password: string,
@@ -73,18 +68,18 @@ export default defineComponent({
     methods: {
         async register(){
             console.log(this.user.gender)
+            
 
-
-            const data = {
-                email: this.user.email,
-                password: this.user.password,
-                name: this.user.name,
-                phoneNumber: this.user.phoneNumber,
-                gender: this.user.gender,
-                birth: this.user.birth
+            try {
+                await axios.post('http://localhost:8080/api/users', this.user)
+                .then(response => {
+                    alert("회원가입을 축하합니다.")
+                    this.$router.push('/')
+                })
+            } catch (error) {
+                //Validation 처리 
             }
-
-            await axios.post('http://localhost:8080/api/users', data).then(response => console.log(response.data))
+            
         }
     }
 })
@@ -92,7 +87,7 @@ export default defineComponent({
 </script>
 
 
-<style>
+<style scoped>
 
 button {
     margin: 0;
@@ -106,6 +101,11 @@ button {
     margin-bottom: 5px;
 }
 
+.btn {
+    width: 300px;
+    height: 30px;
+}
+
 .inner-container {
     width: 300px;
 }
@@ -115,10 +115,7 @@ input {
     border: 0;
 }
 
-.btn {
-    width: 300px;
-    height: 30px;
-}
+
 
 .btn-container {
     margin-top: 20px;
