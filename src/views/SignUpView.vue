@@ -1,7 +1,5 @@
 <template>
-    <div class="container">
-        <SignUpForm />
-    </div>
+    <SignUpForm />
 </template>
 
 <script lang="ts">
