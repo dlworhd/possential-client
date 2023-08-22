@@ -50,11 +50,11 @@ export default defineComponent({
             try{
                 await axios.post("http://localhost:8080/api/auth/login", this.user).then(response => {
                     console.log(response.data)
-                    const { grantType, accessToken, refreshToken } = response.data
-                    localStorage.setItem('grantType', grantType)
+                    const accessToken = response.data.value
                     localStorage.setItem('accessToken', accessToken)
-                    localStorage.setItem('refreshToken', refreshToken)
 
+                    console.log(`accessToken = ${accessToken}`);
+                    
                     this.$router.push('/')
                 })
             }catch(error){

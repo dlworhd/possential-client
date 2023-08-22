@@ -1,8 +1,7 @@
 <script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { defineComponent } from 'vue';
-
-
+import NavBar from './components/NavBar.vue';
 
 export default defineComponent({
     data() {
@@ -12,12 +11,16 @@ export default defineComponent({
             }
         };
     }, 
+    components: {
+      NavBar
+    }
 })
 
 </script>
 
 <template>
   <div id="app">
+    <NavBar />
     <RouterView />
   </div>
 </template>
