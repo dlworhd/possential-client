@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import axios from 'axios';
+import instance from '@/plugin/CustomAxios';
 
 interface Token{
     grantType: string,
@@ -48,18 +48,13 @@ export default defineComponent({
     methods: {
         async login(){
             try{
-                await axios.post("http://localhost:8080/api/auth/login", this.user).then(response => {
-                    console.log(response.data)
+                await instance.post("/api/auth/login", this.user).then(response => {
                     const accessToken = response.data.value
-                    localStorage.setItem('accessToken', accessToken)
-
-                    console.log(`accessToken = ${accessToken}`);
-                    
+                    localStorage.setItem('accessToken', accessToken)                    
                     this.$router.push('/')
                 })
             }catch(error){
                 console.log(error);
-                
             }
         }
     }

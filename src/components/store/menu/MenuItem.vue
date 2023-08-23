@@ -1,19 +1,20 @@
 <template>
     <div class="menu-grid">
-    <button @click="addToCart(menu)" class="menu" v-for="menu in MenuList" :key="menu.menuId">
-    {{ menu.menuName }}
-    {{ menu.price }}
-    </button>
-    <button @click="previousPage">이전</button>
-    <button @click="nextPage">다음</button>
-</div>
+        <button @click="addToCart(menu)" class="menu" v-for="menu in menuList" :key="menu.menuId">
+        {{ menu.menuName }}
+        {{ menu.price }}
+        </button>
+    </div>
+    <div v-if="hasAnyMenu()">
+        <button @click="previousPage">이전</button>
+        <button @click="nextPage">다음</button>
+    </div>
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import { defineComponent } from 'vue'
 import { mapState, mapMutations } from 'vuex';
-
+import instance from '@/plugin/CustomAxios';
 
 export interface Menu {
     menuId: number,
@@ -26,46 +27,53 @@ export interface CartDetail {
     totalPrice: number
 }
 
-//임시 스토어 아이디
-const storeId = "09efa9fe-79d9-4f11-a3bd-9507c24aab5b"
-
 export default defineComponent({
     data(){
+        // 데이터 초기화
         return {
-            MenuList: [] as Menu[],
+            menuList: [] as Menu[],
             pageInfo: {},
             currentPage: 0,
             totalPages: 0,
-            maxSize: 12
+            maxSize: 12,
         }
     },
+    //Component가 DOM에 마운트 된 후에 실행
     mounted() {
-        this.fetchMenuList();
+        this.fetchMenuList(this.storeId)
+        this.$store.dispatch('fetchMenuListAction', this.menuList)
     },
     computed: {
-        ...mapState(['cartItems'])
+        ...mapState(['cartItems', 'menuItems', 'storeId']),
     },
     methods: {
-        fetchMenuList() {
-            axios.get(`http://localhost:8080/api/stores/${storeId}/menu?size=${this.maxSize}&page=${this.currentPage}`)
+        getMenuList(): Menu []{
+          return this.$store.state.getter.getMenuList(); 
+        },
+        hasAnyMenu(){
+            return this.menuList.length > 0
+        },
+        fetchMenuList(storeId: string) {
+            instance.get(`/api/menu?size=${this.maxSize}&page=${this.currentPage}`)
             .then((response) => {
-                this.MenuList = response.data.content
+                this.menuList = response.data.content
                 this.currentPage = response.data.pageable.pageNumber
                 this.totalPages = response.data.totalPages
             }).catch((error) => {
+                if(error.code)
                 console.log(error);
             })
         },
         previousPage() {
             if(this.currentPage > 0){
                 this.currentPage -= 1;
-                this.fetchMenuList();
+                this.fetchMenuList(this.storeId);
             }
         },
         nextPage() {
             if(this.currentPage < this.totalPages){
                 this.currentPage += 1;
-                this.fetchMenuList();
+                this.fetchMenuList(this.storeId);
             }
         },
         //mapMutations을 사용하여 'addCartItem' 뮤테이션을 컴포넌트에 매핑한다. 
@@ -73,7 +81,8 @@ export default defineComponent({
         ...mapMutations(['addToCart']),  
         addCartItem(menu: Menu){
             this.addToCart(menu)
-        }
+        },
+
     }
 })   
 

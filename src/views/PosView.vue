@@ -1,7 +1,5 @@
 <template>
-    <div>
         <StoreBoard/>
-    </div>
 </template>
 
 <script lang="ts">
