@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Store } from 'vuex';
+import { Store, mapMutations, mapState } from 'vuex';
 import { Menu } from './MenuItem.vue'
 
 declare module '@vue/runtime-core' {

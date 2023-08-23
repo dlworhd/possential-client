@@ -32,4 +32,8 @@ body {
   background-color: $main-color;
 }
 
+html {
+  max-width: 1;
+}
+
 </style>

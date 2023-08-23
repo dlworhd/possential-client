@@ -1,5 +1,7 @@
 <template>
+
     <div class="container">
+
         <MenuItem/>
         <div>
             <InAndOut />
@@ -30,7 +32,8 @@ components: {
 </script>
 
 <style scoped>
-.container {
+/* .container {
     display: flex;
-}
+    margin: 0;
+} */
 </style>

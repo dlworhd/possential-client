@@ -24,10 +24,15 @@ export default defineComponent({
                 path: '/'
             },
             {
-                id: 1,
+                id: 2,
+                name: 'Pos',
+                path: '/pos'
+            }, 
+            {
+                id: 3,
                 name: 'Login',
                 path: '/login'
-            }, 
+            },
             ]
         }
     }
@@ -43,6 +48,7 @@ a {
 }
 
 .container {
+    max-width: 1440px;
     display: flex;
     justify-content: center;
 }
