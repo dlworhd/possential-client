@@ -68,8 +68,6 @@ export default defineComponent({
     methods: {
         async register(){
             console.log(this.user.gender)
-            
-
             try {
                 await axios.post('http://localhost:8080/api/users', this.user)
                 .then(response => {

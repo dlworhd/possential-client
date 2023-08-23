@@ -1,12 +1,15 @@
 import { createStore } from 'vuex';
-import { Menu, CartDetail } from '../components/store/menu/MenuItem.vue'; 
-import axios from 'axios';
+import { Menu, NewMenu, CartDetail } from '../components/store/menu/MenuItem.vue'; 
+import instance from '../plugin/CustomAxios';
+
 
 interface State{
+    storeId: string,
     menuItems: Menu[],
     cartItems: Menu[],
     cartDetail: CartDetail,
-    selectOption: string
+    selectOption: string,
+    newMenu: NewMenu
 }
 
 /**
@@ -19,13 +22,18 @@ interface State{
 // commit을 사용할 때 뮤테이션 이름과, 추가 인자를 넣어주면 해당 뮤테이션이 실행이 되면서 상태가 변경이 되는 것. 즉, mutation은 상태를 변경하는 유일한 방법이라는 것의 방증
 export default createStore({
     state:{
+        storeId: '',
         menuItems: [] as State['menuItems'],
         //Cart 모듈로 분리
         cartItems: [] as State['cartItems'], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
         cartDetail: {
             totalPrice: 0
         },
-        selectOption: 'IN'
+        selectOption: 'IN',
+        newMenu: {
+            menuName: '',
+            price: 0
+        }
     },
     mutations: { // Mutation은 상태를 변경하는 유일한 방법
         fetchMenuList(state: State, menuList: Menu[]){
@@ -67,6 +75,12 @@ export default createStore({
         },
         setSelectedOption(state, option: string){
             state.selectOption = option;
+        },
+        addNewMenu(state: State, newMenu: NewMenu){
+            state.newMenu = newMenu
+        },
+        setStoreId(state: State, storeId: string){
+            state.storeId = storeId
         }
     },
     actions: { // 비동기 작업 처리 및 여러 번의 Mutation 실행 가능 -> 주로 비동기 작업 및 데이터 가져오기
@@ -94,7 +108,6 @@ export default createStore({
         //Order 모듈로 분리
         async sendOrder({state}){
             try{
-
                 const cartItems: {[id: number]: number} = {};
                 state.cartItems.forEach(menu => {
                     cartItems[menu.menuId] = menu.quantity;
@@ -103,9 +116,23 @@ export default createStore({
                     orderMap: cartItems,
                     orderType: state.selectOption
                 }
-                const response = await axios.post('http://localhost:8080/api/orders', data);
+                const response = await instance.post(`http://localhost:8080/api/stores/${state.storeId}/orders`, data);
                 state.cartItems = []
                 state.cartDetail.totalPrice = 0
+                console.log(response.data);
+            } catch {
+                console.log("error");
+            }
+        },
+        async createNewMenu({state}){
+            try{
+                const data = {
+                    newMenu: {
+                        menuName: state.newMenu.menuName,
+                        price: state.newMenu.price
+                    }
+                }
+                const response = await instance.post(`http://localhost:8080/api/stores/${state.storeId}/menu`, data);
                 console.log(response.data);
             } catch {
                 console.log("error");
@@ -127,6 +154,9 @@ export default createStore({
         //Menu 모듈로 분리
         getMenuList(state: State){
             return state.menuItems
+        },
+        getStoreId(state: State){
+            return state.storeId
         }
     }
 
