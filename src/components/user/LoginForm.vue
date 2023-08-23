@@ -28,12 +28,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import instance from '@/plugin/CustomAxios';
-
-interface Token{
-    grantType: string,
-    accessToken: string,
-    refreshToken: string
-}
+import { mapMutations } from 'vuex';
 
 export default defineComponent({
     data(){
@@ -56,7 +51,8 @@ export default defineComponent({
             }catch(error){
                 console.log(error);
             }
-        }
+        },
+        ...mapMutations(['setStoreId'])
     }
 })
 </script>
