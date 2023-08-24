@@ -12,14 +12,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Store, mapMutations, mapState } from 'vuex';
+import { Store} from 'vuex';
 import { Menu } from './MenuItem.vue'
 
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $store: Store<any>;
-  }
-}
 export default defineComponent({
   
   data(){

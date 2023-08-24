@@ -8,13 +8,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { mapActions, mapState } from 'vuex';
-import { Store } from 'vuex'
-
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $store: Store<any>;
-  }
-}
 
 export default defineComponent({
     computed:{
