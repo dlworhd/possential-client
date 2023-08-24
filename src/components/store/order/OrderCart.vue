@@ -24,12 +24,9 @@
         </div>
       </div>
     </div>
-
     <div class="total-price">
-      <div>
         총액 =
         {{ totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
-      </div>
     </div>
   </div>
 </template>
@@ -86,13 +83,15 @@ export default defineComponent({
 .total-price {
   color: white;
   position: fixed;
-  /* right: 0; */
+  justify-content: center;
   bottom: 10vh;
   right: 0;
+  margin: auto;
   width: 25vw;
   border: 1px solid white;
   height: 5vh;
   display: flex;
+  align-items: center;
   /* padding: 10px; */
   /* text-align: center; */
 }

@@ -42,10 +42,10 @@ components: {
 
 </script>
 
-<style scoped>
+<style lang="scss">
+@import '../../../assets/variable';
 .pos-container {
     /* height: 100%; */
-    height: 100vh;
     display: flex;
     width: 75vw;
     box-sizing: border-box;
@@ -53,15 +53,17 @@ components: {
 }
 
 .menu-board {
-    width: 80vw;
+    width: 75vw;
 }
 
 .order-board {
     position: fixed;
+    top: 0;
     bottom: 0;
     right: 0;
     width: 25vw;
     border: 1px solid white;
-    height: 100vh
+    // height: 100vh;
+    background-color: $main-color;
 }
 </style>
