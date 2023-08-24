@@ -112,7 +112,7 @@ export default defineComponent({
 }
 
 .menu-grid-container {
-    margin-top: 15vh;
+    margin-top: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -154,9 +154,10 @@ export default defineComponent({
 }
 
 .menu-name {
-    white-space: normal;
+    overflow: hidden;
     margin-bottom: 20px;
     font-size: 15px;
+
 }
 
 .btn-container{

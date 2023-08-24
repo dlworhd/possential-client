@@ -1,6 +1,7 @@
 <script lang="ts">
 import { RouterView } from 'vue-router'
 import { defineComponent } from 'vue';
+import NavBar from './components/NavBar.vue';
 
 
 export default defineComponent({
@@ -12,7 +13,8 @@ export default defineComponent({
         };
     }, 
     components: {
-      RouterView
+      RouterView,
+      NavBar
     }
 })
 
@@ -20,6 +22,7 @@ export default defineComponent({
 
 <template>
   <div id="app">
+    <NavBar/>
     <RouterView />
   </div>
 </template>
@@ -37,7 +40,7 @@ html {
   border: 1px solid white;
   // overflow-y: hidden;
   box-sizing: border-box;
-  overflow-y: hidden;
+  overflow: hidden;
   height: 100vh;
 }
 

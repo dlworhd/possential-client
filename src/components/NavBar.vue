@@ -1,6 +1,6 @@
 <template>
 
-<div class="container">
+<div class="nav-container">
     <li class="navItem" v-for="item in navItems" :key="item.id" >
         <router-link :to="item.path">
             {{ item.name }}
@@ -46,8 +46,10 @@ a {
     text-decoration: none;
 }
 
-.container {
-    max-width: 1440px;
+.nav-container {
+    margin: 25px 0;
+    box-sizing: border-box;
+    width: 75vw;
     display: flex;
     justify-content: center;
 }
