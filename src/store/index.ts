@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
-import { Menu, NewMenu, CartDetail } from '../components/store/menu/MenuItem.vue'; 
-import instance from '../plugin/CustomAxios';
 
+import instance from '../plugin/CustomAxios';
+import { CartDetail} from '@/components/store/menu/MenuGrid.vue';
 
 interface State{
     storeId: string,
@@ -9,7 +9,13 @@ interface State{
     cartItems: Menu[],
     cartDetail: CartDetail,
     selectOption: string,
-    newMenu: NewMenu
+}
+
+export interface Menu {
+    menuId: number,
+    menuName: string
+    price: number,
+    quantity: number,
 }
 
 /**
@@ -30,13 +36,9 @@ export default createStore({
             totalPrice: 0
         },
         selectOption: 'IN',
-        newMenu: {
-            menuName: '',
-            price: 0
-        }
     },
     mutations: { // Mutation은 상태를 변경하는 유일한 방법
-        fetchMenuList(state: State, menuList: Menu[]){
+        setMenuItems(state: State, menuList: Menu[]){
             state.menuItems = menuList
         },
         //Cart 모듈로 분리
@@ -76,12 +78,10 @@ export default createStore({
         setSelectedOption(state, option: string){
             state.selectOption = option;
         },
-        addNewMenu(state: State, newMenu: NewMenu){
-            state.newMenu = newMenu
-        },
         setStoreId(state: State, storeId: string){
             state.storeId = storeId
-        }
+        },
+
     },
     actions: { // 비동기 작업 처리 및 여러 번의 Mutation 실행 가능 -> 주로 비동기 작업 및 데이터 가져오기
 
@@ -89,10 +89,10 @@ export default createStore({
         addToCartAction(context: any, menuItem: Menu){
             context.commit('addToCart', menuItem);
         },
-        increaseQuantityAction({ commit, state }, menu: Menu) {
+        increaseQuantityAction({ commit }, menu: Menu) {
             commit('increaseQuantity', menu.menuId);
         },
-        decreaseQuantityAction({ commit, state }, menu: Menu) {
+        decreaseQuantityAction({ commit }, menu: Menu) {
             commit('decreaseQuantity', menu.menuId);
         },
         updateSelectOption({commit}, option: string){
@@ -124,20 +124,6 @@ export default createStore({
                 console.log("error");
             }
         },
-        async createNewMenu({state}){
-            try{
-                const data = {
-                    newMenu: {
-                        menuName: state.newMenu.menuName,
-                        price: state.newMenu.price
-                    }
-                }
-                const response = await instance.post(`http://localhost:8080/api/menu`, data);
-                console.log(response.data);
-            } catch {
-                console.log("error");
-            }
-        },
     },
     getters: { // 상태 저장소의 데이터를 계산된 속성 형태로 제공하는 메서드이다.
         
@@ -152,7 +138,7 @@ export default createStore({
             return state.selectOption;
         },
         //Menu 모듈로 분리
-        getMenuList(state: State){
+        getMenuItems(state: State): Menu[]{
             return state.menuItems
         },
         getStoreId(state: State){

@@ -1,34 +1,27 @@
 <template>
-    <div class="modal-overlay" v-if="visible">
+    <div class="modal-overlay">
         <div class="modal">
         <slot></slot>
-        
-            <button class="registration-button" @click="createNewMenu">등록</button>
-            <button class="close-button" @click="closeModal">닫기</button>
-
+            <button class="left-btn" @click="execute">등록</button>
+            <button class="right-btn" @click="cancel">닫기</button>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapState, mapMutations } from 'vuex';
-
 
 export default defineComponent({
     props: {
         visible: Boolean,
     },
-    computed: {
-        ...mapState(['newMenu'])
-    },
     methods: {
-    createNewMenu() {
-      this.$emit('createNewMenu')  
-    },
-    closeModal() {
-        this.$emit('close');
-    },
+      execute() {
+        this.$emit('execute')  
+      },
+      cancel() {
+        this.$emit('cancel')
+      },
   },
 })
 </script>
@@ -53,7 +46,7 @@ export default defineComponent({
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-.close-button {
+.right-btn {
   margin-top: 10px;
 }
 

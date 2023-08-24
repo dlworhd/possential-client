@@ -42,15 +42,6 @@
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
-interface User {
-    email: string,
-    password: string,
-    name: string,
-    phoneNumber: string,
-    gender: string,
-    birth: string
-}
-
 export default defineComponent({
     data(){
         return {
@@ -83,7 +74,6 @@ export default defineComponent({
 })
 
 </script>
-
 
 <style scoped>
 

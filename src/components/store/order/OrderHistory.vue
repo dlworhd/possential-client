@@ -80,7 +80,7 @@ export default defineComponent({
         }
     },
     created(){
-            const response = instance.get('/api/orders?orderByType=LATEST').then(response => {
+            instance.get('/api/orders?orderByType=LATEST').then(response => {
                 this.orderList = response.data.content
             })
     },
@@ -176,8 +176,6 @@ li {
     padding-top: 10px;
     border-bottom: 1px solid white;
 }
-
-
 
 .menu-block {
     width: 900px;

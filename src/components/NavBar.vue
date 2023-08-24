@@ -1,12 +1,11 @@
 <template>
 
 <div class="container">
-
-<li class="navItem" v-for="item in navItems" :key="item.id" >
-    <router-link :to="item.path">
-        {{ item.name }}
-    </router-link>
-</li>
+    <li class="navItem" v-for="item in navItems" :key="item.id" >
+        <router-link :to="item.path">
+            {{ item.name }}
+        </router-link>
+    </li>
 </div>   
 
 </template>
