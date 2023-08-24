@@ -1,7 +1,7 @@
 <script lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import { defineComponent } from 'vue';
-import NavBar from './components/NavBar.vue';
+
 
 export default defineComponent({
     data() {
@@ -12,7 +12,7 @@ export default defineComponent({
         };
     }, 
     components: {
-      NavBar
+      RouterView
     }
 })
 
@@ -20,7 +20,6 @@ export default defineComponent({
 
 <template>
   <div id="app">
-    <NavBar />
     <RouterView />
   </div>
 </template>
@@ -30,10 +29,16 @@ export default defineComponent({
 
 body {
   background-color: $main-color;
+  margin: 0;
 }
 
 html {
-  max-width: 1;
+  margin: 0;
+  border: 1px solid white;
+  // overflow-y: hidden;
+  box-sizing: border-box;
+  overflow-y: hidden;
+  height: 100vh;
 }
 
 </style>

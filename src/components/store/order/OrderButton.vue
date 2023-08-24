@@ -1,8 +1,10 @@
 import { defineComponent } from 'vue';
 <template>
-    <button class="order-btn" @click="orderReqeust">
-        주문/결제
-    </button>
+    <div class="order-button-container">
+        <button class="order-btn" @click="orderReqeust">
+            주문/결제
+        </button>
+    </div>
 </template>
 
 <script lang="ts">
@@ -26,7 +28,18 @@ export default defineComponent({
 </script>
 
 <style>
+
+.order-button-container {
+    width: inherit;
+}
 .order-btn{
-    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    background: none;
+    border: 1px white solid;
+    /* padding: 30px; */
+    width: inherit;
+    color: white;
+    height: 10vh;
 }
 </style>

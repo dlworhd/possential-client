@@ -5,8 +5,9 @@
 </template>
 
 <script>
-import OrderHistory from '@/components/order/OrderHistory.vue';
+import OrderHistory from '@/components/store/order/OrderHistory.vue';
 import { defineComponent } from 'vue';
+
 
 
 export default defineComponent({
