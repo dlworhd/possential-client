@@ -7,13 +7,6 @@ import { defineComponent } from 'vue';
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Store } from 'vuex'
-
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $store: Store<any>;
-  }
-}
 
 export default defineComponent({
 

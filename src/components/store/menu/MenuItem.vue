@@ -5,7 +5,7 @@
         {{ menu.price }}
         </button>
         <button @click="openModal" v-for="i in 24 - menuList.length" :key="i" class="menu-item empty">
-            메뉴 추가
+            +
         </button>
         <AddMenuModal :visible="isModalVisible" @close="closeModal" @createNewMenu="createNewMenu">
                     메뉴 이름 <input v-model="newMenu.menuName"/>
@@ -72,7 +72,9 @@ export default defineComponent({
                 price: this.newMenu.price
             }
             const response = instance.post(`/api/menu`, newMenu)
+            this.$router.push('/pos')
             console.log(response);
+            this.isModalVisible = false
             
         },
         openModal() {
@@ -134,7 +136,6 @@ export default defineComponent({
     border: 1px solid rgb(108, 183, 68);
     border-radius: 15px;
     cursor: pointer;
-    
 }
 
 .menu-grid {

@@ -113,10 +113,10 @@ export default createStore({
                     cartItems[menu.menuId] = menu.quantity;
                 })
                 const data = {
-                    orderMap: cartItems,
+                    cartItems: cartItems,
                     orderType: state.selectOption
                 }
-                const response = await instance.post(`http://localhost:8080/api/stores/${state.storeId}/orders`, data);
+                const response = await instance.post(`http://localhost:8080/api/orders`, data);
                 state.cartItems = []
                 state.cartDetail.totalPrice = 0
                 console.log(response.data);
@@ -132,7 +132,7 @@ export default createStore({
                         price: state.newMenu.price
                     }
                 }
-                const response = await instance.post(`http://localhost:8080/api/stores/${state.storeId}/menu`, data);
+                const response = await instance.post(`http://localhost:8080/api/menu`, data);
                 console.log(response.data);
             } catch {
                 console.log("error");
