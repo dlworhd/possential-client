@@ -37,11 +37,16 @@ body {
 
 html {
   margin: 0;
-  border: 1px solid white;
-  // overflow-y: hidden;
-  box-sizing: border-box;
-  overflow: hidden;
+  // border: 1px solid white;
   height: 100vh;
+  overflow: hidden;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+
+
 
 </style>

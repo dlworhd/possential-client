@@ -4,7 +4,6 @@
       <option value="IN">IN</option>
       <option value="OUT">OUT</option>
     </select>
-
     <div>
         {{ currentWeather }}
     </div>
@@ -47,15 +46,13 @@ export default defineComponent({
 </script>
 
 <style>
-.option-container {
+.option-container{
   display: flex;
-  justify-content: space-between;
-  background: none;
-  position: relative;
-  top: 0;
-  width: inherit;
-  border-top: 1px solid white;
   border-bottom: 1px solid white;
+  justify-content: space-between;
+  align-items: center;
+  height: 5vh;
+  overflow-y: hidden;
 }
 
 .time {

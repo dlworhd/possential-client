@@ -67,7 +67,6 @@ export default defineComponent({
 .text-input {
     margin: 0;
     border: 0;
-    box-sizing: border-box;
     padding: 0 6px;
     width: 300px;
     height: 30px;
