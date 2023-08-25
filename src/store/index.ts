@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
 
 import instance from '../plugin/CustomAxios';
-import { CartDetail} from '@/components/store/menu/MenuGrid.vue';
+import { CartDetail } from '@/components/store/menu/MenuGrid.vue';
 
 interface State{
     storeId: string,
@@ -48,10 +48,10 @@ export default createStore({
             if(!existingItem){
                 state.cartItems.push(menuItem);
                 menuItem.quantity = 1
-                state.cartDetail.totalPrice += menuItem.price
+                state.cartDetail.totalPrice = state.cartDetail.totalPrice.valueOf() + menuItem.price
             } else {
                 menuItem.quantity++
-                state.cartDetail.totalPrice += menuItem.price
+                state.cartDetail.totalPrice = state.cartDetail.totalPrice.valueOf() + menuItem.price
             }
             
         },
@@ -59,7 +59,7 @@ export default createStore({
             const menuItem = state.cartItems.find(item => item.menuId === menuId);
             if(menuItem){
                 menuItem.quantity++
-                state.cartDetail.totalPrice += menuItem.price
+                state.cartDetail.totalPrice = state.cartDetail.totalPrice.valueOf() + menuItem.price
             }
         },
         decreaseQuantity(state: State, menuId: number){
@@ -71,7 +71,7 @@ export default createStore({
                     if(item.quantity === 0){
                         state.cartItems.splice(itemIndex, 1) // itemIndex에서 1개 제거
                     }
-                    state.cartDetail.totalPrice -= item.price
+                    state.cartDetail.totalPrice = state.cartDetail.totalPrice.valueOf() - item.price
                 }
             }
         },

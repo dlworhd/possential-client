@@ -1,9 +1,9 @@
 import { defineComponent } from 'vue';
 <template>
-    <div class="order-button-container">
-        <button class="order-btn" @click="orderReqeust">
+    <div class="order-button-container" @click="orderReqeust">
+        <div class="order-btn">
             주문/결제
-        </button>
+        </div>
     </div>
 </template>
 
@@ -11,7 +11,6 @@ import { defineComponent } from 'vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-
     computed: {
         cartItems(){
             return this.$store.getters.getCartItems;
@@ -24,22 +23,22 @@ export default defineComponent({
     }
 
 })
-
 </script>
 
-<style>
+<style scoped>
 
 .order-button-container {
-    width: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid white;
+    height: 10vh;
+    cursor: pointer;
+    /* overflow-y: hidden; */
 }
 .order-btn{
-    position: absolute;
-    bottom: 0;
     background: none;
-    border: 1px white solid;
-    /* padding: 30px; */
-    width: inherit;
     color: white;
-    height: 10vh;
 }
+
 </style>

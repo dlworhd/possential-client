@@ -47,16 +47,20 @@ a {
 }
 
 .nav-container {
-    margin: 25px 0;
-    box-sizing: border-box;
-    width: 75vw;
+    height: 10vh;
     display: flex;
     justify-content: center;
+    align-items: center;
+    border: 1px solid white;
 }
 
 .navItem {
     color: white;
     list-style: none;
     margin-right: 20px;
+}
+
+.navItem:hover {
+    transform: scale(1.1);
 }
 </style>

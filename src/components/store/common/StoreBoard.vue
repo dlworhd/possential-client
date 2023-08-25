@@ -8,9 +8,7 @@
         
         <!-- 오른쪽 주문 내역 3단(옵션, 메뉴, 결제/주문 버튼) 보드-->
         <div class="order-board">
-            <OrderOption />
             <OrderCart />
-            <OrderButton />
         </div>
 
     </div>
@@ -35,35 +33,32 @@ export default defineComponent({
 components: {
     MenuGrid,
     OrderCart,
-    OrderOption,
-    OrderButton
 }
 })
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../../../assets/variable';
 .pos-container {
     /* height: 100%; */
     display: flex;
-    width: 75vw;
-    box-sizing: border-box;
-    /* justify-content: center; */
+    justify-content: space-between;
 }
 
 .menu-board {
     width: 75vw;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+    box-sizing: border-box;
 }
 
 .order-board {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 25vw;
-    border: 1px solid white;
-    // height: 100vh;
+    width: 30vw;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    height: 90vh;
     background-color: $main-color;
+    // overflow-y: hidden;
 }
 </style>
