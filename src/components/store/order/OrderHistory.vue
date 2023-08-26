@@ -81,9 +81,13 @@ export default defineComponent({
     },
     created(){
             instance.get('/api/orders?orderByType=LATEST').then(response => {
-                this.orderList = response.data.content
+                try{
+                    this.orderList = response.data.content
+                }catch(error){
+                    console.log(error);
+                }
             })
-    },
+    }
 })
 </script>
 

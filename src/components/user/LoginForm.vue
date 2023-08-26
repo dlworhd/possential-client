@@ -41,13 +41,17 @@ export default defineComponent({
         }
     },
     methods: {
+        ...mapMutations(['setEmail']),
         async login(){
             try{
                 await instance.post("/api/auth/login", this.user).then(response => {
-                    const accessToken = response.data.value
-                    localStorage.setItem('accessToken', accessToken)                    
-                    this.setLogin(true)
-                    this.$router.go(-1)
+                    if(response.status === 200){
+                        const accessToken = response.data.value
+                        localStorage.setItem('accessToken', accessToken)                    
+                        this.setLogin(true)
+                        this.$router.go(-1)
+                        this.setEmail(this.user.email)
+                    }
                 })
             }catch(error){
                 console.log(error);
@@ -60,7 +64,7 @@ export default defineComponent({
 
 <style>
 .container {
-    margin-top: 50px;
+    margin-top: 20vh;
     display: flex;
     justify-content: center;
 }

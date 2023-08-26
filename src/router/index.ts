@@ -8,7 +8,7 @@ import KakaoPaySuccess from '@/views/KakaoPaySuccess.vue'
 import KakaoPayFail from '@/views/KakaoPayFail.vue'
 
 
-export default createRouter({
+const router =  createRouter({
   history: createWebHistory(),
   routes: [{
     path: '/',
@@ -44,3 +44,6 @@ export default createRouter({
   // }
 ],
 })
+
+
+export default router
