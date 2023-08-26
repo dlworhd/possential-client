@@ -1,5 +1,4 @@
 <template>
-    <NavBar/>
     <div class="pos-container">
         <!-- 왼쪽 메뉴 선택 보드 -->
         <div class="menu-board">
@@ -19,7 +18,6 @@ import { defineComponent } from 'vue';
 import OrderCart from '../order/OrderCart.vue';
 import { Store } from 'vuex';
 import MenuGrid from '../menu/MenuGrid.vue';
-import NavBar from '@/components/NavBar.vue';
 
 
 declare module '@vue/runtime-core' {
@@ -33,7 +31,6 @@ export default defineComponent({
 components: {
     MenuGrid,
     OrderCart,
-    NavBar
 }
 })
 

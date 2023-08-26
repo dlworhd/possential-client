@@ -61,7 +61,7 @@ export default defineComponent({
             console.log(this.user.gender)
             try {
                 await axios.post('http://localhost:8080/api/users', this.user)
-                .then(response => {
+                .then(() => {
                     alert("회원가입을 축하합니다.")
                     this.$router.push('/')
                 })

@@ -39,6 +39,7 @@ export default defineComponent({
     updateTime() {
       setInterval(() => {
         this.currentTime = new Date().toLocaleTimeString();
+
       }, 1000); // 1초마다 시간 업데이트
     },
   },
@@ -56,11 +57,12 @@ export default defineComponent({
 }
 .option {
   height: 100%;
-  width: 75%;
+  width: 70%;
 }
 
 .time {
+  right: 0;
   color: white;
-  margin-right: 10px;
+  padding: 0 10px;
 }
 </style>
