@@ -1,10 +1,8 @@
 <template>
-    <div>
-         <OrderHistory/>       
-    </div>  
+    <OrderHistory/>        
 </template>
 
-<script>
+<script lang="ts">
 import OrderHistory from '@/components/store/order/OrderHistory.vue';
 import { defineComponent } from 'vue';
 
@@ -17,3 +15,7 @@ export default defineComponent({
 })
 
 </script>
+
+<style scoped>
+
+</style>

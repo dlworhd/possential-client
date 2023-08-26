@@ -1,8 +1,8 @@
 <template>
   <div class="option-container">
-    <select v-model="selectOption" @change="updateOption">
-      <option value="IN">IN</option>
-      <option value="OUT">OUT</option>
+    <select class="option" v-model="orderType" @change="updateOption">
+      <option value="IN">매장</option>
+      <option value="OUT">포장</option>
     </select>
     <div>
         {{ currentWeather }}
@@ -28,13 +28,13 @@ export default defineComponent({
     this.updateTime(); // 컴포넌트가 마운트되면 실시간 시간 업데이트 시작
   },
   computed: {
-    ...mapState(["selectOption"]),
+    ...mapState(["orderType"]),
   },
   methods: {
-    ...mapActions(["updateSelectOption"]),
+    ...mapActions(["updateOrderType"]),
     updateOption(event: Event) {
       const selectedValue = (event.target as HTMLSelectElement).value;
-      this.updateSelectOption(selectedValue);
+      this.updateOrderType(selectedValue);
     },
     updateTime() {
       setInterval(() => {
@@ -53,6 +53,10 @@ export default defineComponent({
   align-items: center;
   height: 5vh;
   overflow-y: hidden;
+}
+.option {
+  height: 100%;
+  width: 75%;
 }
 
 .time {

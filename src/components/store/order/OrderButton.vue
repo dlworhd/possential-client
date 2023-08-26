@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 <template>
-    <div class="order-button-container" @click="orderReqeust">
+    <div class="order-button-container">
         <div class="order-btn">
             주문/결제
         </div>
@@ -17,9 +17,7 @@ export default defineComponent({
         }
     },
     methods: {
-        orderReqeust() {
-            this.$store.dispatch('sendOrder')
-        }
+       
     }
 
 })

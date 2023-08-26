@@ -4,8 +4,7 @@
         <slot></slot>
         <!-- <div class="btn-container"> -->
           <div>
-            <div><button class="btn left-btn" @click="execute">등록</button></div>
-            <div><button class="btn right-btn" @click="cancel">닫기</button></div>
+            <div><button class="btn" @click="cancel">닫기</button></div>
           </div>
         <!-- </div> -->
         </div>
@@ -55,11 +54,18 @@ export default defineComponent({
 
 .btn {
   // margin-top: 10px;
-  background: none;
+  background-color: $main--background-color;
   color: $main--color;
   width: 100%;
   border: 1px solid $main--color;
+}
 
+.btn:hover {
+  // margin-top: 10px;
+  background-color: $main--color;
+  color: black;
+  width: 100%;
+  border: 1px solid $main--color;
 }
 
 .btn-container {

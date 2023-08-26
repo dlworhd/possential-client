@@ -14,7 +14,6 @@ export default defineComponent({
     }, 
     components: {
       RouterView,
-      NavBar
     }
 })
 
@@ -22,8 +21,7 @@ export default defineComponent({
 
 <template>
   <div id="app">
-    <NavBar/>
-    <RouterView />
+    <RouterView/>
   </div>
 </template>
 
@@ -31,21 +29,25 @@ export default defineComponent({
 @import './assets/main.scss';
 
 body {
-  background-color: $main-color;
+  background-color: $main--background-color;
   margin: 0;
 }
 
-html {
+
+#app {
   margin: 0;
   // border: 1px solid white;
-  height: 100vh;
-  overflow: hidden;
+  height: 90vh;
+  // overflow: hidden;
+}
+
+.btn {
+  cursor: pointer;
 }
 
 * {
   box-sizing: border-box;
 }
-
 
 
 

@@ -1,5 +1,5 @@
 <template>
-
+    <NavBar/>
     <div class="pos-container">
         <!-- 왼쪽 메뉴 선택 보드 -->
         <div class="menu-board">
@@ -17,10 +17,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import OrderCart from '../order/OrderCart.vue';
-import OrderOption from '../order/OrderOption.vue'
 import { Store } from 'vuex';
-import OrderButton from '../order/OrderButton.vue';
 import MenuGrid from '../menu/MenuGrid.vue';
+import NavBar from '@/components/NavBar.vue';
+
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -33,6 +33,7 @@ export default defineComponent({
 components: {
     MenuGrid,
     OrderCart,
+    NavBar
 }
 })
 
@@ -41,13 +42,17 @@ components: {
 <style lang="scss" scoped>
 @import '../../../assets/variable';
 .pos-container {
-    /* height: 100%; */
+    margin-top: 10vh;
     display: flex;
+    height: 90vh;
+    margin-bottom: 10vh;
     justify-content: space-between;
+
 }
 
 .menu-board {
     width: 75vw;
+    height: 90vh;
     border-left: 1px solid white;
     border-bottom: 1px solid white;
     box-sizing: border-box;
@@ -55,10 +60,12 @@ components: {
 
 .order-board {
     width: 30vw;
+    height: 90vh;
+
     border-left: 1px solid white;
     border-right: 1px solid white;
-    height: 90vh;
-    background-color: $main-color;
+    // height: 100vh;
+    background-color: $main--background-color;
     // overflow-y: hidden;
 }
 </style>

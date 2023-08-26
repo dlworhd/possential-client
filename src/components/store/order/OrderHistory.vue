@@ -1,16 +1,16 @@
 <template>
     <div class="outer-container">
-        <div>
+        <div class="inner-container">
             <div class="menu-block" v-for="order in orderList" :key="order.orderId">
                     <div class="order-top-container">
-                        <div>
+                        <div class="order-id">
                             [Order - {{ order.orderId }}]
                         </div>
-                        <div>
-                            <span class="in-out">{{ order.orderType === 'IN' ? '매장' : '포장'}}</span>
+                        <div class="in-out">
+                            {{ order.orderType === 'IN' ? '매장' : '포장'}}
                         </div>
-                        <div>
-                            <span class="order-status">{{ order.orderStatus }}</span>
+                        <div class="order-status">
+                            {{ order.orderStatus }}
                         </div>
                     </div>
                     <div class="receipt-top-container">
@@ -25,7 +25,7 @@
                             <div class="menu-container">
                                 <div class="menu-name">{{ orderMenu.menuName }}</div>
                                 <div class="menu-detail-container">
-                                    <div class="price">{{ orderMenu.price }}원</div>
+                                    <div class="price">{{ `${orderMenu.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원` }}</div>
                                     <div class="quantity">{{ orderMenu.quantity }}개</div>
                                     <div class="menu-total-amount">{{ orderMenu.menuTotalAmount }}원</div>
                                 </div>
@@ -38,7 +38,7 @@
                             <div class="quantity">
                                 {{ order.receipt.reduce((acc, cur) => {return acc + cur.quantity}, 0)}}개
                             </div>
-                            <div class="menu-total-amount">{{ order.totalAmount }}원</div>
+                            <div class="menu-total-amount">{{ `${order.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원` }}</div>
                         </div>
                     </div>
                     </div>
@@ -87,16 +87,16 @@ export default defineComponent({
 })
 </script>
 
-<style>
-button {
-    cursor: pointer;
-}
-
-.order-container {
+<style scoped>
+.outer-container {
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin: 15vh;
+    padding: 10vh;
+
+    border: 1px solid white;
     color: white;
+    /* overflow-y: scroll; */
 }
 
 li {
@@ -142,12 +142,12 @@ li {
     flex-basis: 0;
 }
 
-.outer-container {
+/* .outer-container {
     color: white;
     width: 1400px;
     display: flex;
     justify-content: center;
-}
+} */
 
 .menu-container {
     display: flex;
@@ -179,6 +179,7 @@ li {
 
 .menu-block {
     width: 900px;
+    
     /* margin-bottom: 100px; */
 }
 
@@ -194,14 +195,26 @@ li {
 
 .order-top-container {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    margin-bottom: 20px;
 }
 
+.order-id {
+    flex-grow: 3;
+    flex-basis: 0;
+}
 .order-status{
     color: rgb(50, 50, 223);
+    flex-grow: 3;
+    flex-basis: 0;
+    text-align: end;
 }
 
 .in-out {
     font-weight: 600;
+    flex-grow: 3;
+    flex-basis: 0;
+    text-align: center;
 }
+
 </style>
