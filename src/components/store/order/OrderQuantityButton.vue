@@ -16,7 +16,6 @@
 </div>
 </template>
 
-
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Menu } from '../../../store/index';
@@ -47,7 +46,7 @@ export default defineComponent({
     border: 1px solid rgb(108, 183, 68);
     background: none;
     color: white;
-    width: 10vh;
+    width: 5vh;
 
 }
 

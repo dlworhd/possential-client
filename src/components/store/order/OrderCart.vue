@@ -7,7 +7,8 @@
     </div>
   </div>
   <OrderTotalPrice :totalPrice="getTotalPrice"/>
-  <OrderButton/>
+  <OrderButton @click="openModal"/>
+  <PaymentTypeModal :visible="isModalVisible" @noVisible="closeModal"/>
 </template>
 
 <script lang="ts">
@@ -18,22 +19,31 @@ import OrderButton from "./OrderButton.vue";
 import OrderOption from "./OrderOption.vue";
 import OrderQuantityButton from "./OrderQuantityButton.vue";
 import OrderDetail from "./OrderDetail.vue";
+import PaymentTypeModal from "./PaymentTypeModal.vue";
+
+
 export default defineComponent({
   data() {
     return {
       cartList: [],
+      isModalVisible: false,
     };
   },
   methods: {
-
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    openModal() {
+      this.isModalVisible = true;
+    },
   },
   components: {
     OrderOption,
     OrderTotalPrice,
     OrderButton,
     OrderQuantityButton,
-    OrderDetail
-
+    OrderDetail,
+    PaymentTypeModal
 },
   computed: {
     cartItems(): Menu[] {

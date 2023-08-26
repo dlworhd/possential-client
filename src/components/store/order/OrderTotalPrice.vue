@@ -14,7 +14,7 @@ export default defineComponent({
     computed: {
         getTotalPrice(){
             if(this.totalPrice != null){
-                return `${this.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                return `${this.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원`
             } else {
                 return '--------'
             }

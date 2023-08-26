@@ -46,13 +46,14 @@ export default defineComponent({
                 await instance.post("/api/auth/login", this.user).then(response => {
                     const accessToken = response.data.value
                     localStorage.setItem('accessToken', accessToken)                    
-                    this.$router.push('/')
+                    this.setLogin(true)
+                    this.$router.go(-1)
                 })
             }catch(error){
                 console.log(error);
             }
         },
-        ...mapMutations(['setStoreId'])
+        ...mapMutations(['setStoreId', 'setLogin'])
     }
 })
 </script>

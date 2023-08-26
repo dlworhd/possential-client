@@ -13,10 +13,10 @@
 
     <div class="btn-container">
     <div>
-        <button class="page-btn" @click="previousPage">이전</button>
+        <button v-if="!(currentPage == 0)" class="page-btn" @click="previousPage">이전</button>
     </div>
     <div>
-        <button class="page-btn" @click="nextPage">다음</button>
+        <button  v-if="!(currentPage == totalPages)" class="page-btn" @click="nextPage">다음</button>
     </div>
     </div>
     <MenuRegistrationModal v-if="isModalVisible" @closeModal="closeModal" @fetchMenuList="fetchMenuList" />
@@ -54,7 +54,8 @@ export default defineComponent({
     },
     computed: {
         ...mapState(['cartItems', 'menuItems', 'storeId']),
-        ...mapGetters(['getMenuItems'])
+        ...mapGetters(['getMenuItems']),
+        
     },
     methods: {
         openModal() {
@@ -72,6 +73,10 @@ export default defineComponent({
                 this.$store.commit('setMenuItems', response.data.content)
                 this.currentPage = response.data.pageable.pageNumber
                 this.totalPages = response.data.totalPages
+
+                console.log(this.currentPage);
+                console.log(this.totalPages);
+                
             }).catch((error) => {
                 if(error.code)
                 console.log(error);
@@ -163,19 +168,20 @@ export default defineComponent({
 .btn-container{
     display: flex;
     /* justify-content: space-around; */
+    margin-top: 5vh;
+
 }
 
 .page-btn {
-    
-    margin-top: 5vh;
-    width: 5vh;
+        width: 5vh;
     height: 5vh;
     background: none;
     color: white;
-    border: 1px solid rgb(108, 183, 68);
+    /* border: 1px solid rgb(108, 183, 68); */
     /* border-radius: 15px; */
     /* padding: 20px 6px; */
 
+    margin:  0 10px;
 }
 
 .page-btn:hover {
