@@ -58,11 +58,14 @@ export default defineComponent({
 .option {
   height: 100%;
   width: 70%;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .time {
   right: 0;
   color: white;
-  padding: 0 10px;
+  padding: 0 15px;
 }
 </style>

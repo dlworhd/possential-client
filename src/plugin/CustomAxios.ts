@@ -26,12 +26,9 @@ function accessToken(): string | null {
 instance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const token = accessToken();
-
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
-    
-    store.commit('setLogin', true)
     return config;
   },
   (error) => {
@@ -42,7 +39,10 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    if (error.response && error.response.status === 401) {
+    //Access Token이 존재하지 않는 경우 403
+    //Access Token이 존재하지만 만료된 경우 401 
+    //Refresh Token 이 존재하지 않는 경우 400
+    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
       try {
         localStorage.removeItem("accessToken");
         // "/api/auth/reissue" 엔드포인트로 요청을 보내서 토큰 재발급 받기
@@ -58,8 +58,10 @@ instance.interceptors.response.use(
           error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
           return instance.request(error.config);
         }
+        store.commit('setLogin', true);
       } catch (reissueError) {
         console.log("토큰 재발급 실패:", reissueError);
+        store.commit('setLogin', false);
         return Promise.reject(error);
       }
     } else {
