@@ -6,7 +6,8 @@ import PosView from '@/views/PosView.vue';
 import OrderHistoriesView from '@/views/OrderHistoriesView.vue'
 import KakaoPaySuccess from '@/views/KakaoPaySuccess.vue'
 import KakaoPayFail from '@/views/KakaoPayFail.vue'
-
+import { Store } from 'vuex';
+import store from '@/store';
 
 const router =  createRouter({
   history: createWebHistory(),
@@ -24,25 +25,37 @@ const router =  createRouter({
   },
   {
     path: '/pos',
-    component: PosView
+    component: PosView,
+    meta: { requiresAuth: true },
   },
   {
     path: '/orders',
-    component: OrderHistoriesView
+    component: OrderHistoriesView,
+    meta: { requiresAuth: true },
   },
   {
     path: '/pay/success',
-    component: KakaoPaySuccess
+    component: KakaoPaySuccess,
+    meta: { requiresAuth: true },
   },
   {
     path: '/pay/fail',
-    component: KakaoPayFail
+    component: KakaoPayFail,
+    meta: { requiresAuth: true },
   },
   // {
   //   path: '/pay/success',
   //   component: OrderHistoriesView
   // }
 ],
+})
+
+router.beforeEach((to, from, next) => {
+  if(to.meta.requiresAuth && !store.state.isLogin){
+    next('/login')
+  } else {
+    next();
+  }
 })
 
 
