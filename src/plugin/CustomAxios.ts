@@ -7,7 +7,6 @@ import axios, {
 } from "axios";
 import store from '@/store';
 
-
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $store: Store<any>;
@@ -40,8 +39,8 @@ instance.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     //Access Token이 존재하지 않는 경우 403
-    //Access Token이 존재하지만 만료된 경우 401 
-    //Refresh Token 이 존재하지 않는 경우 400
+    //Access Token이 존재하지만 만료된 경우 401
+    //Refresh Token 이 존재하지 않는 경우 400 -> 다만, 유저 정보 입력 올바르지 않을 때 에러도 400
     if (error.response && (error.response.status === 401 || error.response.status === 403)) {
       try {
         localStorage.removeItem("accessToken");
@@ -65,7 +64,7 @@ instance.interceptors.response.use(
         return Promise.reject(error);
       }
     } else {
-        console.log('실행');
+        console.log('다시 로그인해주세요.');
         router.push("/login");
     }
   }
