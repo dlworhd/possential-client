@@ -1,10 +1,18 @@
 import router from '../router/index';
+import { mapMutations, Store } from 'vuex';
 import axios, {
   AxiosError,
   AxiosInstance,
   InternalAxiosRequestConfig,
 } from "axios";
+import store from '@/store';
 
+
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
+    $store: Store<any>;
+  }
+}
 
 const instance: AxiosInstance = axios.create({
   baseURL: "http://localhost:8080",
@@ -22,6 +30,8 @@ instance.interceptors.request.use(
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
+    
+    store.commit('setLogin', true)
     return config;
   },
   (error) => {

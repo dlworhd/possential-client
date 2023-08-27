@@ -1,5 +1,5 @@
 <template>
-    <OrderHistory/>        
+    <OrderHistory class="view"/>        
 </template>
 
 <script lang="ts">

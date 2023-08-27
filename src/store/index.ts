@@ -56,6 +56,10 @@ export default createStore({
       state.orderType = "IN",
       state.paymentType = "CASH",
       state.isLogin = false
+
+      console.log('mutation실행');
+
+      
     },
     setEmail(state: State, email: string) {
       state.email = email;

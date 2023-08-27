@@ -51,6 +51,8 @@ body {
   box-sizing: border-box;
 }
 
-
+*.view {
+  margin-top: 100px;
+}
 
 </style>

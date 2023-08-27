@@ -18,11 +18,12 @@
                     <button type="submit" class="btn login">로그인</button>
                 </div>
                 <div>
-                    <button class="btn home">홈으로</button>
+                    <button class="btn home" @click="handleHome">홈으로</button>
                 </div>
             </div>
         </div>
     </form>
+
 </template>
 
 <script lang="ts">
@@ -42,6 +43,10 @@ export default defineComponent({
     },
     methods: {
         ...mapMutations(['setEmail']),
+    
+        handleHome(){
+            this.$router.push('/')
+        },
         async login(){
             try{
                 await instance.post("/api/auth/login", this.user).then(response => {
