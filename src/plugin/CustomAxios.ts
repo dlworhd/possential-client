@@ -63,10 +63,7 @@ instance.interceptors.response.use(
         store.commit('setLogin', false);
         return Promise.reject(error);
       }
-    } else {
-        console.log('다시 로그인해주세요.');
-        router.push("/login");
-    }
+    } 
   }
 );
 
