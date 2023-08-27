@@ -12,6 +12,9 @@
                         <div class="order-status">
                             {{ order.orderStatus }}
                         </div>
+                        <div class="payment-status">
+                            {{ order.paymentStatus }}
+                        </div>
                     </div>
                     <div class="receipt-top-container">
                         <div class="menu-name">메뉴</div>
@@ -63,6 +66,7 @@ interface Order {
     totalAmount: number,
     orderType: string,
     orderStatus: string,
+    paymentStatus: string,
     orderDate: Date
 }
 
@@ -209,9 +213,12 @@ li {
 }
 .order-status{
     color: rgb(50, 50, 223);
-    flex-grow: 3;
-    flex-basis: 0;
+}
+
+.payment-status{
+    color: rgb(255, 255, 255);
     text-align: end;
+    margin-left: 1vw;
 }
 
 .in-out {
