@@ -10,17 +10,8 @@ import { defineComponent } from 'vue';
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-export default defineComponent({
-    computed: {
-        cartItems(){
-            return this.$store.getters.getCartItems;
-        }
-    },
-    methods: {
-       
-    }
+export default defineComponent({})
 
-})
 </script>
 
 <style scoped>

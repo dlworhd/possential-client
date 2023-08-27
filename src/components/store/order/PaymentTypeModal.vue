@@ -31,10 +31,15 @@ export default defineComponent({
             this.$emit('noVisible')
         },
         execute(option: string){
-            this.$store.commit('setPaymentType', option);
-            this.$store.dispatch('sendOrder');
-            this.isVisible = false
-            this.$emit('noVisible')
+
+            if(option === 'KAKAOPAY' && this.$store.state.cartDetail.totalPrice <= 0){
+                alert('결제 금액은 최소 1원 이상이어야 합니다.')
+            } else {
+                this.$store.commit('setPaymentType', option);
+                this.$store.dispatch('sendOrder');
+                this.isVisible = false
+                this.$emit('noVisible')
+            }
         }
 
     }

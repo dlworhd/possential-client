@@ -136,6 +136,7 @@ export default defineComponent({
 .menu-item:hover {
     
     transform: scale(1.1);
+    transition-duration: 200ms;
     
 }
 

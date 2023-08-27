@@ -62,7 +62,7 @@ export default defineComponent({
 .order-cart-container {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 70vh;
+  height: 75vh;
   border-bottom: 1px solid white;
 }
 .order-cart-item {
