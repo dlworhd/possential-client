@@ -26,8 +26,4 @@ export default defineComponent({
     text-align: center;
 }
 
-.kakaopay-logo {
-
-}
-
 </style>

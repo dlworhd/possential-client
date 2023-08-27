@@ -39,9 +39,8 @@ components: {
 <style lang="scss" scoped>
 @import '../../../assets/variable';
 .pos-container {
-    margin-top: 10vh;
     display: flex;
-    height: 90vh;
+    height: 95vh;
     margin-bottom: 10vh;
     justify-content: space-between;
 
@@ -49,16 +48,17 @@ components: {
 
 .menu-board {
     width: 75vw;
-    height: 90vh;
+    height: 95vh;
+    padding-top: 5vh;
     border-left: 1px solid white;
     border-bottom: 1px solid white;
     box-sizing: border-box;
+    
 }
 
 .order-board {
     width: 30vw;
-    height: 90vh;
-
+    height: 95vh;
     border-left: 1px solid white;
     border-right: 1px solid white;
     // height: 100vh;

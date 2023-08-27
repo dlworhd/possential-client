@@ -7,7 +7,6 @@ const BASE_URL = "http://localhost:8080";
 
 interface State {
   email: string;
-  storeId: string;
   menuItems: Menu[];
   cartItems: Menu[];
   cartDetail: CartDetail;
@@ -34,7 +33,6 @@ export interface Menu {
 export default createStore({
   state: {
     email: "",
-    storeId: "",
     menuItems: [] as State["menuItems"],
     cartItems: [] as State["cartItems"], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
     cartDetail: {
@@ -47,7 +45,6 @@ export default createStore({
   mutations: {
     RESET_STATE(state: State) {
       state.email = "",
-      state.storeId = "",
       state.menuItems = [] as State["menuItems"],
       state.cartItems = [] as State["cartItems"], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
       state.cartDetail = {
@@ -113,9 +110,6 @@ export default createStore({
     },
     setPaymentType(state, option: string) {
       state.paymentType = option;
-    },
-    setStoreId(state: State, storeId: string) {
-      state.storeId = storeId;
     },
     setLogin(state: State, isLogin: boolean) {
       state.isLogin = isLogin;
@@ -195,9 +189,6 @@ export default createStore({
     //Menu 모듈로 분리
     getMenuItems(state: State): Menu[] {
       return state.menuItems;
-    },
-    getStoreId(state: State) {
-      return state.storeId;
     },
     getIsLogin(state: State) {
       return state.isLogin;

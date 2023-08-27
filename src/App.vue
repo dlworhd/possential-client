@@ -39,7 +39,7 @@ body {
 #app {
   margin: 0;
   // border: 1px solid white;
-  height: 90vh;
+  height: 95vh;
   // overflow: hidden;
 }
 
@@ -51,8 +51,8 @@ body {
   box-sizing: border-box;
 }
 
-*.view {
-  margin-top: 100px;
+.view {
+  margin-top: 20vh;
 }
 
 </style>

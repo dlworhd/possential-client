@@ -1,4 +1,5 @@
 <template>
+
   <div class="outer-container">
     <img class="logo" src="../../assets/logo.png" @click="handleLogo" />
     <div class="login-container">
@@ -90,15 +91,15 @@ a {
 }
 
 .outer-container {
-  height: 10vh;
+  height: 5vh;
   position: fixed;
   top: 0;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid white;
-  background-color: $main--background-color;
+  border-bottom: 1px solid rgba(249, 249, 249, 0.652);
+  background-color: rgba(65, 65, 65, 0.313);
 }
 
 .navItem {
