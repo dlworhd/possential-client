@@ -62,8 +62,7 @@ export default defineComponent({
         const requestEmail = {
           email: this.email,
         };
-        document.cookie =
-          'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
         await instance
           .post('/api/auth/logout', requestEmail)
           .then((response) => {

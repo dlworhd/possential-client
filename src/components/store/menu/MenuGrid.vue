@@ -131,6 +131,7 @@ export default defineComponent({
     border: 1px solid rgb(108, 183, 68);
     border-radius: 15px;
     cursor: pointer;
+
 }
 
 .menu-item:hover {
@@ -162,8 +163,8 @@ export default defineComponent({
 .menu-name {
     overflow: hidden;
     margin-bottom: 20px;
-    font-size: 15px;
-
+    font-size: 15px;    
+    word-wrap: normal;
 }
 
 .btn-container{

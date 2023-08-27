@@ -54,8 +54,8 @@ export default defineComponent({
                         const accessToken = response.data.value
                         localStorage.setItem('accessToken', accessToken)                    
                         this.setLogin(true)
-                        this.$router.go(-1)
                         this.setEmail(this.user.email)
+                        this.$router.go(-1)
                     }
                 })
             }catch(error){

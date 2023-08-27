@@ -38,9 +38,7 @@ body {
 
 #app {
   margin: 0;
-  // border: 1px solid white;
   height: 95vh;
-  // overflow: hidden;
 }
 
 .btn {
