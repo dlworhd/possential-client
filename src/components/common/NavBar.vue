@@ -1,22 +1,32 @@
 <template>
   <div class="outer-container">
-    <div class="nav-container">
-      <li class="navItem" v-for="item in navItems" :key="item.id">
-        <RouterLink :to="item.path">
-          {{ item.name }}
-        </RouterLink>
-      </li>
+    <img class="logo" src="../../assets/logo.png" @click="handleLogo" />
+    <div class="login-container">
+      <ul class="nav-container">
+        <li v-if="!isLogin" class="item">
+          <RouterLink to="/sign-up" class="btn">회원가입</RouterLink>
+        </li>
+        <li v-if="!isLogin" class="item">
+          <RouterLink to="/login" class="btn">로그인</RouterLink>
+        </li>
+        <li v-if="isLogin" class="item">
+          <RouterLink to="/pos" class="btn">포스</RouterLink>
+        </li>
+        <li v-if="isLogin" class="item">
+          <RouterLink to="/orders" class="btn">주문 내역</RouterLink>
+        </li>
+        <li v-if="isLogin" class="item">
+          <span @click="logout" class="btn">로그아웃</span>
+        </li>
+      </ul>
     </div>
-    <LoginComponent class="login-container" @logout="logout"/>
   </div>
 </template>
 
 <script lang="ts">
 import instance from "@/plugin/CustomAxios";
 import { defineComponent } from "vue";
-import { RouterLink } from "vue-router";
-import { mapGetters, mapMutations, mapState } from 'vuex';
-import LoginComponent from "./LoginComponent.vue";
+import { mapGetters, mapMutations, mapState } from "vuex";
 
 export default defineComponent({
   data() {
@@ -24,53 +34,47 @@ export default defineComponent({
       navItems: [
         {
           id: 1,
-          name: "홈",
-          path: "/",
-        },
-        {
-          id: 2,
           name: "포스",
           path: "/pos",
         },
         {
-          id: 3,
+          id: 2,
           name: "주문 내역",
           path: "/orders",
         },
       ],
-      isLogin: false,
     };
   },
   computed: {
-    ...mapGetters(["getIsLogin"]),
-    ...mapState(['email'])
+    ...mapGetters(['getIsLogin']),
+    ...mapState(['email', 'isLogin']),
   },
   components: {
-    LoginComponent
   },
   methods: {
     ...mapMutations(['RESET_STATE']),
-
+    handleLogo() {
+      this.$router.push('/');
+    },
     async logout() {
       try {
         const requestEmail = {
-            email: this.email
-        }
+          email: this.email,
+        };
         document.cookie =
-        "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         await instance
-          .post("/api/auth/logout", requestEmail)
+          .post('/api/auth/logout', requestEmail)
           .then((response) => {
             if (response.status === 200) {
-                localStorage.removeItem("accessToken")
-                this.RESET_STATE()
-                this.$router.push('/')
+              localStorage.removeItem('accessToken');
+              this.RESET_STATE();
+              this.$router.push('/');
             }
-        });
-
+          });
       } catch (error) {
         console.log(error);
-        this.$router.go(-1)
+        this.$router.go(-1);
       }
     },
   },
@@ -78,44 +82,84 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/variable.scss';
+@import "../../assets/variable.scss";
 
 a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .outer-container {
-    height: 10vh;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid white;
-    background-color: $main--background-color;
+  height: 10vh;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+  background-color: $main--background-color;
 }
 
 .navItem {
-    color: white;
-    list-style: none;
-    margin-right: 20px;
+  color: white;
+  list-style: none;
+  margin-right: 20px;
 }
 
 .navItem:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .nav-container {
-    flex-grow: 9.2;
-    flex-basis: 0;
-    display: flex;
-    justify-content: center;
+  flex-grow: 9.2;
+  flex-basis: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .login-container {
-    flex-grow: 0.8;
-    flex-basis: 0;
+  flex-grow: 0.8;
+  flex-basis: 0;
+}
+
+.logo {
+  height: 3vh;
+  cursor: pointer;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+  transition-duration: 300ms;
+}
+
+// 
+
+.nav-container {
+    display: flex;
+}
+
+.login-container {
+    position: absolute;
+    right: 5vw;
+}
+
+.btn {
+    color: white;
+    background: none;
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.item{
+    margin-right: 20px;
+}
+
+.item:hover {
+    transform: scale(1.1);
+  transition-duration: 300ms;
 }
 </style>

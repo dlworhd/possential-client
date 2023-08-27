@@ -1,5 +1,5 @@
 <template>
-    <SignUpForm />
+    <SignUpForm class="view" />
 </template>
 
 <script lang="ts">

@@ -1,5 +1,5 @@
 <template>
-        <StoreBoard/>
+        <StoreBoard class="view"/>
 </template>
 
 <script lang="ts">

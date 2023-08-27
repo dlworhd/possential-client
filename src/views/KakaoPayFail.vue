@@ -1,5 +1,5 @@
 <template>
-    <div class="message">
+    <div class="view">
         결제에 실패하였습니다.
     </div>
     
@@ -16,7 +16,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-.message {
+.view {
     position: fixed;
     top: 40vh;
     width: 100%;

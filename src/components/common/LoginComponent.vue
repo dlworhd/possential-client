@@ -1,8 +1,11 @@
 <template>
 <div class="login-container">
-  <ul>
-    <li v-if="!isLogin"><RouterLink to="/login" class="btn">로그인</RouterLink></li>
-    <li v-if="isLogin"><span @click="handleLogout" class="btn">로그아웃</span></li>
+  <ul class="nav-container">
+    <li v-if="!isLogin" class="item"><RouterLink to="/sign-up" class="btn">회원가입</RouterLink></li>
+    <li v-if="!isLogin" class="item"><RouterLink to="/login" class="btn">로그인</RouterLink></li>
+    <li v-if="isLogin" class="item"><RouterLink to="/pos" class="btn">포스</RouterLink></li>
+    <li v-if="isLogin" class="item"><RouterLink to="/orders" class="btn">주문 내역</RouterLink></li>
+    <li v-if="isLogin" class="item"><span @click="handleLogout" class="btn">로그아웃</span></li>
   </ul>
 </div>
 </template>
@@ -25,18 +28,5 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-.login-container {
-    position: absolute;
-    right: 5vw;
-}
 
-.btn {
-    color: white;
-    background: none;
-    text-decoration: none;
-}
-
-li {
-    list-style: none;
-}
 </style>
