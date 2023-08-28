@@ -51,7 +51,7 @@ export default defineComponent({
 
 .option {
     color: white;
-    border: 1px solid $main--color;
+    border: 1px solid white;
     text-align: center;
     margin-bottom: 10px;
     padding: 10px;
@@ -69,7 +69,7 @@ export default defineComponent({
 
 .cash-btn:hover{
     color: black;
-    background-color: $main--color;
+    background-color: white;
 }
 
 

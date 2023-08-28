@@ -18,7 +18,7 @@ export default defineComponent({
 
 .container {
     padding-top: 50vh;
-    color: $main--color;
+    color: white;
 }
 
 </style>

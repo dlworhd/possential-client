@@ -80,7 +80,7 @@ instance.interceptors.response.use(
           }
           store.commit("setLogin", true);
         } catch (reissueError) {
-          console.log("토큰 재발급 실패:", reissueError);
+          console.log("Failed Reissue:", reissueError);
           store.commit("setLogin", false);
           return Promise.reject(error);
         }

@@ -55,17 +55,17 @@ export default defineComponent({
 .btn {
   // margin-top: 10px;
   background-color: $main--background-color;
-  color: $main--color;
+  color: $main--btn-color;
   width: 100%;
-  border: 1px solid $main--color;
+  border: 1px solid white;
 }
 
 .btn:hover {
   // margin-top: 10px;
-  background-color: $main--color;
+  background-color: white;
   color: black;
   width: 100%;
-  border: 1px solid $main--color;
+  border: 1px solid white;
 }
 
 .btn-container {

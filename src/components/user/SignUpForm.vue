@@ -1,36 +1,30 @@
 <template>
 <form class="sign-up-form" @submit.prevent="register">
-    <div class="container">
-        <div class="inner-container">
-            <p>Email</p>
-            <input class="text-input" v-model="user.email" type="email" placeholder="이메일"/>
+    <div class="sign-up-form__container">
+        <div class="sign-up-form__input-group">
+            <div class="sign-up-form__label">이메일</div>
+            <input class="sign-up-form__input" v-model="user.email" type="email" placeholder="이메일"/>
 
-            <p>PW</p>
-            <input class="text-input" v-model="user.password" type="password" placeholder="비밀번호"/>
+            <div class="sign-up-form__label">패스워드</div>
+            <input class="sign-up-form__input" v-model="user.password" type="password" placeholder="비밀번호"/>
 
-            <p>이름</p>
-            <input class="text-input" v-model="user.name" type="text" placeholder="이름을 입력해주세요"/>
+            <div class="sign-up-form__label">이름</div>
+            <input class="sign-up-form__input" v-model="user.name" type="text" placeholder="이름을 입력해주세요"/>
 
-            <p>휴대폰 번호</p>
-            <input class="text-input" v-model="user.phoneNumber" type="text" placeholder="010 - 0000 - 0000"/>
-
-            <p>생년월일</p>
-            <div class="detail">
-                <input type="date" v-model="user.birth"/>
-                <div>
-                    <span>남</span><input v-model="user.gender" type="radio" value="MAN"/>
-                    <span>여</span><input v-model="user.gender" type="radio" value="WOMAN"/>
-                </div>
-            </div>
+            <div class="sign-up-form__label">휴대폰 번호</div>
+            <input class="sign-up-form__input" v-model="user.phoneNumber" type="text" placeholder="010 - 0000 - 0000"/>
+            
+            <div class="sign-up-form__label">생년월일</div>
+            <input class="sign-up-form__date-input" type="date" v-model="user.birth"/>
         </div>
     </div>
-    <div class="btn-container">
-        <div>
-            <div>
-                <button type="submit" class="btn register">가입</button>
+    <div class="sign-up-form__btn-container">
+        <div class="sign-up-form__btn-group">
+            <div class="sign-up-form__btn">
+                <button class="sign-up-form__submit-btn btn" type="submit">가입</button>
             </div>
-            <div>
-                <button class="btn home">홈으로</button>
+            <div class="sign-up-form__btn">
+                <button class="sign-up-form__home-btn btn" to="/">홈 화면</button>
             </div>
         </div>
     </div>
@@ -76,68 +70,45 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
-button {
-    margin: 0;
-    border: 0;
-    padding: 0;
+@import '../../assets/variable.scss';
+.sign-up-form  {
+    padding-top: 20vh;
 }
 
-.register {
-    color: white;
-    background-color: rgb(13, 201, 0);
+.sign-up-form__container {
+    display: flex;
+    justify-content: center;
+}
+
+.sign-up-form__input {
+    width: 300px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.sign-up-form__btn-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 10px;
+}
+
+.sign-up-form__submit-btn {
     margin-bottom: 1px;
 }
 
 .btn {
+    background-color: rgb(13, 201, 0);
+    border: 1px solid black;
+    color: white;
     width: 300px;
-    height: 30px;
+    height: 30px;   
 }
 
-.inner-container {
-    width: 300px;
-}
-
-input {
-    padding: 0;
-    border: 0;
-}
-
-
-
-.btn-container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.text-input {
-    padding: 0 6px;
-    width: 100%;
-    height: 30px;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-
-}
-
-.detail {
-    display: flex;
-    justify-content: space-between;
-}
-
-p {
+.sign-up-form__label {
     color: white;
 }
 
-span {
-    color: white;
-}
 
-.sign-up-form {
-    padding-top: 10vh;
-}
 </style>
 

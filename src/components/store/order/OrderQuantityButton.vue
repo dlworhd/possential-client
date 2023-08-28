@@ -43,7 +43,7 @@ export default defineComponent({
 @import '../../../assets/variable.scss';
 
 .btn {
-    border: 1px solid $main--color;
+    border: 1px solid white;
     background: none;
     color: white;
     width: 5vh;

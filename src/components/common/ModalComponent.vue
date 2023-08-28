@@ -56,9 +56,9 @@ export default defineComponent({
 .btn {
   // margin-top: 10px;
   background: none;
-  color: $main--color;
+  color: $main--btn-color;
   width: 100%;
-  border: 1px solid $main--color;
+  border: 1px solid white;
 
 }
 

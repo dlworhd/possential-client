@@ -252,7 +252,7 @@ li {
 .order-block {
   background-color: rgba(255, 255, 255, 0);
   color: rgb(255, 255, 255);
-  border: 1px solid $main--color;
+  border: 1px solid white;
   border-radius: 15px;
   cursor: pointer;
   padding: 30px;

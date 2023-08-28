@@ -235,7 +235,7 @@ export default defineComponent({
 @import "../../../assets/variable.scss";
 
 .notice {
-  color: $main--color;
+  color: white;
   display: flex;
   height: 70vh;
   justify-content: center;
@@ -243,7 +243,7 @@ export default defineComponent({
 }
 
 .notice a {
-  color: $main--color;
+  color: white;
   text-decoration: none;
 }
 .edit-container {
@@ -322,7 +322,7 @@ export default defineComponent({
   color: rgb(255, 255, 255);
   width: 150px;
   height: 150px;
-  border: 1px solid $main--color;
+  border: 1px solid white;
   border-radius: 15px;
   cursor: pointer;
   position: relative;
@@ -369,7 +369,7 @@ export default defineComponent({
   background: none;
   color: white;
   cursor: pointer;
-  /* border: 1px solid $main--color */
+  /* border: 1px solid white */
   /* border-radius: 15px; */
   /* padding: 20px 6px; */
 
@@ -377,11 +377,11 @@ export default defineComponent({
 }
 
 .page-btn:hover {
-  background-color: $main--color;
+  background-color: white;
 }
 
 .delete-btn {
-  color: $main--color;
+  color: white;
   position: absolute;
   top: 10%;
   right: 10%;
