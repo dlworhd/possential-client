@@ -1,6 +1,7 @@
 import { defineComponent } from 'vue';
+import { mapState } from 'vuex';
 <template>
-    <div class="order-button-container">
+    <div  v-if="isLogin" class="order-button-container">
         <div class="order-btn">
             주문/결제
         </div>
@@ -9,13 +10,22 @@ import { defineComponent } from 'vue';
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { mapState } from 'vuex';
 
-export default defineComponent({})
+
+export default defineComponent({
+computed: {
+    ...mapState(['isLogin'])
+}
+
+})
+
+
 
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+@import '../../../assets/variable.scss';
 .order-button-container {
     display: flex;
     justify-content: center;

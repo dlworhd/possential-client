@@ -32,7 +32,7 @@ export default defineComponent({
         },
         execute(option: string){
 
-            if(option === 'KAKAOPAY' && this.$store.state.cartDetail.totalPrice <= 0){
+            if(option === 'KAKAOPAY' && this.$store.state.totalPrice <= 0){
                 alert('결제 금액은 최소 1원 이상이어야 합니다.')
             } else {
                 this.$store.commit('setPaymentType', option);

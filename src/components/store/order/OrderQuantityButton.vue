@@ -39,11 +39,11 @@ export default defineComponent({
 })
 
 </script>
-<style scoped>
-
+<style lang="scss" scoped>
+@import '../../../assets/variable.scss';
 
 .btn {
-    border: 1px solid rgb(108, 183, 68);
+    border: 1px solid $main--color;
     background: none;
     color: white;
     width: 5vh;

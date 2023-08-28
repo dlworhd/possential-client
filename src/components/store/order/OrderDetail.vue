@@ -24,8 +24,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+@import '../../../assets/variable.scss';
 .order-detail-container {
     display: flex;
     align-items: center;

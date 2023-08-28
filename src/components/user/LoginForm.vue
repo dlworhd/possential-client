@@ -42,7 +42,7 @@ export default defineComponent({
         }
     },
     methods: {
-        ...mapMutations(['setEmail']),
+        ...mapMutations(['setEmail','setStoreId']),
     
         handleHome(){
             this.$router.push('/')
@@ -51,11 +51,11 @@ export default defineComponent({
             try{
                 await instance.post("/api/auth/login", this.user).then(response => {
                     if(response.status === 200){
-                        const accessToken = response.data.value
-                        localStorage.setItem('accessToken', accessToken)                    
-                        this.setLogin(true)
-                        this.setEmail(this.user.email)
-                        this.$router.go(-1)
+                        const accessToken = response.data.value;
+                        localStorage.setItem('accessToken', accessToken);
+                        this.setLogin(true);
+                        this.setEmail(this.user.email);
+                        this.$router.push('/pos');
                     }
                 })
             }catch(error){
@@ -92,7 +92,7 @@ button {
     margin-top: 20px;
     color: white;
     background-color: rgb(13, 201, 0);
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 .btn {

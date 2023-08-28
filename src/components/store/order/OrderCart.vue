@@ -13,13 +13,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Menu } from "../../../store/index";
 import OrderTotalPrice from "./OrderTotalPrice.vue";
 import OrderButton from "./OrderButton.vue";
 import OrderOption from "./OrderOption.vue";
 import OrderQuantityButton from "./OrderQuantityButton.vue";
 import OrderDetail from "./OrderDetail.vue";
 import PaymentTypeModal from "./PaymentTypeModal.vue";
+import { mapGetters, mapState } from 'vuex';
 
 
 export default defineComponent({
@@ -46,18 +46,14 @@ export default defineComponent({
     PaymentTypeModal
 },
   computed: {
-    cartItems(): Menu[] {
-      return this.$store.getters.getCartItems;
-    },
-    getTotalPrice() {
-      return this.$store.getters.getTotalPrice;
-    },
+    ...mapState(['cartItems']),
+    ...mapGetters(['getTotalPrice'])
   },
   
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .order-cart-container {
   overflow-y: scroll;

@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-grid-container">
+  <div v-if="isLogin" class="menu-grid-container">
     <div class="menu-grid">
       <button class="menu-item" v-for="menu in getMenuItems" :key="menu.menuId">
         <div class="menu-name">
@@ -11,9 +11,14 @@
         </div>
         <div class="options" @mouseleave="handleMouseOut">
           <span v-if="!isEditMode" class="option add" @click="addToCart(menu)">
-            추가
+            담기
           </span>
-            <img src="../../../assets/setting.svg" v-if="!isEditMode" class="option edit" @click="openEditModal">
+          <img
+            src="../../../assets/setting.svg"
+            v-if="!isEditMode"
+            class="option edit"
+            @click="openEditModal"
+          />
           <div class="edit-container">
             <div v-if="isEditMode" class="edit-menu-name">
               <input
@@ -56,7 +61,7 @@
     </div>
   </div>
 
-  <div class="btn-container">
+  <div v-if="isLogin" class="btn-container">
     <div>
       <button v-if="!(currentPage == 0)" class="page-btn" @click="previousPage">
         이전
@@ -77,6 +82,10 @@
     @closeModal="closeModal"
     @fetchMenuList="fetchMenuList"
   />
+
+  <div class="notice" v-if="!isLogin">
+    <div><router-link to="/login">로그인이 필요합니다.</router-link></div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -85,6 +94,7 @@ import { mapState, mapMutations, mapGetters } from "vuex";
 import instance from "@/plugin/CustomAxios";
 import MenuRegistrationModal from "./MenuRegistrationModal.vue";
 import { Menu } from "../../../store/index";
+import axios from "axios";
 
 export interface CartDetail {
   totalPrice: number;
@@ -112,12 +122,16 @@ export default defineComponent({
     this.fetchMenuList();
   },
   computed: {
-    ...mapState(["cartItems", "menuItems", "storeId"]),
-    ...mapGetters(["getMenuItems"]),
+    ...mapState(["cartItems", "menuItems", "storeId", "isLogin"]),
+    ...mapGetters(["getMenuItems", "getCartItems"]),
   },
   methods: {
     handleMouseOut() {
       this.isEditMode = false;
+      this.editedMenu = {
+        menuName: "",
+        price: 0,
+      }
     },
     menuEditCancel() {
       this.editedMenu = {
@@ -133,27 +147,36 @@ export default defineComponent({
       };
 
       try {
-        await instance
-          .put(`/api/menu/${menu.menuId}`, requestMenu)
-          .then((response) => {
-            if (response.status === 200) {
-              alert("수정 완료");
-              this.fetchMenuList();
-              this.editedMenu = {
-                menuName: "",
-                price: 0,
-              };
-            }
-          });
-
-      } catch (error) {
-        console.log(error);
+        await instance.put(`/api/menu/${menu.menuId}`, requestMenu).then(response => {
+          if (response && response.status === 200) {
+          this.fetchMenuList(); //menu리스트 초기화
+          this.editedMenu = {
+            menuName: '',
+            price: 0,
+          };
+          alert("수정 완료");
+        }
+      })
+     } catch (error) {
+        console.log('error발생');
+        
+        if (
+          axios.isAxiosError(error) &&
+          error.response &&
+          error.response.status === 400 &&
+          error.response.data.message === "DUPLICATED_MENU"
+        ) {
+          alert("중복된 메뉴 이름입니다.");
+        } else {
+          alert("중복된 메뉴 이름입니다.");
+        }
         this.editedMenu = {
           menuName: "",
           price: 0,
         };
       }
     },
+
     openEditModal() {
       this.isEditMode = true;
     },
@@ -173,9 +196,6 @@ export default defineComponent({
           this.$store.commit("setMenuItems", response.data.content);
           this.currentPage = response.data.pageable.pageNumber;
           this.totalPages = response.data.totalPages;
-
-          console.log(this.currentPage);
-          console.log(this.totalPages);
         })
         .catch((error) => {
           if (error.code) console.log(error);
@@ -196,9 +216,6 @@ export default defineComponent({
     //mapMutations을 사용하여 'addCartItem' 뮤테이션을 컴포넌트에 매핑한다.
     //이렇게 매핑하면 this.addCartItem 메서드를 컴포넌트 내에서 사용할 수 있음
     ...mapMutations(["addToCart"]),
-    addCartItem(menu: Menu) {
-      this.addToCart(menu);
-    },
   },
   components: {
     MenuRegistrationModal,
@@ -206,7 +223,21 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "../../../assets/variable.scss";
+
+.notice {
+  color: $main--color;
+  display: flex;
+  height: 70vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.notice a {
+  color: $main--color;
+  text-decoration: none;
+}
 .edit-container {
   position: absolute;
   top: 30%;
@@ -218,6 +249,7 @@ export default defineComponent({
   width: 150px;
   height: 150px;
   text-align: center;
+  border-radius: 15px;
   background-color: rgba(21, 21, 21, 0.551);
 }
 
@@ -229,7 +261,8 @@ export default defineComponent({
 }
 
 .option {
-    width: 30px;
+  width: 30px;
+  height: 10px;
 }
 .option:hover {
   color: rgb(18, 98, 0);
@@ -237,16 +270,16 @@ export default defineComponent({
 }
 
 .edit {
-    position: absolute;
-    width: 15%;
-    height: 15%;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
+  position: absolute;
+  width: 15%;
+  height: 15%;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }
 
 .edit:hover {
-    transform: scale(1.3);
+  transform: scale(1.3);
 }
 
 .menu-item:hover .options {
@@ -272,7 +305,7 @@ export default defineComponent({
   color: rgb(255, 255, 255);
   width: 150px;
   height: 150px;
-  border: 1px solid rgb(108, 183, 68);
+  border: 1px solid $main--color;
   border-radius: 15px;
   cursor: pointer;
 }
@@ -317,7 +350,8 @@ export default defineComponent({
   height: 5vh;
   background: none;
   color: white;
-  /* border: 1px solid rgb(108, 183, 68); */
+  cursor: pointer;
+  /* border: 1px solid $main--color */
   /* border-radius: 15px; */
   /* padding: 20px 6px; */
 
@@ -325,6 +359,6 @@ export default defineComponent({
 }
 
 .page-btn:hover {
-  background-color: rgb(108, 183, 68);
+  background-color: $main--color;
 }
 </style>

@@ -155,7 +155,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../../../assets/variable.scss';
 .outer-container {
   display: flex;
   justify-content: center;
@@ -251,7 +252,7 @@ li {
 .order-block {
   background-color: rgba(255, 255, 255, 0);
   color: rgb(255, 255, 255);
-  border: 1px solid rgb(108, 183, 68);
+  border: 1px solid $main--color;
   border-radius: 15px;
   cursor: pointer;
   padding: 30px;

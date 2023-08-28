@@ -2,8 +2,9 @@
   <div v-if="visible" class="modal-overlay">
     <div class="modal">
         <button class="btn" @click="handlePaymentCancel">결제 취소</button>
+        <button class="btn" @click="handleCancel">닫기</button>
     </div>
-    <div class="btn" @click="handleCancel">닫기</div>
+    
     </div>
 </template>
 
@@ -41,18 +42,18 @@ export default defineComponent({
 
 .modal {
   background-color: $main--background-color;
-  padding: 20px;
+//   padding: 20px;
   width: 15vw;
-  // height: 50vh;
+  height: 10vh;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .btn {
     background: none;
     color: white;
-    width: auto;
 }
 </style>

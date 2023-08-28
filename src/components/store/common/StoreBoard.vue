@@ -36,7 +36,7 @@ components: {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../../assets/variable';
 .pos-container {
     display: flex;
