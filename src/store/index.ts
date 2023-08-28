@@ -1,18 +1,20 @@
-import { createStore } from "vuex";
+import { createStore } from 'vuex';
 
-import instance from "../plugin/CustomAxios";
-import { CartDetail } from "@/components/store/menu/MenuGrid.vue";
+import instance from '../plugin/CustomAxios';
+import { CartDetail } from '@/components/store/menu/MenuGrid.vue';
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = 'http://localhost:8080';
 
 interface State {
+  storeId: string;
   email: string;
   menuItems: Menu[];
   cartItems: Menu[];
-  cartDetail: CartDetail;
+  totalPrice: number
   orderType: string;
   paymentType: string;
   isLogin: boolean;
+
 }
 
 export interface Menu {
@@ -32,26 +34,22 @@ export interface Menu {
 // commit을 사용할 때 뮤테이션 이름과, 추가 인자를 넣어주면 해당 뮤테이션이 실행이 되면서 상태가 변경이 되는 것. 즉, mutation은 상태를 변경하는 유일한 방법이라는 것의 방증
 export default createStore({
   state: {
-    email: "",
-    menuItems: [] as State["menuItems"],
-    cartItems: [] as State["cartItems"], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
-    cartDetail: {
-      totalPrice: 0,
-    },
-    orderType: "IN",
-    paymentType: "CASH",
+    storeId: '',
+    email: '',
+    menuItems: [] as State['menuItems'],
+    cartItems: [] as State['cartItems'], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
+    totalPrice: 0,
+    orderType: 'IN',
+    paymentType: 'CASH',
     isLogin: false,
   },
   mutations: {
     RESET_STATE(state: State) {
-      state.email = "",
-      state.menuItems = [] as State["menuItems"],
-      state.cartItems = [] as State["cartItems"], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
-      state.cartDetail = {
-        totalPrice: 0,
-      },
-      state.orderType = "IN",
-      state.paymentType = "CASH",
+      state.email = '',
+      state.menuItems = [] as State['menuItems'],
+      state.cartItems = [] as State['cartItems'], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
+      state.orderType = 'IN',
+      state.paymentType = 'CASH',
       state.isLogin = false
 
       console.log('mutation실행');
@@ -73,20 +71,20 @@ export default createStore({
       if (!existingItem) {
         state.cartItems.push(menuItem);
         menuItem.quantity = 1;
-        state.cartDetail.totalPrice =
-          state.cartDetail.totalPrice.valueOf() + menuItem.price;
+        state.totalPrice =
+          state.totalPrice.valueOf() + menuItem.price;
       } else {
         menuItem.quantity++;
-        state.cartDetail.totalPrice =
-          state.cartDetail.totalPrice.valueOf() + menuItem.price;
+        state.totalPrice =
+          state.totalPrice.valueOf() + menuItem.price;
       }
     },
     increaseQuantity(state: State, menuId: number) {
       const menuItem = state.cartItems.find((item) => item.menuId === menuId);
       if (menuItem) {
         menuItem.quantity++;
-        state.cartDetail.totalPrice =
-          state.cartDetail.totalPrice.valueOf() + menuItem.price;
+        state.totalPrice =
+          state.totalPrice.valueOf() + menuItem.price;
       }
     },
     decreaseQuantity(state: State, menuId: number) {
@@ -100,8 +98,8 @@ export default createStore({
           if (item.quantity === 0) {
             state.cartItems.splice(itemIndex, 1); // itemIndex에서 1개 제거
           }
-          state.cartDetail.totalPrice =
-            state.cartDetail.totalPrice.valueOf() - item.price;
+          state.totalPrice =
+            state.totalPrice.valueOf() - item.price;
         }
       }
     },
@@ -122,26 +120,26 @@ export default createStore({
     // 비동기 작업 처리 및 여러 번의 Mutation 실행 가능 -> 주로 비동기 작업 및 데이터 가져오기
     //Cart 모듈로 분리
     addToCartAction(context: any, menuItem: Menu) {
-      context.commit("addToCart", menuItem);
+      context.commit('addToCart', menuItem);
     },
     increaseQuantityAction({ commit }, menu: Menu) {
-      commit("increaseQuantity", menu.menuId);
+      commit('increaseQuantity', menu.menuId);
     },
     decreaseQuantityAction({ commit }, menu: Menu) {
-      commit("decreaseQuantity", menu.menuId);
+      commit('decreaseQuantity', menu.menuId);
     },
     updateOrderType({ commit }, option: string) {
-      commit("setOrderType", option);
+      commit('setOrderType', option);
     },
     updatePaymentType({ commit }, option: string) {
-      commit("setPaymentType", option);
+      commit('setPaymentType', option);
     },
     setStoreIdAction({ commit }, storeId: string) {
       console.log(`setStoreId 실행 = ${storeId}`);
-      commit("setStoreId", storeId);
+      commit('setStoreId', storeId);
     },
     fetchMenuListAction({ commit }, menuList: Menu[]) {
-      commit("fetchMenuList", menuList);
+      commit('fetchMenuList', menuList);
     },
     //Order 모듈로 분리
     async sendOrder({ state }) {
@@ -158,14 +156,14 @@ export default createStore({
         const response = await instance.post(`${BASE_URL}/api/orders`, data);
         if (response.data.next_redirect_pc_url != null) {
           const redirectUrl = response.data.next_redirect_pc_url;
-          window.open(redirectUrl, "_blank");
+          window.open(redirectUrl, '_blank');
         }
 
         state.cartItems = [];
-        state.cartDetail.totalPrice = 0;
+        state.totalPrice = 0;
         console.log(response.data);
       } catch {
-        console.log("error");
+        console.log('error');
       }
     },
   },
@@ -174,11 +172,13 @@ export default createStore({
     // 상태 저장소의 데이터를 계산된 속성 형태로 제공하는 메서드이다.
 
     //Cart 모듈로 분리
-    getCartItems(state: State) {
+    getCartItems(state: State): Menu[] {
       return state.cartItems;
     },
     getTotalPrice(state: State) {
-      return state.cartDetail.totalPrice;
+      let sum = 0;
+      state.cartItems.forEach(x => sum += (x.price * x.quantity))
+      return sum;
     },
     getOrderType(state: State) {
       return state.orderType;

@@ -4,20 +4,20 @@
     <img class="logo" src="../../assets/logo.png" @click="handleLogo" />
     <div class="login-container">
       <ul class="nav-container">
-        <li v-if="!isLogin" class="item">
-          <RouterLink to="/sign-up" class="btn">회원가입</RouterLink>
+        <li class="item">
+          <RouterLink to="/pos" class="btn">POS</RouterLink>
         </li>
         <li v-if="!isLogin" class="item">
-          <RouterLink to="/login" class="btn">로그인</RouterLink>
+          <RouterLink to="/sign-up" class="btn">Sign Up</RouterLink>
+        </li>
+        <li v-if="!isLogin" class="item">
+          <RouterLink to="/login" class="btn">Login</RouterLink>
         </li>
         <li v-if="isLogin" class="item">
-          <RouterLink to="/pos" class="btn">포스</RouterLink>
+          <RouterLink to="/orders" class="btn">History</RouterLink>
         </li>
         <li v-if="isLogin" class="item">
-          <RouterLink to="/orders" class="btn">주문 내역</RouterLink>
-        </li>
-        <li v-if="isLogin" class="item">
-          <span @click="logout" class="btn">로그아웃</span>
+          <span @click="logout" class="btn">Logout</span>
         </li>
       </ul>
     </div>
@@ -69,7 +69,7 @@ export default defineComponent({
             if (response.status === 200) {
               localStorage.removeItem('accessToken');
               this.RESET_STATE();
-              this.$router.push('/');
+              this.$router.go(-1);
             }
           });
       } catch (error) {
@@ -97,8 +97,8 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid rgba(249, 249, 249, 0.652);
-  background-color: rgba(65, 65, 65, 0.313);
+  border-bottom: 1px solid rgba(142, 117, 117, 0.652);
+  background-color: rgba(1, 0, 86, 0.847);
 }
 
 .navItem {

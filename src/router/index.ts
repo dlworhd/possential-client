@@ -26,7 +26,7 @@ const router =  createRouter({
   {
     path: '/pos',
     component: PosView,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: false },
   },
   {
     path: '/orders',

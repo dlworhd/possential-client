@@ -75,7 +75,7 @@ export default defineComponent({
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 button {
     margin: 0;
@@ -86,7 +86,7 @@ button {
 .register {
     color: white;
     background-color: rgb(13, 201, 0);
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 .btn {

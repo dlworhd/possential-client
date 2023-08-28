@@ -46,7 +46,8 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss">
+@import '../../../assets/variable.scss';
 .option-container{
   display: flex;
   border-bottom: 1px solid white;
