@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from 'vuex';
 
 export default defineComponent({
   data() {
@@ -31,10 +31,10 @@ export default defineComponent({
     ...mapState(["orderType"]),
   },
   methods: {
-    ...mapActions(["updateOrderType"]),
+    ...mapMutations(["setOrderType"]),
     updateOption(event: Event) {
       const selectedValue = (event.target as HTMLSelectElement).value;
-      this.updateOrderType(selectedValue);
+      this.setOrderType(selectedValue);
     },
     updateTime() {
       setInterval(() => {
@@ -55,6 +55,8 @@ export default defineComponent({
   align-items: center;
   height: 5vh;
   overflow-y: hidden;
+  background-color: $main--background-color;
+
 }
 .option {
   height: 100%;

@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="login">
+    <form class="login-form" @submit.prevent="login">
         <div class="container">
             <div>
             <div>
@@ -55,7 +55,7 @@ export default defineComponent({
                         localStorage.setItem('accessToken', accessToken);
                         this.setLogin(true);
                         this.setEmail(this.user.email);
-                        this.$router.push('/pos');
+                        this.$router.push('/');
                     }
                 })
             }catch(error){
@@ -69,7 +69,7 @@ export default defineComponent({
 
 <style>
 .container {
-    margin-top: 20vh;
+    /* margin-top: 20vh; */
     display: flex;
     justify-content: center;
 }
@@ -92,7 +92,7 @@ button {
     margin-top: 20px;
     color: white;
     background-color: rgb(13, 201, 0);
-    margin-bottom: 4px;
+    margin-bottom: 1px;
 }
 
 .btn {
@@ -108,5 +108,9 @@ button {
 
 p {
     color: white;
+}
+
+.login-form {
+    padding-top: 20vh;
 }
 </style>

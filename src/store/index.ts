@@ -1,7 +1,5 @@
 import { createStore } from 'vuex';
-
 import instance from '../plugin/CustomAxios';
-import { CartDetail } from '@/components/store/menu/MenuGrid.vue';
 
 const BASE_URL = 'http://localhost:8080';
 
@@ -51,20 +49,31 @@ export default createStore({
       state.orderType = 'IN',
       state.paymentType = 'CASH',
       state.isLogin = false
-
-      console.log('mutation실행');
-
-      
     },
+    //User Mutaions
     setEmail(state: State, email: string) {
       state.email = email;
     },
-    // Mutation은 상태를 변경하는 유일한 방법
+    setLogin(state: State, isLogin: boolean) {
+      state.isLogin = isLogin;
+    },
+    //Menu Mutaions
     setMenuItems(state: State, menuList: Menu[]) {
       state.menuItems = menuList;
     },
-    //Cart 모듈로 분리
-    addToCart(state: State, menuItem: Menu) {
+    //Order Mutations
+    setOrderType(state, option: string) {
+      state.orderType = option;
+    },
+    //Payment Mutaions
+    setPaymentType(state, option: string) {
+      state.paymentType = option;
+    },
+    // Cart Mutaions
+    setCartItems(state: State, menuList: Menu[]) {
+      state.cartItems = menuList;
+    },
+    addCartItem(state: State, menuItem: Menu) {
       const existingItem = state.cartItems.find(
         (item) => item.menuId === menuItem.menuId
       );
@@ -103,45 +112,16 @@ export default createStore({
         }
       }
     },
-    setOrderType(state, option: string) {
-      state.orderType = option;
-    },
-    setPaymentType(state, option: string) {
-      state.paymentType = option;
-    },
-    setLogin(state: State, isLogin: boolean) {
-      state.isLogin = isLogin;
-    },
-    setCartItems(state: State, menuList: Menu[]) {
-      state.cartItems = menuList;
-    },
   },
   actions: {
-    // 비동기 작업 처리 및 여러 번의 Mutation 실행 가능 -> 주로 비동기 작업 및 데이터 가져오기
-    //Cart 모듈로 분리
-    addToCartAction(context: any, menuItem: Menu) {
-      context.commit('addToCart', menuItem);
-    },
+    //Cart Actions
     increaseQuantityAction({ commit }, menu: Menu) {
       commit('increaseQuantity', menu.menuId);
     },
     decreaseQuantityAction({ commit }, menu: Menu) {
       commit('decreaseQuantity', menu.menuId);
     },
-    updateOrderType({ commit }, option: string) {
-      commit('setOrderType', option);
-    },
-    updatePaymentType({ commit }, option: string) {
-      commit('setPaymentType', option);
-    },
-    setStoreIdAction({ commit }, storeId: string) {
-      console.log(`setStoreId 실행 = ${storeId}`);
-      commit('setStoreId', storeId);
-    },
-    fetchMenuListAction({ commit }, menuList: Menu[]) {
-      commit('fetchMenuList', menuList);
-    },
-    //Order 모듈로 분리
+    //Order Actions
     async sendOrder({ state }) {
       try {
         const cartItems: { [id: number]: number } = {};
@@ -171,7 +151,7 @@ export default createStore({
   getters: {
     // 상태 저장소의 데이터를 계산된 속성 형태로 제공하는 메서드이다.
 
-    //Cart 모듈로 분리
+    //Cart Getters
     getCartItems(state: State): Menu[] {
       return state.cartItems;
     },
@@ -180,18 +160,9 @@ export default createStore({
       state.cartItems.forEach(x => sum += (x.price * x.quantity))
       return sum;
     },
-    getOrderType(state: State) {
-      return state.orderType;
-    },
-    getPaymentType(state: State) {
-      return state.orderType;
-    },
     //Menu 모듈로 분리
     getMenuItems(state: State): Menu[] {
       return state.menuItems;
-    },
-    getIsLogin(state: State) {
-      return state.isLogin;
     },
   },
 });

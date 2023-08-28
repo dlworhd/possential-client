@@ -54,12 +54,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
+@import '../../../assets/variable.scss';
 .order-cart-container {
   overflow-y: scroll;
   overflow-x: hidden;
   height: 75vh;
   border-bottom: 1px solid white;
+  background-color: $main--background-color;
 }
 .order-cart-item {
   display: flex;

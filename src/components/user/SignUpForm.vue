@@ -1,5 +1,5 @@
 <template>
-<form @submit.prevent="register">
+<form class="sign-up-form" @submit.prevent="register">
     <div class="container">
         <div class="inner-container">
             <p>Email</p>
@@ -86,7 +86,7 @@ button {
 .register {
     color: white;
     background-color: rgb(13, 201, 0);
-    margin-bottom: 4px;
+    margin-bottom: 1px;
 }
 
 .btn {
@@ -120,7 +120,7 @@ input {
 .container {
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+
 }
 
 .detail {
@@ -134,6 +134,10 @@ p {
 
 span {
     color: white;
+}
+
+.sign-up-form {
+    padding-top: 10vh;
 }
 </style>
 

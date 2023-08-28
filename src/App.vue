@@ -30,6 +30,7 @@ export default defineComponent({
 <style lang="scss">
 @import './assets/main.scss';
 
+
 body {
   background-color: $main--background-color;
   margin: 0;

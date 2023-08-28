@@ -2,32 +2,35 @@
   <div v-if="isLogin" class="menu-grid-container">
     <div class="menu-grid">
       <button class="menu-item" v-for="menu in getMenuItems" :key="menu.menuId">
-        <div class="menu-name">
+        <div class="item-name">
           {{ menu.menuName }}
           <div></div>
         </div>
-        <div class="menu-price">
+        <div class="item-price">
           {{ menu.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
         </div>
-        <div class="options" @mouseleave="handleMouseOut">
-          <span v-if="!isEditMode" class="option add" @click="addToCart(menu)">
-            담기
-          </span>
-          <img
-            src="../../../assets/setting.svg"
+        <div class="options" @mouseleave="handleMouseOut" @click="addCartItem(menu)">
+          <div class="delete-btn">
+            X
+          </div>
+          <!-- 담기 이미지 -->
+          <div v-if="!isEditMode" class="option add">
+            <img
+            src="../../../assets/add.svg"
             v-if="!isEditMode"
-            class="option edit"
-            @click="openEditModal"
+            class="add"
+
           />
+          </div>
           <div class="edit-container">
-            <div v-if="isEditMode" class="edit-menu-name">
+            <div v-if="isEditMode" class="edit-item-name">
               <input
                 type="text"
                 v-model="editedMenu.menuName"
                 placeholder="메뉴 이름"
               />
             </div>
-            <div v-if="isEditMode" class="edit-menu-price">
+            <div v-if="isEditMode" class="edit-item-price">
               <input
                 type="text"
                 v-model="editedMenu.price"
@@ -49,7 +52,6 @@
           </div>
         </div>
       </button>
-
       <button
         @click="openModal"
         v-for="i in 15 - menuItems.length"
@@ -59,8 +61,8 @@
         +
       </button>
     </div>
+    
   </div>
-
   <div v-if="isLogin" class="btn-container">
     <div>
       <button v-if="!(currentPage == 0)" class="page-btn" @click="previousPage">
@@ -77,6 +79,7 @@
       </button>
     </div>
   </div>
+
   <MenuRegistrationModal
     v-if="isModalVisible"
     @closeModal="closeModal"
@@ -86,6 +89,7 @@
   <div class="notice" v-if="!isLogin">
     <div><router-link to="/login">로그인이 필요합니다.</router-link></div>
   </div>
+
 </template>
 
 <script lang="ts">
@@ -95,10 +99,6 @@ import instance from "@/plugin/CustomAxios";
 import MenuRegistrationModal from "./MenuRegistrationModal.vue";
 import { Menu } from "../../../store/index";
 import axios from "axios";
-
-export interface CartDetail {
-  totalPrice: number;
-}
 
 export default defineComponent({
   data() {
@@ -114,6 +114,7 @@ export default defineComponent({
         menuName: "",
         price: 0,
       },
+      allEditMode: false
     };
   },
   //Component가 DOM에 마운트 된 후에 실행
@@ -126,6 +127,13 @@ export default defineComponent({
     ...mapGetters(["getMenuItems", "getCartItems"]),
   },
   methods: {
+    onEditMode(){
+      this.allEditMode = true;
+    },
+    offEditMode(){
+      this.allEditMode = false;
+    },
+    
     handleMouseOut() {
       this.isEditMode = false;
       this.editedMenu = {
@@ -215,7 +223,7 @@ export default defineComponent({
     },
     //mapMutations을 사용하여 'addCartItem' 뮤테이션을 컴포넌트에 매핑한다.
     //이렇게 매핑하면 this.addCartItem 메서드를 컴포넌트 내에서 사용할 수 있음
-    ...mapMutations(["addToCart"]),
+    ...mapMutations(["addCartItem"]),
   },
   components: {
     MenuRegistrationModal,
@@ -244,39 +252,46 @@ export default defineComponent({
 }
 .options {
   display: none;
-  position: relative;
   top: 0;
   width: 150px;
   height: 150px;
   text-align: center;
   border-radius: 15px;
-  background-color: rgba(21, 21, 21, 0.551);
+  // background-color: rgba(0, 0, 0, 0.637);
 }
 
 .add {
   position: relative;
-  top: 45%;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.remove {
+  position: relative;
+  cursor: pointer;
+  top: 30%;
+  left: 10%;
+}
 
+.edit {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  // top: 40%;
+  
   cursor: pointer;
 }
 
+
 .option {
   width: 30px;
-  height: 10px;
+  // height: 10px;
 }
 .option:hover {
   color: rgb(18, 98, 0);
   transition-duration: 400ms;
 }
 
-.edit {
-  position: absolute;
-  width: 15%;
-  height: 15%;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-}
 
 .edit:hover {
   transform: scale(1.3);
@@ -287,6 +302,7 @@ export default defineComponent({
   /* top: 50%; */
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .btn-container {
@@ -294,6 +310,7 @@ export default defineComponent({
 }
 
 .menu-grid-container {
+  position: relative;
   margin-top: 8vh;
   display: flex;
   justify-content: center;
@@ -308,6 +325,7 @@ export default defineComponent({
   border: 1px solid $main--color;
   border-radius: 15px;
   cursor: pointer;
+  position: relative;
 }
 
 .menu-item:hover {
@@ -332,7 +350,7 @@ export default defineComponent({
   color: black;
 }
 
-.menu-name {
+.item-name {
   overflow: hidden;
   margin-bottom: 20px;
   font-size: 15px;
@@ -360,5 +378,16 @@ export default defineComponent({
 
 .page-btn:hover {
   background-color: $main--color;
+}
+
+.delete-btn {
+  color: $main--color;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+}
+.delete-btn:hover { 
+  transform: scale(1.3);
+  transition-duration: 300ms;
 }
 </style>

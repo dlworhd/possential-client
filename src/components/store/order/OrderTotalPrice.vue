@@ -27,7 +27,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
+@import '../../../assets/variable.scss';
 .total-price {
   color: white;
   border-bottom: 1px solid white;
@@ -35,5 +35,7 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   height: 5vh;
+  background-color: $main--background-color;
+
 }
 </style>

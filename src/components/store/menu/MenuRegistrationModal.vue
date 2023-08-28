@@ -46,7 +46,7 @@ export default defineComponent({
           price: this.newMenu.price,
         };
         const response = await instance.post(`/api/menu`, newMenu);
-        this.$router.push("/pos");
+        this.$router.push("/");
         console.log(response);
         this.$emit("closeModal");
         this.$emit("fetchMenuList");
@@ -54,7 +54,7 @@ export default defineComponent({
         console.log("error");
       }
     },
-    ...mapMutations(["addToCart"]),
+    ...mapMutations(["addCartItem"]),
   },
   components: {
     ModalComponent,
