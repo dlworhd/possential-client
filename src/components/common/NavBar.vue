@@ -4,6 +4,9 @@
     <img class="logo" src="../../assets/logo.png" @click="handleLogo" />
     <div class="login-container">
       <ul class="nav-container">
+        <li class="item">
+          <RouterLink to="/pos" class="btn">POS</RouterLink>
+        </li>
         <li v-if="!isLogin" class="item">
           <RouterLink to="/sign-up" class="btn">Sign Up</RouterLink>
         </li>
@@ -32,6 +35,11 @@ export default defineComponent({
       navItems: [
         {
           id: 1,
+          name: "포스",
+          path: "/pos",
+        },
+        {
+          id: 2,
           name: "주문 내역",
           path: "/orders",
         },
@@ -39,6 +47,7 @@ export default defineComponent({
     };
   },
   computed: {
+    ...mapGetters(['getIsLogin']),
     ...mapState(['email', 'isLogin']),
   },
   components: {

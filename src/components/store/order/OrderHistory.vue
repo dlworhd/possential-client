@@ -1,56 +1,62 @@
 <template>
-  <div class="order-history">
-      <div class="order-history__order" v-for="order in orderList" :key="order.orderId" @click="openModal(order.orderId)">
-        <div class="order-history__status-container">
-          <div class="order-history__order-id">[Order - {{ order.orderId }}]</div>
-          <div class="order-history__order-type">
+  <div class="outer-container">
+    <div class="inner-container">
+      <div
+        class="order-block"
+        v-for="order in orderList"
+        :key="order.orderId"
+        @click="openModal(order.orderId)"
+      >
+        <div class="order-top-container">
+          <div class="order-id">[Order - {{ order.orderId }}]</div>
+          <div class="in-out">
             {{ order.orderType === "IN" ? "매장" : "포장" }}
           </div>
-          <div class="order-history__order-status">
+          <div class="order-status">
             {{ order.orderStatus }}
           </div>
-          <div class="order-history__payment-status">
+          <div class="payment-status">
             {{ order.paymentStatus }}
           </div>
         </div>
-        <div class="order-history__receipt-title-container">
-          <div class="order-history__menu-name">메뉴</div>
-          <div class="order-history__receipt-detail-container">
-            <div class="order-history__menu-price">금액</div>
-            <div class="order-history__menu-quantity">수량</div>
-            <div class="order-history__menu-total-amount">총액</div>
+        <div class="receipt-top-container">
+          <div class="menu-name">메뉴</div>
+          <div class="menu-detail-container">
+            <div class="price">금액</div>
+            <div class="quantity">수량</div>
+            <div class="menu-total-amount">총액</div>
           </div>
         </div>
         <li v-for="orderMenu in order.receipt" :key="orderMenu.menuName">
-          <div class="order-history__receipt-menu-container">
-            <div class="order-history__menu-name">{{ orderMenu.menuName }}</div>
-            <div class="order-history__receipt-detail-container">
-              <div class="order-history__menu-price">
+          <div class="menu-container">
+            <div class="menu-name">{{ orderMenu.menuName }}</div>
+            <div class="menu-detail-container">
+              <div class="price">
                 {{
                   `${orderMenu.price
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원`
                 }}
               </div>
-              <div class="order-history__menu-quantity">{{ orderMenu.quantity }}개</div>
-              <div class="order-history__menu-total-amount">
+              <div class="quantity">{{ orderMenu.quantity }}개</div>
+              <div class="menu-total-amount">
                 {{ orderMenu.menuTotalAmount }}원
               </div>
             </div>
           </div>
         </li>
-        <div class="order-history__receipt-total-container">
-          <div class="order-history__menu-name"></div>
-          <div class="order-history__receipt-detail-container">
-            <div class="order-history__menu-price"></div>
-            <div class="order-history__menu-quantity">
+        <div class="receipt-bottom-container">
+          <div class="menu-name"></div>
+          <div class="menu-detail-container">
+            <div class="price"></div>
+            <div class="quantity">
               {{
                 order.receipt.reduce((acc, cur) => {
                   return acc + cur.quantity;
                 }, 0)
               }}개
             </div>
-            <div class="order-history__menu-total-amount">
+            <div class="menu-total-amount">
               {{
                 `${order.totalAmount
                   .toString()
@@ -58,9 +64,14 @@
               }}
             </div>
           </div>
+        </div>
       </div>
     </div>
-    <OrderCancelModalComponent @paymentCancel="paymentCancel" @cancel="cancel" :visible="isModalVisible"/>
+    <OrderCancelModalComponent
+      @paymentCancel="paymentCancel"
+      @cancel="cancel"
+      :visible="isModalVisible"
+    />
   </div>
 </template>
 
@@ -146,9 +157,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '../../../assets/variable.scss';
-.order-history {
-  // display: flex;
-  // justify-content: center;
+.outer-container {
+  display: flex;
+  justify-content: center;
   margin: 15vh;
   padding: 10vh;
 
@@ -172,29 +183,29 @@ li {
   width: 200px;
 }
 
-.order-history__receipt-detail-container {
+.menu-detail-container {
   flex-grow: 6;
   flex-basis: 0;
   display: flex;
   text-align: end;
 }
 
-.order-history__menu-price {
+.price {
   flex-grow: 3;
   flex-basis: 0;
 }
 
-.order-history__menu-total-amount {
+.menu-total-amount {
   flex-grow: 3;
   flex-basis: 0;
 }
 
-.order-history__menu-quantity {
+.quantity {
   flex-grow: 3;
   flex-basis: 0;
 }
 
-.order-history__menu-name {
+.menu-name {
   flex-grow: 4;
   flex-basis: 0;
 }
@@ -206,13 +217,13 @@ li {
     justify-content: center;
 } */
 
-.order-history__receipt-menu-container {
+.menu-container {
   display: flex;
   justify-content: flex-end;
   align-items: center; /* 추가된 부분 */
 }
 
-.order-history__receipt-total-container {
+.receipt-bottom-container {
   display: flex;
   justify-content: flex-end;
   align-items: center; /* 추가된 부분 */
@@ -222,7 +233,7 @@ li {
   border-top: 1px solid white;
 }
 
-.order-history__receipt-title-container {
+.receipt-top-container {
   display: flex;
   justify-content: flex-end;
   align-items: center; /* 추가된 부분 */
@@ -232,44 +243,43 @@ li {
   border-bottom: 1px solid white;
 }
 
-.order-history__order {
+.order-block {
   width: 900px;
-  margin: 0 auto;
 
   /* margin-bottom: 100px; */
 }
 
-.order-history__order {
+.order-block {
   background-color: rgba(255, 255, 255, 0);
   color: rgb(255, 255, 255);
-  border: 1px solid white;
+  border: 1px solid $main--color;
   border-radius: 15px;
   cursor: pointer;
   padding: 30px;
   margin-top: 30px;
 }
 
-.order-history__status-container {
+.order-top-container {
   display: flex;
   /* justify-content: space-between; */
   margin-bottom: 20px;
 }
 
-.order-history__order-id {
+.order-id {
   flex-grow: 3;
   flex-basis: 0;
 }
-.order-history__order-status {
+.order-status {
   color: rgb(50, 50, 223);
 }
 
-.order-history__payment-status {
+.payment-status {
   color: rgb(255, 255, 255);
   text-align: end;
   margin-left: 1vw;
 }
 
-.order-history__order-type {
+.in-out {
   font-weight: 600;
   flex-grow: 3;
   flex-basis: 0;
