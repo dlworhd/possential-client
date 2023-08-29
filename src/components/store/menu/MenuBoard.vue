@@ -141,6 +141,8 @@ export default defineComponent({
       .catch((error) => {
           if (error.code) console.log(error);
       });
+      console.log('fetchMenuList종료');
+      
     },
     openEditModal() {
       this.isEditMode = true;
@@ -169,7 +171,7 @@ export default defineComponent({
     async deleteItem(menuId: number){
       try{
         await instance.delete(`/api/menu/${menuId}`).then(response => {
-          console.log('삭제 성공');
+          //Delete Item -> Fetch MenuList 순서의 보장을 위한 코드 작성
           this.fetchMenuList();
         }).catch(error => {
           console.log(error);
