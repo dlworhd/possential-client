@@ -1,27 +1,23 @@
 <template>
-  <div class="option-container">
-    <select class="option" v-model="orderType" @change="updateOption">
-      <option value="IN">매장</option>
-      <option value="OUT">포장</option>
-    </select>
-    <div>
-        {{ currentWeather }}
-    </div>
-    <div class="time">
+<div class="order-detail">
+  <select class="order-detail__select" v-model="orderType" @change="updateOption">
+    <option class="order-detail__option-in" name="option" value="IN">매장</option>
+    <option name="order-detail__option-out" value="OUT">포장</option>
+  </select>
+  <div class="time">
       {{ currentTime }}
-    </div>
   </div>
+</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions, mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default defineComponent({
   data() {
     return {
-      currentTime: new Date().toLocaleTimeString(),
-      currentWeather: "",
+      currentTime: new Date().toLocaleTimeString()
     };
   },
   mounted() {
@@ -47,8 +43,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+
 @import '../../../assets/variable.scss';
-.option-container{
+.order-detail{
   display: flex;
   border-bottom: 1px solid white;
   justify-content: space-between;
@@ -58,7 +55,9 @@ export default defineComponent({
   background-color: $main--background-color;
 
 }
-.option {
+.order-detail__select {
+  flex-grow: 7;
+  flex-basis: 0;
   height: 100%;
   width: 70%;
   text-align: center;
@@ -67,8 +66,9 @@ export default defineComponent({
 }
 
 .time {
-  right: 0;
+  flex-grow: 3;
+  flex-basis: 0;
   color: white;
-  padding: 0 15px;
+  text-align: center;
 }
 </style>

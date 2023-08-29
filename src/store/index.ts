@@ -4,15 +4,13 @@ import instance from '../plugin/CustomAxios';
 const BASE_URL = 'http://localhost:8080';
 
 interface State {
-  storeId: string;
   email: string;
+  isLogin: boolean;
   menuItems: Menu[];
   cartItems: Menu[];
   totalPrice: number
   orderType: string;
   paymentType: string;
-  isLogin: boolean;
-
 }
 
 export interface Menu {
@@ -32,7 +30,6 @@ export interface Menu {
 // commit을 사용할 때 뮤테이션 이름과, 추가 인자를 넣어주면 해당 뮤테이션이 실행이 되면서 상태가 변경이 되는 것. 즉, mutation은 상태를 변경하는 유일한 방법이라는 것의 방증
 export default createStore({
   state: {
-    storeId: '',
     email: '',
     menuItems: [] as State['menuItems'],
     cartItems: [] as State['cartItems'], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
@@ -50,14 +47,14 @@ export default createStore({
       state.paymentType = 'CASH',
       state.isLogin = false
     },
-    //User Mutaions
+    //User Mutations
     setEmail(state: State, email: string) {
       state.email = email;
     },
     setLogin(state: State, isLogin: boolean) {
       state.isLogin = isLogin;
     },
-    //Menu Mutaions
+    //Menu Mutations
     setMenuItems(state: State, menuList: Menu[]) {
       state.menuItems = menuList;
     },
@@ -65,11 +62,11 @@ export default createStore({
     setOrderType(state, option: string) {
       state.orderType = option;
     },
-    //Payment Mutaions
+    //Payment Mutations
     setPaymentType(state, option: string) {
       state.paymentType = option;
     },
-    // Cart Mutaions
+    // Cart Mutations
     setCartItems(state: State, menuList: Menu[]) {
       state.cartItems = menuList;
     },
@@ -87,6 +84,10 @@ export default createStore({
         state.totalPrice =
           state.totalPrice.valueOf() + menuItem.price;
       }
+    },
+    clearCartItems(state: State){
+      state.cartItems = []
+      state.totalPrice = 0;
     },
     increaseQuantity(state: State, menuId: number) {
       const menuItem = state.cartItems.find((item) => item.menuId === menuId);
@@ -122,7 +123,7 @@ export default createStore({
       commit('decreaseQuantity', menu.menuId);
     },
     //Order Actions
-    async sendOrder({ state }) {
+    async sendOrder({ commit, state }) {
       try {
         const cartItems: { [id: number]: number } = {};
         state.cartItems.forEach((menu) => {
@@ -138,10 +139,7 @@ export default createStore({
           const redirectUrl = response.data.next_redirect_pc_url;
           window.open(redirectUrl, '_blank');
         }
-
-        state.cartItems = [];
-        state.totalPrice = 0;
-        console.log(response.data);
+        commit('clearCartItems');
       } catch {
         console.log('error');
       }
@@ -149,8 +147,6 @@ export default createStore({
   },
 
   getters: {
-    // 상태 저장소의 데이터를 계산된 속성 형태로 제공하는 메서드이다.
-
     //Cart Getters
     getCartItems(state: State): Menu[] {
       return state.cartItems;
@@ -160,7 +156,7 @@ export default createStore({
       state.cartItems.forEach(x => sum += (x.price * x.quantity))
       return sum;
     },
-    //Menu 모듈로 분리
+    //Menu Getters
     getMenuItems(state: State): Menu[] {
       return state.menuItems;
     },

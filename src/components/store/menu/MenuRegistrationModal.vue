@@ -45,11 +45,17 @@ export default defineComponent({
           menuName: this.newMenu.menuName,
           price: this.newMenu.price,
         };
-        const response = await instance.post(`/api/menu`, newMenu);
-        this.$router.push("/");
-        console.log(response);
-        this.$emit("closeModal");
-        this.$emit("fetchMenuList");
+        const response = await instance.post(`/api/menu`, newMenu).then(response => {
+          if(response && response.status === 200){
+            this.$router.push("/");
+            console.log(response);
+            this.$emit("closeModal");
+            this.$emit("fetchMenuList");
+          } else {
+            alert('등록에 실패하였습니다');
+            
+          }
+        })
       } catch {
         console.log("error");
       }

@@ -3,22 +3,21 @@
     <div class="sign-up-form__container">
         <div class="sign-up-form__input-group">
             <div class="sign-up-form__label">이메일</div>
-            <input class="sign-up-form__input" v-model="user.email" type="email" placeholder="이메일"/>
+            <input class="sign-up-form__text-input" v-model="user.email" type="email" placeholder="이메일"/>
 
             <div class="sign-up-form__label">패스워드</div>
-            <input class="sign-up-form__input" v-model="user.password" type="password" placeholder="비밀번호"/>
+            <input class="sign-up-form__text-input" v-model="user.password" type="password" placeholder="비밀번호"/>
 
             <div class="sign-up-form__label">이름</div>
-            <input class="sign-up-form__input" v-model="user.name" type="text" placeholder="이름을 입력해주세요"/>
+            <input class="sign-up-form__text-input" v-model="user.name" type="text" placeholder="이름을 입력해주세요"/>
 
             <div class="sign-up-form__label">휴대폰 번호</div>
-            <input class="sign-up-form__input" v-model="user.phoneNumber" type="text" placeholder="010 - 0000 - 0000"/>
+            <input class="sign-up-form__text-input" v-model="user.phoneNumber" type="text" placeholder="010 - 0000 - 0000"/>
             
             <div class="sign-up-form__label">생년월일</div>
             <input class="sign-up-form__date-input" type="date" v-model="user.birth"/>
         </div>
-    </div>
-    <div class="sign-up-form__btn-container">
+
         <div class="sign-up-form__btn-group">
             <div class="sign-up-form__btn">
                 <button class="sign-up-form__submit-btn btn" type="submit">가입</button>
@@ -72,31 +71,29 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '../../assets/variable.scss';
 .sign-up-form  {
-    padding-top: 20vh;
-}
-
-.sign-up-form__container {
+    margin-top: 20vh;
     display: flex;
     justify-content: center;
 }
 
-.sign-up-form__input {
+.sign-up-form__container {
+    // display: flex;
+    justify-content: center;
+}
+
+.sign-up-form__text-input {
     width: 300px;
     height: 30px;
     margin-bottom: 10px;
 }
-
+.sign-up-form__input-group {
+    margin-bottom: 10px;
+}
 .sign-up-form__btn-container {
     display: flex;
     justify-content: center;
-    position: relative;
-    top: 10px;
+    margin-top: 10px;
 }
-
-.sign-up-form__submit-btn {
-    margin-bottom: 1px;
-}
-
 .btn {
     background-color: rgb(13, 201, 0);
     border: 1px solid black;

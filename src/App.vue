@@ -36,10 +36,8 @@ body {
   margin: 0;
 }
 
-
 #app {
   margin: 0;
-  height: 95vh;
 }
 
 .btn {
