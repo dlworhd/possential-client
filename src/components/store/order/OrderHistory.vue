@@ -1,6 +1,10 @@
 <template>
   <div class="order-history">
+<<<<<<< Updated upstream
       <div class="order-history__order" v-for="order in orderList" :key="order.orderId" @click="openModal(order.orderId)">
+=======
+      <div class="order-history__order" v-for="order in getOrderItems" :key="order.orderId" @click="openModal(order.orderId)">
+>>>>>>> Stashed changes
         <div class="order-history__status-container">
           <div class="order-history__order-id">[Order - {{ order.orderId }}]</div>
           <div class="order-history__order-type">
@@ -45,7 +49,7 @@
             <div class="order-history__menu-price"></div>
             <div class="order-history__menu-quantity">
               {{
-                order.receipt.reduce((acc, cur) => {
+                order.receipt.reduce((acc: any, cur: any) => {
                   return acc + cur.quantity;
                 }, 0)
               }}개
@@ -67,7 +71,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import instance from '@/plugin/CustomAxios';
-import { Store } from 'vuex';
+import { Store, mapGetters, mapMutations } from 'vuex';
 import OrderCancelModalComponent from '@/components/common/OrderCancelModalComponent.vue';
 
 declare module '@vue/runtime-core' {
@@ -76,7 +80,7 @@ declare module '@vue/runtime-core' {
   }
 }
 
-interface Order {
+export interface Order {
     orderId: number,
     receipt: Receipt[],
     totalAmount: number,
@@ -96,21 +100,29 @@ type Receipt = {
 export default defineComponent({
     data(){
         return {
-            orderList: [] as Order[],
             isModalVisible: false,
-            currentOrderId: 0
+            currentOrderId: 0,
+            maxSize: 10,
+            totalPages: 0,
+            currentPage: 0
         }
     },
-    created(){
-            instance.get('/api/orders?orderByType=LATEST').then(response => {
+    mounted(){
+            instance.get(`/api/orders?orderByType=LATEST&size=${this.maxSize}&page=${this.currentPage}`).then(response => {
                 try{
-                    this.orderList = response.data.content
+                    this.totalPages = response.data.totalPages;
+                    const orderItems = response.data.content;
+                    this.setOrderItems(orderItems);
                 }catch(error){
                     console.log(error);
                 }
             })
     },
+    computed: {
+      ...mapGetters(['getOrderItems'])
+    },
     methods: {
+        ...mapMutations(['setOrderItems']),
         openModal(orderId: number){
             this.currentOrderId = orderId;
             return this.isModalVisible = true;

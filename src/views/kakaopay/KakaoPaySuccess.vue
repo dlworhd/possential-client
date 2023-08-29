@@ -1,7 +1,7 @@
 <template>
     
     <div class="message">
-        <img class="kakaopay-logo" src="../assets/kakaopay.png">
+        <img class="kakaopay-logo" src="../../assets/kakaopay.png">
         <span>결제가 완료되었습니다.</span>
     </div>
     

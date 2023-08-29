@@ -24,7 +24,7 @@
 <script lang="ts">
 import instance from "@/plugin/CustomAxios";
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations, mapState } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 export default defineComponent({
   data() {
