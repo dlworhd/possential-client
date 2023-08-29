@@ -3,7 +3,7 @@
   <OrderOption />
   <OrderCart />
   <OrderTotalPrice />
-  <OrderButton />
+  <OrderButton/>
 </div>
 </template>
 
@@ -33,6 +33,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '../../../assets/variable.scss';
+
 
 .menu-name {
   position: relative;

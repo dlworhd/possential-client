@@ -52,6 +52,7 @@ methods: {
             this.$store.commit('setPaymentType', option);
             this.$store.dispatch('sendOrder');
             this.isModalVisible = false
+
         }
     }
 }
