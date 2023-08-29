@@ -1,5 +1,9 @@
 import { createStore } from 'vuex';
 import instance from '../plugin/CustomAxios';
+<<<<<<< Updated upstream
+=======
+import { Order } from '../components/store/order/OrderHistory.vue';
+>>>>>>> Stashed changes
 
 const BASE_URL = 'http://localhost:8080';
 
@@ -8,6 +12,7 @@ interface State {
   isLogin: boolean;
   menuItems: Menu[];
   cartItems: Menu[];
+  orderItems: Order[];
   totalPrice: number
   orderType: string;
   paymentType: string;
@@ -33,6 +38,7 @@ export default createStore({
     email: '',
     menuItems: [] as State['menuItems'],
     cartItems: [] as State['cartItems'], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
+    orderItems: [] as State['orderItems'], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
     totalPrice: 0,
     orderType: 'IN',
     paymentType: 'CASH',
@@ -43,6 +49,7 @@ export default createStore({
       state.email = '',
       state.menuItems = [] as State['menuItems'],
       state.cartItems = [] as State['cartItems'], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
+      state.orderItems = [] as State['orderItems'], //cartItems를 빈 배열([])로 초기화한다 후 as 키워드를 사용하여 해당 빈 배열을 State 인터페이스에서 정의한 cartItems 속성의 타입인 Menu[]로 타입 캐스팅
       state.orderType = 'IN',
       state.paymentType = 'CASH',
       state.isLogin = false
@@ -113,6 +120,12 @@ export default createStore({
         }
       }
     },
+<<<<<<< Updated upstream
+=======
+    setOrderItems(state: State, orderItems: Order[]){
+      state.orderItems = orderItems;
+    }
+>>>>>>> Stashed changes
   },
   actions: {
     //Cart Actions
@@ -160,5 +173,11 @@ export default createStore({
     getMenuItems(state: State): Menu[] {
       return state.menuItems;
     },
+<<<<<<< Updated upstream
+=======
+    getOrderItems(state: State){
+      return state.orderItems;
+    }
+>>>>>>> Stashed changes
   },
 });
