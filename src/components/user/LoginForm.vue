@@ -1,29 +1,23 @@
 <template>
-    <form @submit.prevent="login">
-        <div class="container">
-            <div>
-            <div>
-                <p>Email</p>
-                <input class="text-input" v-model="user.email" type="email" placeholder="이메일"/>
+    <form class="login-form" @submit.prevent="login">
+        <div class="login-form__container">
+            <div class="login-form__input-group">
+                        <div class="login-form__label">이메일</div>
+                        <input class="login-form__text-input" v-model="user.email" type="email" placeholder="이메일"/>
+
+                        <div class="login-form__label">패스워드</div>
+                        <input class="login-form__text-input" v-model="user.password" type="password" placeholder="비밀번호"/>
             </div>
-            <div>
-                <p>PW</p>
-                <input class="text-input" v-model="user.password" type="password" placeholder="비밀번호"/>
-            </div>
-            </div>
-        </div>
-        <div class="btn-container">
-            <div>
-                <div>
-                    <button type="submit" class="btn login">로그인</button>
-                </div>
-                <div>
-                    <button class="btn home" @click="handleHome">홈으로</button>
-                </div>
+            <div class="login-form__btn-group">
+                    <div class="login-form__btn">
+                        <button type="submit" class="login-form__submit-btn btn">로그인</button>
+                    </div>
+                    <div class="login-form__btn">
+                        <button class="login-form__home-btn btn" @click="handleHome">홈 화면</button>
+                    </div>
             </div>
         </div>
     </form>
-
 </template>
 
 <script lang="ts">
@@ -42,7 +36,7 @@ export default defineComponent({
         }
     },
     methods: {
-        ...mapMutations(['setEmail','setStoreId']),
+        ...mapMutations(['setEmail']),
     
         handleHome(){
             this.$router.push('/')
@@ -50,63 +44,50 @@ export default defineComponent({
         async login(){
             try{
                 await instance.post("/api/auth/login", this.user).then(response => {
-                    if(response.status === 200){
+                    if(response && response.status === 200){
                         const accessToken = response.data.value;
                         localStorage.setItem('accessToken', accessToken);
                         this.setLogin(true);
                         this.setEmail(this.user.email);
-                        this.$router.push('/pos');
+                        this.$router.push('/');
                     }
                 })
             }catch(error){
                 console.log(error);
             }
         },
-        ...mapMutations(['setStoreId', 'setLogin'])
+        ...mapMutations(['setLogin'])
     }
 })
 </script>
 
-<style>
-.container {
+<style lang="scss" scoped>
+@import '../../assets/variable.scss';
+
+
+.login-form {
     margin-top: 20vh;
     display: flex;
     justify-content: center;
 }
 
-.text-input {
-    margin: 0;
-    border: 0;
-    padding: 0 6px;
+.login-form__text-input {
     width: 300px;
     height: 30px;
-}
-
-button {
-    margin: 0;
-    border: 0;
-    padding: 0;
-}
-
-.login {
-    margin-top: 20px;
-    color: white;
-    background-color: rgb(13, 201, 0);
-    margin-bottom: 4px;
+    margin-bottom: 10px;
 }
 
 .btn {
+    background-color: rgb(13, 201, 0);
+    border: 1px solid black;
+    color: white;
     width: 300px;
-    height: 30px;
+    height: 30px;   
 }
 
-
-.btn-container {
-    display: flex;
-    justify-content: center;
-}
-
-p {
+.login-form__label {
     color: white;
 }
+
+
 </style>

@@ -1,20 +1,20 @@
 <template>
-        <StoreBoard class="view"/>
+        <HomeBoard class="view"/>
 </template>
 
 <script lang="ts">
-import StoreBoard from '@/components/store/common/StoreBoard.vue';
+import HomeBoard from '@/components/store/common/HomeBoard.vue';
 import { defineComponent } from 'vue';
 
 
 export default defineComponent({
     components:{
-        StoreBoard
+        HomeBoard
     }
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .view {
     margin-top: 5vh !important;
 }
