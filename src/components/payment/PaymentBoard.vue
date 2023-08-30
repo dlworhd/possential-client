@@ -1,10 +1,11 @@
 <template>
-    <div class="calendar">
-        <div @click="setCurrentMonth(i)" :class="{ 'payment_board__selected-month': i === currentMonth }" class="calendar__month btn" v-for="i in 12" :key="i">{{ i }}월</div>
-        <div @click="setOrderByType(type)" :class="{ 'payment_board__selected-order-by-type': type ===  currentOrderByType}" class="calendar__order-by-type btn" v-for="(type, index) in getOrderByTypes" :key="index" >
+    <div class="monthly">
+        <div @click="setCurrentMonth(i)" :class="{ 'payment_board__selected-month': i === month }" class="monthly__month btn" v-for="i in 12" :key="i">{{ i }}월</div>
+        <div @click="setOrderByType(type)" :class="{ 'payment_board__selected-order-by-type': type ===  currentOrderByType}" class="monthly__order-by-type btn" v-for="(type, index) in getOrderByTypes" :key="index" >
                 {{ type === 'LATEST' ? '최신순' : ' 오래된순'}}
         </div>
     </div>
+    
     <div class="payment-board">
         <div class="payment_board__title-container title">
             <div class="payment_board__item-index title">순번</div>
@@ -23,7 +24,10 @@
                 <div class="payment_board__item-payemnt-type">{{ payment.paymentType }}</div>
                 <div class="payment_board__item-order-title">{{ payment.orderTitle }}</div>
                 <div class="payment_board__item-total-amount">{{ payment.totalAmount }}</div>
-                <div class="payment_board__item-created-at">{{ payment.createdAt }}</div>
+                <div class="payment_board__item-created-at">
+                    {{ payment.createdAt.toString().split('T')[0] }} 
+                    {{ payment.createdAt.toString().split('T')[1] }}
+                </div>
             </div>
         </div>
     </div>
@@ -50,18 +54,17 @@ enum OrderByType {
 export default defineComponent({
         data(){
             return {
-                month: 1,
-                year: 2023,
+                month: new Date().getMonth() + 1,
+                year: new Date().getFullYear(),
                 totalPages: 0,
                 maxSize: 0,
-                currentOrderByType: OrderByType.LATEST, 
-                currentMonth: new Date().getMonth() + 1,
                 paymentItems: [] as Payment[],
-                orderByTypes: [OrderByType.LATEST, OrderByType.OLDEST]
+                currentOrderByType: OrderByType.LATEST, 
+                orderByTypes: [OrderByType.LATEST, OrderByType.OLDEST],
             }
         },
         mounted(){
-            this.fetchPaymentItems(this.currentMonth, this.year, this.maxSize, this.currentOrderByType);
+            this.fetchPaymentItems(this.month, this.year, this.maxSize, this.currentOrderByType);
         },
         computed: {
             getPaymentItems(): Payment[]{
@@ -82,13 +85,17 @@ export default defineComponent({
                 })
             },
             setCurrentMonth(month: number){
-                this.currentMonth = month;
-                this.fetchPaymentItems(this.currentMonth, this.year, this.maxSize, this.currentOrderByType)
+                this.month = month;
+                this.fetchPaymentItems(this.month, this.year, this.maxSize, this.currentOrderByType)
             },
             setOrderByType(orderByType: OrderByType){
                 this.currentOrderByType = orderByType;
-                this.fetchPaymentItems(this.currentMonth, this.year, this.maxSize, this.currentOrderByType)
+                this.fetchPaymentItems(this.month, this.year, this.maxSize, this.currentOrderByType)
             },
+            formattedDateString(date: Date): string{
+                return `${date.getFullYear}년 ${date.getMonth}월 ${date.getDay}일 ${date.getHours}시 ${date.getMinutes}분 ${date.getSeconds}초`
+            }
+           
         }
     
     
@@ -106,7 +113,7 @@ export default defineComponent({
     border-bottom: 1px solid white;
 }
 
-.calendar__order-by-type{
+.monthly__order-by-type{
     margin: 0 2px;
     color: white;
     position: relative;
@@ -116,13 +123,13 @@ export default defineComponent({
 .btn {
     cursor: pointer;
 }
-.calendar{
+.monthly{
     margin-top: 10vh;
     justify-content: center;
     display: flex;
 }
 
-.calendar__month{
+.monthly__month{
     margin: 0 10px;
     color: white;
 }
@@ -133,7 +140,7 @@ export default defineComponent({
 .payment_board__title-container {
     margin-top: 10vh;
     display: flex;
-    justify-content: start;   
+
     padding-bottom: 2px;
     margin-bottom: 4px;
     border-bottom: 1px solid white;
@@ -173,6 +180,7 @@ export default defineComponent({
     flex-grow: 1;
     flex-basis: 0;
 }
+
 .payment_board__item-created-at{
     flex-grow: 1;
     flex-basis: 0;
