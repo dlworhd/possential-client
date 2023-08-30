@@ -27,7 +27,13 @@
         </div>
         <li v-for="orderMenu in order.receipt" :key="orderMenu.menuName">
           <div class="order-history__receipt-menu-container">
-            <div class="order-history__menu-name">{{ orderMenu.menuName }}</div>
+            <div class="order-history__menu-name">
+              {{ 
+                orderMenu.menuName.toString().includes('deleted') ? 
+                orderMenu.menuName.toString().substring(orderMenu.menuName.toString().lastIndexOf('deleted')) : 
+                orderMenu.menuName
+              }}
+            </div>
             <div class="order-history__receipt-detail-container">
               <div class="order-history__menu-price">
                 {{
@@ -70,11 +76,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import instance from '@/plugin/CustomAxios';
 import { Store, mapGetters, mapMutations } from 'vuex';
-import OrderCancelModalComponent from '@/components/common/OrderCancelModalComponent.vue';
 import { OrderByType } from '../common/HomeBoard.vue';
-import { PaymentStatus } from '../../payment/PaymentBoard.vue';
+import { PaymentStatus } from '../payment/PaymentBoard.vue';
+import OrderCancelModalComponent from './OrderCancelModalComponent.vue';
+import instance from '@/plugin/CustomAxios';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -145,12 +151,12 @@ export default defineComponent({
         closeModal(){
             return this.isModalVisible = false;
         },
-        async paymentCancel(order: Order){
+        async paymentCancel(){
             try{
                 await instance.put(`/api/orders/${this.currentOrderId}`)
                 .then(response => {
                     if(response.status === 200){
-                        alert('취소 성공');                    
+                        alert('취소 성공');
                     }
                 }).catch(() => {
                     alert('취소 실패');
@@ -202,17 +208,11 @@ export default defineComponent({
 @import '../../../assets/variable.scss';
 
 .order-history {
-  // display: flex;
-  // justify-content: center;
   height: 100vh;
   margin: 0;
   padding: 10vh;
   color: white;
   overflow-y: scroll !important;
-}
-
-li {
-  list-style: none;
 }
 
 .order-history__receipt-detail-container {
@@ -243,27 +243,23 @@ li {
   flex-basis: 0;
 }
 
-/* .outer-container {
-    color: white;
-    width: 1400px;
-    display: flex;
-    justify-content: center;
-} */
-
 .order-history__receipt-total-container {
   display: flex;
   justify-content: flex-end;
-  align-items: center; /* 추가된 부분 */
+  align-items: center;
   margin-top: 10px;
   align-content: cent;
   padding-top: 10px;
   border-top: 1px solid white;
 }
+.order-history__receipt-menu-container{
+  display: flex;
+}
 
 .order-history__receipt-title-container {
   display: flex;
-  justify-content: flex-end;
-  align-items: center; /* 추가된 부분 */
+  justify-content: end;
+  align-items: center;
   margin-bottom: 10px;
   align-content: cent;
   padding-top: 10px;
@@ -273,8 +269,7 @@ li {
 .order-history__order {
   width: 900px;
   margin: 0 auto;
-
-  /* margin-bottom: 100px; */
+  list-style: none;
 }
 
 .order-history__order {

@@ -38,6 +38,7 @@ body {
 
 *::-webkit-scrollbar {
   display: none;
+  
 }
 
 .btn {
@@ -45,8 +46,11 @@ body {
 }
 
 html {
-  box-sizing: border-box;
   overflow-y: scroll;
+}
+
+*{
+  box-sizing: border-box;
 }
 
 .view {

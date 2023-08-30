@@ -45,6 +45,7 @@ export default createStore({
       state.orderType = 'IN',
       state.paymentType = 'CASH',
       state.isLogin = false
+      state.totalPrice = 0;
     },
     //User Mutations
     setEmail(state: State, email: string) {

@@ -18,9 +18,7 @@
               <input class="menu-board__item-price-input" type="text" v-model="editedMenu.price" placeholder="메뉴 가격"/>
           </div>
         </div>
-        <!-- display: none -> hover할 때 display: block -->
       </button>
-      
       <button @click="openModal" v-for="i in 15 - menuItems.length" :key="'add-button-' + i" class="menu-board__item">
         +
       </button>
@@ -111,25 +109,21 @@ export default defineComponent({
       try {
         await instance.put(`/api/menu/${menu.menuId}`, requestMenu).then(response => {
           if (response && response.status === 200) {
-          this.fetchMenuList(); //menu리스트 초기화
-          this.editedMenu = {
-            menuName: '',
-            price: 0,
-          };
-          alert('수정 완료');
+            this.fetchMenuList();
+            this.editedMenu = {
+              menuName: '',
+              price: 0,
+            };
+            alert('수정 완료');
         }
       })
      } catch (error) {
-        console.log('error발생');
-        
         if (
           axios.isAxiosError(error) &&
           error.response &&
           error.response.status === 400 &&
           error.response.data.message === 'DUPLICATED_MENU'
         ) {
-          alert('중복된 메뉴 이름입니다.');
-        } else {
           alert('중복된 메뉴 이름입니다.');
         }
         this.editedMenu = {

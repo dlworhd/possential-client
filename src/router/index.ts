@@ -6,8 +6,8 @@ import OrderHistoriesView from "@/views/OrderHistoriesView.vue";
 import KakaoPaySuccess from "@/views/kakaopay/KakaoPaySuccess.vue";
 import KakaoPayFail from "@/views/kakaopay/KakaoPayFail.vue";
 import store from "@/store";
-import NotFound from "@/components/common/NotFound.vue";
 import PaymentView from "@/views/PaymentView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -49,7 +49,7 @@ const router = createRouter({
     },
     {
       path: "/:catchAll(.*)",
-      component: NotFound,
+      component: NotFoundView,
     },
   ],
 });

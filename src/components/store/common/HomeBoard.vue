@@ -38,7 +38,6 @@ components: {
 .home-board-container {
     display: flex;
     height: auto;
-    // margin-bottom: 10vh;
 }
 
 </style>
