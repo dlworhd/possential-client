@@ -1,10 +1,7 @@
 <template>
   <div class="order-history">
-<<<<<<< Updated upstream
-      <div class="order-history__order" v-for="order in orderList" :key="order.orderId" @click="openModal(order.orderId)">
-=======
       <div class="order-history__order" v-for="order in getOrderItems" :key="order.orderId" @click="openModal(order.orderId)">
->>>>>>> Stashed changes
+
         <div class="order-history__status-container">
           <div class="order-history__order-id">[Order - {{ order.orderId }}]</div>
           <div class="order-history__order-type">

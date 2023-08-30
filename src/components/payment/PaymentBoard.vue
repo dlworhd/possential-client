@@ -1,6 +1,9 @@
 <template>
     <div class="calendar">
-        <div @click="setCurrentPage(i)" :class="{ 'selected': i === currentPage }" class="calendar__month btn" v-for="i in 12" :key="i">{{ i }}월</div>
+        <div @click="setCurrentMonth(i)" :class="{ 'payment_board__selected-month': i === currentMonth }" class="calendar__month btn" v-for="i in 12" :key="i">{{ i }}월</div>
+        <div @click="setOrderByType(type)" :class="{ 'payment_board__selected-order-by-type': type ===  currentOrderByType}" class="calendar__order-by-type btn" v-for="(type, index) in getOrderByTypes" :key="index" >
+                {{ type === 'LATEST' ? '최신순' : ' 오래된순'}}
+        </div>
     </div>
     <div class="payment-board">
         <div class="payment_board__title-container title">
@@ -36,6 +39,12 @@ interface Payment {
     paymentStatus: string,
     paymentType: string,
     createdAt: Date,
+    orderByType: OrderByType
+}
+
+enum OrderByType {
+    LATEST = 'LATEST',
+    OLDEST = 'OLDEST'
 }
 
 export default defineComponent({
@@ -43,23 +52,27 @@ export default defineComponent({
             return {
                 month: 1,
                 year: 2023,
-                orderByType: 'LATEST',
                 totalPages: 0,
                 maxSize: 0,
+                currentOrderByType: OrderByType.LATEST, 
+                currentMonth: new Date().getMonth() + 1,
                 paymentItems: [] as Payment[],
-                currentPage: 1
+                orderByTypes: [OrderByType.LATEST, OrderByType.OLDEST]
             }
         },
         mounted(){
-            this.fetchPaymentItems(this.currentPage, this.year, this.maxSize, this.orderByType);
+            this.fetchPaymentItems(this.currentMonth, this.year, this.maxSize, this.currentOrderByType);
         },
         computed: {
             getPaymentItems(): Payment[]{
                 return this.paymentItems
             },
+            getOrderByTypes(): OrderByType[]{
+                return this.orderByTypes;
+            },
         },
         methods: {
-            async fetchPaymentItems(month: number, year: number, maxSize: number, orderByType: string){
+            async fetchPaymentItems(month: number, year: number, maxSize: number, orderByType: OrderByType){
                 await instance.get(`/api/payments?month=${month}&year=${year}&size=${maxSize}&orderByType=${orderByType}`).then(response => {
                     if(response){
                         this.totalPages = response.data.totalPages;
@@ -68,11 +81,14 @@ export default defineComponent({
                     
                 })
             },
-            setCurrentPage(month: number){
-                this.currentPage = month;
-                this.fetchPaymentItems(this.currentPage, this.year, this.maxSize, this.orderByType)
-            }
-            
+            setCurrentMonth(month: number){
+                this.currentMonth = month;
+                this.fetchPaymentItems(this.currentMonth, this.year, this.maxSize, this.currentOrderByType)
+            },
+            setOrderByType(orderByType: OrderByType){
+                this.currentOrderByType = orderByType;
+                this.fetchPaymentItems(this.currentMonth, this.year, this.maxSize, this.currentOrderByType)
+            },
         }
     
     
@@ -82,9 +98,19 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-.selected{
+.payment_board__selected-month{
     border-bottom: 1px solid white;
+}
 
+.payment_board__selected-order-by-type{
+    border-bottom: 1px solid white;
+}
+
+.calendar__order-by-type{
+    margin: 0 2px;
+    color: white;
+    position: relative;
+    right: -40px;
 }
 
 .btn {

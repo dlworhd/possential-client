@@ -1,10 +1,6 @@
 import { createStore } from 'vuex';
 import instance from '../plugin/CustomAxios';
-<<<<<<< Updated upstream
-=======
 import { Order } from '../components/store/order/OrderHistory.vue';
->>>>>>> Stashed changes
-
 const BASE_URL = 'http://localhost:8080';
 
 interface State {
@@ -120,12 +116,9 @@ export default createStore({
         }
       }
     },
-<<<<<<< Updated upstream
-=======
     setOrderItems(state: State, orderItems: Order[]){
       state.orderItems = orderItems;
     }
->>>>>>> Stashed changes
   },
   actions: {
     //Cart Actions
@@ -173,11 +166,8 @@ export default createStore({
     getMenuItems(state: State): Menu[] {
       return state.menuItems;
     },
-<<<<<<< Updated upstream
-=======
     getOrderItems(state: State){
       return state.orderItems;
     }
->>>>>>> Stashed changes
   },
 });
