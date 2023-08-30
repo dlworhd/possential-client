@@ -1,4 +1,3 @@
-
 <template>
     <div v-if="isLogin" @click="openModal" class="order-btn">주문/결제</div>
     <div v-if="isModalVisible" class="order-modal">
@@ -19,9 +18,9 @@
 </template>
 
 <script lang="ts">
+import store from '@/store';
 import { defineComponent } from 'vue';
 import { mapState } from 'vuex';
-
 
 export default defineComponent({
 data() {
@@ -46,11 +45,11 @@ methods: {
         this.isModalVisible = false
     },
     execute(option: string){
-        if(option === 'KAKAOPAY' && this.$store.state.totalPrice <= 0){
+        if(option === 'KAKAOPAY' && store.state.totalPrice <= 0){
             alert('결제 금액은 최소 1원 이상이어야 합니다.')
         } else {
-            this.$store.commit('setPaymentType', option);
-            this.$store.dispatch('sendOrder');
+            store.commit('setPaymentType', option);
+            store.dispatch('sendOrder');
             this.isModalVisible = false
 
         }

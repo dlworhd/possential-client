@@ -1,16 +1,9 @@
-import { Store } from "vuex";
 import axios, {
   AxiosError,
   AxiosInstance,
   InternalAxiosRequestConfig,
 } from "axios";
 import store from "@/store";
-
-declare module "@vue/runtime-core" {
-  interface ComponentCustomProperties {
-    $store: Store<any>;
-  }
-}
 
 /**
  *
