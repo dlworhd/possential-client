@@ -35,6 +35,7 @@
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
+
 export default defineComponent({
     data(){
         return {
@@ -53,7 +54,7 @@ export default defineComponent({
         async register(){
             console.log(this.user.gender)
             try {
-                await axios.post('http://localhost:8080/api/users', this.user)
+                await axios.post(`http://${process.env.VUE_APP_API_SERVER_HOST}:${process.env.VUE_APP_API_SERVER_PORT}/api/users`, this.user)
                 .then(() => {
                     alert("회원가입을 축하합니다.")
                     this.$router.push('/')

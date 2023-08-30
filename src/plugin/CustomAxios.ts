@@ -21,8 +21,9 @@ declare module "@vue/runtime-core" {
  * Authorization: 접두사 'Bearer '를 붙인 후 JWT Access Token을 HTTP Request Header에 담아서 전송
  *
  */
+
 const instance: AxiosInstance = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: `http://${process.env.VUE_APP_API_SERVER_HOST}:${process.env.VUE_APP_API_SERVER_PORT}`,
   withCredentials: true,
 });
 
