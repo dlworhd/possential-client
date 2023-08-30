@@ -76,17 +76,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Store, mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { OrderByType } from '../common/HomeBoard.vue';
 import { PaymentStatus } from '../payment/PaymentBoard.vue';
 import OrderCancelModalComponent from './OrderCancelModalComponent.vue';
 import instance from '@/plugin/CustomAxios';
 
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $store: Store<any>;
-  }
-}
 export enum OrderType {
   IN = 'IN',
   OUT = 'OUT',

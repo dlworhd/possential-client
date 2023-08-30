@@ -40,6 +40,9 @@ import instance from "@/plugin/CustomAxios";
 import MenuRegistrationModal from "./MenuRegistrationModal.vue";
 import axios from "axios";
 import MenuBoardPage from "./MenuBoardPage.vue";
+import store from "@/store";
+
+
 
 export interface Menu {
   menuId: number;
@@ -134,7 +137,7 @@ export default defineComponent({
     },
     async fetchMenuList() {
       await instance.get(`/api/menu?size=${this.maxSize}&page=${this.currentPage}`).then((response) => {
-        this.$store.commit('setMenuItems', response.data.content);
+        store.commit('setMenuItems', response.data.content);
         this.currentPage = response.data.pageable.pageNumber;
         this.totalPages = response.data.totalPages;
       })
@@ -170,7 +173,7 @@ export default defineComponent({
     },
     async deleteItem(menuId: number){
       try{
-        await instance.delete(`/api/menu/${menuId}`).then(response => {
+        await instance.delete(`/api/menu/${menuId}`).then(() => {
           //Delete Item -> Fetch MenuList 순서의 보장을 위한 코드 작성
           this.fetchMenuList();
         }).catch(error => {
