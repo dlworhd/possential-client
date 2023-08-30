@@ -51,8 +51,6 @@ export default defineComponent({
 @import '../../../assets/variable.scss';
 
 .order-container {
-  overflow-y: scroll;
-  overflow-x: hidden;
   height: 75vh;
   border-bottom: 1px solid white;
   background-color: $main--background-color;

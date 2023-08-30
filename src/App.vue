@@ -36,20 +36,21 @@ body {
   margin: 0;
 }
 
-#app {
-  margin: 0;
+*::-webkit-scrollbar {
+  display: none;
 }
 
 .btn {
   cursor: pointer;
 }
 
-* {
+html {
   box-sizing: border-box;
+  overflow-y: scroll;
 }
 
 .view {
-  margin-top: 20vh;
+  margin-top: 5vh;
 }
 
 </style>

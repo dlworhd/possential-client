@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import instance from '../plugin/CustomAxios';
 import { Order } from '../components/store/order/OrderHistory.vue';
+import { Menu } from '../components/store/menu/MenuBoard.vue';
 const BASE_URL = 'http://localhost:8080';
 
 interface State {
@@ -14,12 +15,7 @@ interface State {
   paymentType: string;
 }
 
-export interface Menu {
-  menuId: number;
-  menuName: string;
-  price: number;
-  quantity: number;
-}
+
 
 /**
  * 1. Menu Item 클릭

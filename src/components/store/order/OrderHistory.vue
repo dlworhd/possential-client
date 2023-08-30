@@ -1,7 +1,10 @@
 <template>
-  <div class="order-history">
-      <div class="order-history__order" v-for="order in getOrderItems" :key="order.orderId" @click="openModal(order.orderId)">
-
+    <div class="order-history" @scroll="loadMore" ref="scrollContainer">
+      <div class="order-history__order" v-for="order in getOrderItems" :key="order.orderId" @click="openModal(order.orderId)">        
+        <div class="order-history__date-info">
+          <div class="order-history__date">{{order.orderDate.toString().split('T')[0]}}</div>
+          <div class="order-history__time">{{order.orderDate.toString().split('T')[1]}}</div>
+        </div>
         <div class="order-history__status-container">
           <div class="order-history__order-id">[Order - {{ order.orderId }}]</div>
           <div class="order-history__order-type">
@@ -35,7 +38,7 @@
               </div>
               <div class="order-history__menu-quantity">{{ orderMenu.quantity }}개</div>
               <div class="order-history__menu-total-amount">
-                {{ orderMenu.menuTotalAmount }}원
+                {{ orderMenu.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
               </div>
             </div>
           </div>
@@ -62,7 +65,7 @@
       </div>
     </div>
     <OrderCancelModalComponent @paymentCancel="paymentCancel" @cancel="cancel" :visible="isModalVisible"/>
-  </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -70,20 +73,33 @@ import { defineComponent } from 'vue';
 import instance from '@/plugin/CustomAxios';
 import { Store, mapGetters, mapMutations } from 'vuex';
 import OrderCancelModalComponent from '@/components/common/OrderCancelModalComponent.vue';
+import { OrderByType } from '../common/HomeBoard.vue';
+import { PaymentStatus } from '../../payment/PaymentBoard.vue';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $store: Store<any>;
   }
 }
+export enum OrderType {
+  IN = 'IN',
+  OUT = 'OUT',
+}
+
+export enum OrderStatus {
+    ORDER_NOT_PAID = 'ORDER_NOT_PAID',
+    ORDER_SUCCESS = 'ORDER_SUCCESS',
+    ORDER_READY = 'ORDER_READY',
+    ORDER_CANCELLATION = 'ORDER_CANCELLATION'
+}
 
 export interface Order {
     orderId: number,
     receipt: Receipt[],
     totalAmount: number,
-    orderType: string,
-    orderStatus: string,
-    paymentStatus: string,
+    orderType: OrderType,
+    orderStatus: OrderStatus,
+    paymentStatus: PaymentStatus,
     orderDate: Date
 }
 
@@ -101,11 +117,13 @@ export default defineComponent({
             currentOrderId: 0,
             maxSize: 10,
             totalPages: 0,
-            currentPage: 0
+            currentPage: 0,
+            orderByType: OrderByType.LATEST,
+            isLoading: false
         }
     },
     mounted(){
-            instance.get(`/api/orders?orderByType=LATEST&size=${this.maxSize}&page=${this.currentPage}`).then(response => {
+            instance.get(`/api/orders?orderByType=${this.orderByType}&size=${this.maxSize}&page=${this.currentPage}`).then(response => {
                 try{
                     this.totalPages = response.data.totalPages;
                     const orderItems = response.data.content;
@@ -145,40 +163,56 @@ export default defineComponent({
         },
         cancel(){
             this.isModalVisible = false;
+        },
+        async loadMore() {
+          console.log('loadmore실행');
+          
+          const scrollContainer = this.$refs.scrollContainer as HTMLDivElement;
+          if (
+            scrollContainer.scrollHeight - scrollContainer.scrollTop <=
+              scrollContainer.clientHeight + 50 &&
+            !this.isLoading &&
+            this.currentPage < this.totalPages
+          ) {
+          this.isLoading = true;
+
+          try {
+            const nextPage = this.currentPage + 1;
+            const response = await instance.get(
+              `/api/orders?orderByType=${this.orderByType}&size=${this.maxSize}&page=${nextPage}`
+            );
+            const orderItems = response.data.content;
+            this.setOrderItems([...this.getOrderItems, ...orderItems]);
+            this.currentPage = nextPage;
+          } catch (error) {
+            console.log(error);
+          }
+
+          this.isLoading = false;
         }
+      },
     },
     components: {
-        OrderCancelModalComponent
+        OrderCancelModalComponent,
     }
 })
 </script>
 
 <style lang="scss" scoped>
 @import '../../../assets/variable.scss';
+
 .order-history {
   // display: flex;
   // justify-content: center;
-  margin: 15vh;
+  height: 100vh;
+  margin: 0;
   padding: 10vh;
-
-  border: 1px solid white;
   color: white;
-  /* overflow-y: scroll; */
+  overflow-y: scroll !important;
 }
 
 li {
   list-style: none;
-}
-
-.menu {
-  font-weight: 600;
-  font-size: 60px;
-}
-
-.list-container {
-  display: flex;
-  /* justify-content: space-between; */
-  width: 200px;
 }
 
 .order-history__receipt-detail-container {
@@ -186,6 +220,7 @@ li {
   flex-basis: 0;
   display: flex;
   text-align: end;
+
 }
 
 .order-history__menu-price {
@@ -214,12 +249,6 @@ li {
     display: flex;
     justify-content: center;
 } */
-
-.order-history__receipt-menu-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center; /* 추가된 부분 */
-}
 
 .order-history__receipt-total-container {
   display: flex;
@@ -268,20 +297,33 @@ li {
   flex-grow: 3;
   flex-basis: 0;
 }
-.order-history__order-status {
-  color: rgb(50, 50, 223);
-}
-
-.order-history__payment-status {
-  color: rgb(255, 255, 255);
-  text-align: end;
-  margin-left: 1vw;
-}
 
 .order-history__order-type {
   font-weight: 600;
   flex-grow: 3;
   flex-basis: 0;
   text-align: center;
+}
+.order-history__order-status {
+  color: rgb(50, 50, 223);
+}
+.order-history__payment-status {
+  color: rgb(255, 255, 255);
+  text-align: end;
+  margin-left: 1vw;
+}
+
+.selectedPage{
+  border-bottom: 1px solid white;
+  font-weight: 600;
+}
+
+.order-history__date-info{
+  display: flex;
+  justify-content: end;
+}
+
+.order-history__time{
+  margin-left: 5px;
 }
 </style>

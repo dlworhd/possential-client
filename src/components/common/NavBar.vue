@@ -1,22 +1,21 @@
 <template>
-
-  <div class="outer-container">
-    <img class="logo" src="../../assets/logo.png" @click="handleLogo" />
-    <div class="login-container">
-      <ul class="nav-container">
-        <li v-if="!isLogin" class="item">
+  <div class="nav-bar__outer-container">
+    <img class="nav-bar__logo" src="../../assets/logo.png" @click="handleLogo" />
+    <div class="nav-bar__inner-container">
+      <ul class="nav-bar__item-group">
+        <li v-if="!isLogin" class="nav-bar__item">
           <RouterLink to="/sign-up" class="btn">회원가입</RouterLink>
         </li>
-        <li v-if="!isLogin" class="item">
+        <li v-if="!isLogin" class="nav-bar__item">
           <RouterLink to="/login" class="btn">로그인</RouterLink>
         </li>
-        <li v-if="isLogin" class="item">
+        <li v-if="isLogin" class="nav-bar__item">
           <RouterLink to="/orders" class="btn">주문 내역</RouterLink>
         </li>
-        <li v-if="isLogin" class="item">
+        <li v-if="isLogin" class="nav-bar__item">
           <RouterLink to="/payments" class="btn">결제 내역</RouterLink>
         </li>
-        <li v-if="isLogin" class="item">
+        <li v-if="isLogin" class="nav-bar__item">
           <span @click="logout" class="btn">로그아웃</span>
         </li>
       </ul>
@@ -83,82 +82,61 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "../../assets/variable.scss";
 
-a {
-  color: white;
-  text-decoration: none;
-}
-
-.outer-container {
-  height: 5vh;
+.nav-bar__outer-container {
   position: fixed;
   top: 0;
+  // left: 50%;
   width: 100vw;
+  // width: 100vw;
+  align-items: center;
+  // padding: 10px 0;
+  height: 5vh;
   display: flex;
   justify-content: center;
-  align-items: center;
   border-bottom: 1px solid rgba(142, 117, 117, 0.652);
   background-color: rgba(1, 0, 86, 0.847);
 }
 
-.navItem {
-  color: white;
-  list-style: none;
-  margin-right: 20px;
+.nav-bar__inner-container {
+  position: absolute;
+  right: 1vw;
 }
 
-.navItem:hover {
-  transform: scale(1.1);
-}
 
-.nav-container {
-  flex-grow: 9.2;
-  flex-basis: 0;
+.nav-bar__item-group {
   display: flex;
   justify-content: center;
+  margin: 0;
+  // padding: 10px 0;
 }
 
-.login-container {
-  flex-grow: 0.8;
-  flex-basis: 0;
-}
 
-.logo {
-  height: 3vh;
+.nav-bar__logo {
+  height: 50%;
+  max-height:5vh; 
   cursor: pointer;
 }
 
-.logo:hover {
+.nav-bar__logo:hover {
   transform: scale(1.1);
   transition-duration: 300ms;
 }
 
-// 
-
-.nav-container {
-    display: flex;
-}
-
-.login-container {
-    position: absolute;
-    right: 5vw;
-}
-
 .btn {
-    color: white;
-    background: none;
-    text-decoration: none;
+  color: white;
+  background: none;
+  text-decoration: none;
 }
 
-li {
-    list-style: none;
+.nav-bar__item{
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+  list-style: none;
 }
 
-.item{
-    margin-right: 20px;
-}
-
-.item:hover {
-    transform: scale(1.1);
+.nav-bar__item:hover {
+  transform: scale(1.1);
   transition-duration: 300ms;
 }
 </style>

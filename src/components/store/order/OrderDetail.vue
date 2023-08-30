@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Menu } from '../../../store/index';
+import { Menu } from '../menu/MenuBoard.vue';
 
 
 export default defineComponent({

@@ -51,7 +51,6 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
   height: 5vh;
-  overflow-y: hidden;
   background-color: $main--background-color;
 
 }

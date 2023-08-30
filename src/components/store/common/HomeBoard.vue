@@ -18,6 +18,11 @@ declare module '@vue/runtime-core' {
   }
 }
 
+export enum OrderByType {
+    LATEST = 'LATEST',
+    OLDEST = 'OLDEST'
+}
+
 export default defineComponent({
 
 components: {
@@ -32,7 +37,7 @@ components: {
 @import '../../../assets/variable';
 .home-board-container {
     display: flex;
-    height: 95vh;
+    height: auto;
     // margin-bottom: 10vh;
 }
 
