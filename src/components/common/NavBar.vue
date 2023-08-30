@@ -5,16 +5,19 @@
     <div class="login-container">
       <ul class="nav-container">
         <li v-if="!isLogin" class="item">
-          <RouterLink to="/sign-up" class="btn">Sign Up</RouterLink>
+          <RouterLink to="/sign-up" class="btn">회원가입</RouterLink>
         </li>
         <li v-if="!isLogin" class="item">
-          <RouterLink to="/login" class="btn">Login</RouterLink>
+          <RouterLink to="/login" class="btn">로그인</RouterLink>
         </li>
         <li v-if="isLogin" class="item">
-          <RouterLink to="/orders" class="btn">History</RouterLink>
+          <RouterLink to="/orders" class="btn">주문 내역</RouterLink>
         </li>
         <li v-if="isLogin" class="item">
-          <span @click="logout" class="btn">Logout</span>
+          <RouterLink to="/payments" class="btn">결제 내역</RouterLink>
+        </li>
+        <li v-if="isLogin" class="item">
+          <span @click="logout" class="btn">로그아웃</span>
         </li>
       </ul>
     </div>
@@ -34,6 +37,11 @@ export default defineComponent({
           id: 1,
           name: "주문 내역",
           path: "/orders",
+        },
+        {
+          id: 2,
+          name: "결제 내역",
+          path: "/payments",
         },
       ],
     };

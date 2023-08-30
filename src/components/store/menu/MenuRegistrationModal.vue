@@ -45,11 +45,7 @@ export default defineComponent({
           menuName: this.newMenu.menuName,
           price: this.newMenu.price,
         };
-<<<<<<< Updated upstream
-        const response = await instance.post(`/api/menu`, newMenu).then(response => {
-=======
         await instance.post(`/api/menu`, newMenu).then(response => {
->>>>>>> Stashed changes
           if(response && response.status === 200){
             this.$router.push("/");
             console.log(response);
