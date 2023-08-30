@@ -15,8 +15,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.view {
-    margin-top: 5vh !important;
-}
-
 </style>

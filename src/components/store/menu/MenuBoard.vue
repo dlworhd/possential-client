@@ -40,9 +40,15 @@ import { defineComponent } from "vue";
 import { mapState, mapMutations, mapGetters } from "vuex";
 import instance from "@/plugin/CustomAxios";
 import MenuRegistrationModal from "./MenuRegistrationModal.vue";
-import { Menu } from "../../../store/index";
 import axios from "axios";
 import MenuBoardPage from "./MenuBoardPage.vue";
+
+export interface Menu {
+  menuId: number;
+  menuName: string;
+  price: number;
+  quantity: number;
+}
 
 export default defineComponent({
   data() {
@@ -273,7 +279,7 @@ export default defineComponent({
 }
 
 .menu-board__item-name {
-  overflow: hidden;
+
   margin-bottom: 20px;
   font-size: 15px;
   word-wrap: normal;

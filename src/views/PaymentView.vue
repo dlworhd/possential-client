@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 <template>
-    <PaymentBoard class="view"/>
+    <PaymentBoard/>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -12,6 +12,5 @@ export default defineComponent({
         PaymentBoard
     }
 })
-
 
 </script>

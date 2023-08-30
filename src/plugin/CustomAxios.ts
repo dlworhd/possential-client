@@ -68,17 +68,17 @@ instance.interceptors.response.use(
           //
           localStorage.removeItem("accessToken");
           const reissueResponse = await instance.post("/api/auth/reissue");
-          const newAccessToken = reissueResponse.data.value;
-
-          // 새로 발급받은 액세스 토큰을 로컬 스토리지에 저장
-          localStorage.setItem("accessToken", newAccessToken);
-
-          // 원래 요청을 수정하고 새 액세스 토큰을 사용하여 다시 요청 보냄
-          if (error.config) {
-            error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
-            return instance.request(error.config);
+          if(reissueResponse){
+            const newAccessToken = reissueResponse.data.value;
+            // 새로 발급받은 액세스 토큰을 로컬 스토리지에 저장
+            localStorage.setItem("accessToken", newAccessToken);
+            if (error.config) {
+              error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
+              return instance.request(error.config);
+            }
+            store.commit("setLogin", true);
           }
-          store.commit("setLogin", true);
+          // 원래 요청을 수정하고 새 액세스 토큰을 사용하여 다시 요청 보냄
         } catch (reissueError) {
           console.log("Failed Reissue:", reissueError);
           store.commit("setLogin", false);
