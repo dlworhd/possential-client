@@ -2,12 +2,10 @@
     <div class="modal-overlay">
         <div class="modal">
         <slot></slot>
-        <!-- <div class="btn-container"> -->
           <div>
             <div><button class="btn left-btn" @click="execute">등록</button></div>
             <div><button class="btn right-btn" @click="cancel">닫기</button></div>
           </div>
-        <!-- </div> -->
         </div>
     </div>
 </template>
@@ -47,23 +45,17 @@ export default defineComponent({
 .modal {
   background-color: $main--background-color;
   padding: 20px;
-  width: 30vw;
-  // height: 50vh;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .btn {
-  // margin-top: 10px;
   background: none;
-  color: $main--btn-color;
-  width: 100%;
+  color: white;
   border: 1px solid white;
-
-}
-
-.btn-container {
-  margin-top: 10px;
+  width: 300px;
+  height: 30px;
+  margin: 0 auto; 
 }
 </style>
 

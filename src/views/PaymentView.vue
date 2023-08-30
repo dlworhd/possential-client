@@ -4,7 +4,7 @@ import { defineComponent } from 'vue';
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import PaymentBoard from '../components/payment/PaymentBoard.vue'
+import PaymentBoard from '../components/store/payment/PaymentBoard.vue'
 
 export default defineComponent({
 

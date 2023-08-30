@@ -89,11 +89,6 @@ export default defineComponent({
 .sign-up-form__input-group {
     margin-bottom: 10px;
 }
-.sign-up-form__btn-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
 .btn {
     background-color: rgb(13, 201, 0);
     border: 1px solid black;

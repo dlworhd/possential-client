@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="menu-modal">
     <ModalComponent @execute="execute" @cancel="cancel">
-      <div class="menu-name">메뉴 이름</div>
+      <div class="menu-modal__menu-name">메뉴 이름</div>
       <div><input v-model="newMenu.menuName" /></div>
-      <div class="menu-price">메뉴 가격</div>
+      <div class="menu-modal__menu-price">메뉴 가격</div>
       <div><input v-model="newMenu.price" /></div>
     </ModalComponent>
   </div>
@@ -70,15 +70,19 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 input {
-  width: 100%;
-  height: 4vh;
+  width: 300px;
+  height: 30px;
 }
 
-.menu-name {
+.menu-modal{
+  margin: 0 auto;
+}
+
+.menu-modal__menu-name {
     color: white;
 }
 
-.menu-price {
+.menu-modal__menu-price {
     color: white;
 }
 </style>

@@ -25,7 +25,13 @@
             <div class="payment_board__item-container">
                 <div class="payment_board__item-index">{{ index + 1 }}</div>
                 <div class="payment_board__item-payment-id">{{ payment.paymentId.slice(0, 8) }}***</div>
-                <div class="payment_board__item-order-title">{{ payment.orderTitle }}</div>
+                <div class="payment_board__item-order-title">
+                    {{ 
+                        payment.orderTitle.toString().includes('deleted') ? 
+                        payment.orderTitle.toString().substring(payment.orderTitle.toString().lastIndexOf('deleted')) : 
+                        payment.orderTitle
+                    }}
+                </div>
                 <div class="payment_board__item-payemnt-type">{{ payment.paymentType }}</div>
                 <div class="payment_board__item-payment-status">{{ payment.paymentStatus }}</div>
                 <div class="payment_board__item-total-amount">{{ payment.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원</div>
@@ -38,13 +44,13 @@
     </div>
 
     <div class="pagination">
-            <button @click="prevPage" :disabled="currentPage === 1">
+            <button @click="prevPage" :disabled="currentPage === 0">
                 이전
             </button>
             <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber - 1)">
                 {{ pageNumber }}
             </button>
-            <button @click="nextPage" :disabled="currentPage === totalPages">
+            <button @click="nextPage" :disabled="currentPage === totalPages - 1">
                 다음
             </button>
         </div>
@@ -53,7 +59,7 @@
 <script lang="ts">
 import instance from '@/plugin/CustomAxios';
 import { defineComponent } from 'vue';
-import { OrderByType } from '../store/common/HomeBoard.vue';
+import { OrderByType } from '../common/HomeBoard.vue';
 
 interface Payment {
     paymentId: string,

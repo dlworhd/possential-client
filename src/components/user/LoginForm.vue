@@ -64,7 +64,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '../../assets/variable.scss';
 
-
 .login-form {
     margin-top: 20vh;
     display: flex;

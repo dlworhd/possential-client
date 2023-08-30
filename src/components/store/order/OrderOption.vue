@@ -42,9 +42,9 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
 @import '../../../assets/variable.scss';
+
 .order-detail{
   display: flex;
   border-bottom: 1px solid white;
