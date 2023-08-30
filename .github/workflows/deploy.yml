@@ -1,0 +1,29 @@
+on:
+  push:
+    branches: develop #여기에 설정한 Branch들만 아래의 Checkout Job에서 실행한다.
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    #PUSH를 한 후에 동작할 내용들 아래 steps에 작성
+    steps: 
+      - name: Checkout Repository
+        uses: actions/checkout@v2 #워크플로우 실행 환경에서 코드를 사용할 수 있게 Checkout 해서 가져옴
+        
+      #dependency 설치
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with: 
+          node-version: '16'
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Deploy to Server
+        run: |
+          sshpass -e rsync -avz -e "ssh -o StrictHostKeyChecking=no" dist/ ubuntu@146.56.149.189:/home/ubuntu/possential
+        env: 
+          SSHPASS: ${{ secrets.SSHPASS }}
+      
+    
