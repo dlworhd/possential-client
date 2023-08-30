@@ -1,10 +1,8 @@
 import { fileURLToPath, URL } from 'node:url'; // 모듈 경로는 이렇게 수정해야 합니다.
 import { defineConfig } from 'vite';
-import view from 'vite-plugin-view';
 
 export default defineConfig({
   plugins: [
-    view(),
   ],
   resolve: {
     alias: {
@@ -14,7 +12,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: `http://${VUE_APP_API_SERVER_HOST}:${VUE_APP_API_SERVER_PORT}`,
         changeOrigin: true,
         // configure는 사용되지 않습니다.
       },

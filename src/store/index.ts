@@ -2,7 +2,7 @@ import { createStore } from 'vuex';
 import instance from '../plugin/CustomAxios';
 import { Order } from '../components/store/order/OrderHistory.vue';
 import { Menu } from '../components/store/menu/MenuBoard.vue';
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = `http://${process.env.VUE_APP_API_SERVER_HOST}:${process.env.VUE_APP_API_SERVER_PORT}`;
 
 interface State {
   email: string;
