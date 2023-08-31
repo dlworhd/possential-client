@@ -81,6 +81,7 @@ import { OrderByType } from '../common/HomeBoard.vue';
 import { PaymentStatus } from '../payment/PaymentBoard.vue';
 import OrderCancelModalComponent from './OrderCancelModalComponent.vue';
 import instance from '@/plugin/CustomAxios';
+import {AxiosResponse} from 'axios';
 
 export enum OrderType {
   IN = 'IN',
@@ -149,7 +150,7 @@ export default defineComponent({
         async paymentCancel(){
             try{
                 await instance.put(`/api/orders/${this.currentOrderId}`)
-                .then(response => {
+                .then((response: AxiosResponse) => {
                     if(response.status === 200){
                         alert('취소 성공');
                     }

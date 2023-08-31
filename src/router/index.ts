@@ -54,10 +54,10 @@ const router = createRouter({
   ],
 });
   
-//Router Navigation Guard
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !store.state.isLogin) {
     next("/login");
+    from.path
   } else {
     next();
   }
