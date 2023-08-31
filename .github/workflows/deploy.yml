@@ -26,7 +26,7 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          sshpass -e rsync -avz -e "ssh -o StrictHostKeyChecking=no" dist/ ubuntu@146.56.149.189:/home/ubuntu/possential
+          sshpass -e rsync -avz -e "sudo ssh -o StrictHostKeyChecking=no" dist/ ubuntu@146.56.149.189:/home/ubuntu/possential
         env: 
           SSHPASS: ${{ secrets.SSHPASS }}
       
