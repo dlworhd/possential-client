@@ -26,8 +26,11 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          sshpass -e rsync -avz -e "sudo ssh -o StrictHostKeyChecking=no" dist/ ubuntu@146.56.149.189:/home/ubuntu/possential
-        env: 
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" dist/ ubuntu@146.56.149.189:/home/ubuntu/possential
+        env:
           SSHPASS: ${{ secrets.SSHPASS }}
       
     
