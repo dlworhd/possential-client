@@ -60,6 +60,7 @@
 import instance from '@/plugin/CustomAxios';
 import { defineComponent } from 'vue';
 import { OrderByType } from '../common/HomeBoard.vue';
+import { AxiosResponse } from 'axios';
 
 interface Payment {
     paymentId: string,
@@ -109,7 +110,7 @@ export default defineComponent({
         },
         methods: {
             async fetchPaymentItems(month: number, year: number, size: number,  page: number, orderByType: OrderByType){
-                await instance.get(`/api/payments?month=${month}&year=${year}&size=${size}&page=${page}&orderByType=${orderByType}`).then(response => {
+                await instance.get(`/api/payments?month=${month}&year=${year}&size=${size}&page=${page}&orderByType=${orderByType}`).then((response: AxiosResponse) => {
                     if(response){
                         this.totalPages = response.data.totalPages;
                         this.paymentItems = response.data.content;

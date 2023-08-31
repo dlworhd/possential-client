@@ -10,14 +10,13 @@ export default defineConfig({
   resolve: {
     alias: {
       // '@': fileURLToPath(new URL('./src', import.meta.url)),
-    }, // 여기에 콤마를 추가해야 합니다.
+    },
   },
   server: {
     proxy: {
       '/api': {
         target: `http://${HOST}:${PORT}`,
         changeOrigin: true,
-        // configure는 사용되지 않습니다.
       },
     },
   },

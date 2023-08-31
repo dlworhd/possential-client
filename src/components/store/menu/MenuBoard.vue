@@ -38,7 +38,7 @@ import { defineComponent } from "vue";
 import { mapState, mapMutations, mapGetters } from "vuex";
 import instance from "@/plugin/CustomAxios";
 import MenuRegistrationModal from "./MenuRegistrationModal.vue";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import MenuBoardPage from "./MenuBoardPage.vue";
 import store from "@/store";
 
@@ -110,7 +110,7 @@ export default defineComponent({
       };
 
       try {
-        await instance.put(`/api/menu/${menu.menuId}`, requestMenu).then(response => {
+        await instance.put(`/api/menu/${menu.menuId}`, requestMenu).then((response: AxiosResponse) => {
           if (response && response.status === 200) {
             this.fetchMenuList();
             this.editedMenu = {

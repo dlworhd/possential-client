@@ -2,22 +2,25 @@
   "compilerOptions": {
     "target": "es5",
     "module": "ESNext",
-    "allowJs": true,
-    "strict": true,
-    "jsx": "preserve",
+    "esModuleInterop": true,
     "importHelpers": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [
-      "webpack-env",
-      "env"
-    ],
+    "removeComments": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true, 
+    "noUnusedLocals": true, 
+    "noUnusedParameters": true, 
+    // "noImplicitReturns": true, 
+    "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": [
         "src/*"
@@ -26,8 +29,7 @@
     "lib": [
       "esnext",
       "dom",
-      "dom.iterable",
-      "scripthost"
+      "dom.iterable"
     ]
   },
   "include": [
