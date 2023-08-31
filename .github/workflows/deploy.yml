@@ -29,7 +29,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" dist/ ubuntu@146.56.149.189:/home/ubuntu/possential
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" dist/ ubuntu@${{ secrets.SSH_IP}}:${{ secrets.SSH_WORKING_DIRECTORY}}
         env:
           SSHPASS: ${{ secrets.SSHPASS }}
       
