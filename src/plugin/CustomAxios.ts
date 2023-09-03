@@ -18,7 +18,7 @@ import store from "@/store";
  */
 
 const instance: AxiosInstance = axios.create({
-  baseURL: `http://${process.env.VUE_APP_API_SERVER_HOST}:${process.env.VUE_APP_API_SERVER_PORT}`,
+  baseURL: `https://possential.site`,
   withCredentials: true,
 });
 
@@ -30,6 +30,9 @@ function accessToken(): string | null {
 instance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const token = accessToken();
+
+    console.log('Request URL:', config.headers);
+
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
