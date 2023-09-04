@@ -4,10 +4,11 @@ import LoginForm from "@/components/user/LoginForm.vue";
 import PosView from "@/views/PosView.vue";
 import OrderHistoriesView from "@/views/OrderHistoriesView.vue";
 import KakaoPaySuccess from "@/views/kakaopay/KakaoPaySuccess.vue";
-import KakaoPayFail from "@/views/kakaopay/KakaoPayFail.vue";
+import KakaoPayFailure from "@/views/kakaopay/KakaoPayFailure.vue";
 import store from "@/store";
 import PaymentView from "@/views/PaymentView.vue";
-import NotFoundView from "@/views/NotFoundView.vue";
+import NotFoundView from "@/views/error/NotFoundView.vue";
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -43,8 +44,8 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/pay/fail",
-      component: KakaoPayFail,
+      path: "/pay/failure",
+      component: KakaoPayFailure,
       meta: { requiresAuth: true },
     },
     {

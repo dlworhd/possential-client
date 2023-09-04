@@ -31,7 +31,7 @@
     
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import instance from '@/plugin/CustomAxios';
 import { defineComponent } from 'vue';
 
@@ -40,11 +40,11 @@ export default defineComponent({
         return {
             user: 
             {
-                email: "",
-                password: "",
-                name: "",
-                phoneNumber: "",
-                birth: ""
+                email: '',
+                password: '',
+                name: '',
+                phoneNumber: '',
+                birth: ''
             }
         }
     },
@@ -53,7 +53,7 @@ export default defineComponent({
             try {
                 await instance.post(`/api/users`, this.user)
                 .then(() => {
-                    alert("회원가입을 축하합니다.")
+                    alert('회원가입을 축하합니다.')
                     this.$router.push('/')
                 })
             } catch (error) {
@@ -63,10 +63,9 @@ export default defineComponent({
         }
     }
 })
-
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @import '../../assets/variable.scss';
 .sign-up-form  {
     margin-top: 20vh;
@@ -98,7 +97,4 @@ export default defineComponent({
 .sign-up-form__label {
     color: white;
 }
-
-
 </style>
-

@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from 'vue';
 import { mapMutations, mapState } from 'vuex';
 
@@ -47,7 +47,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @import '../../../assets/variable.scss';
 
 .order-container {
@@ -88,6 +88,4 @@ export default defineComponent({
     color: white;
     width: 5vh;
 }
-
-
 </style>

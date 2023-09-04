@@ -2,8 +2,8 @@
     <div class="order-history" @scroll="loadMore" ref="scrollContainer">
       <div class="order-history__order" v-for="order in getOrderItems" :key="order.orderId" @click="openModal(order.orderId)">        
         <div class="order-history__date-info">
-          <div class="order-history__date">{{order.orderDate.toString().split('T')[0]}}</div>
-          <div class="order-history__time">{{order.orderDate.toString().split('T')[1]}}</div>
+          <div class="order-history__date">{{order.createdAt.toString().split(' ')[0]}}</div>
+          <div class="order-history__time">{{order.createdAt.toString().split(' ')[1]}}</div>
         </div>
         <div class="order-history__status-container">
           <div class="order-history__order-id">[Order - {{ order.orderId }}]</div>
@@ -74,7 +74,7 @@
 </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations } from 'vuex';
 import { OrderByType } from '../common/HomeBoard.vue';
@@ -102,7 +102,7 @@ export interface Order {
     orderType: OrderType,
     orderStatus: OrderStatus,
     paymentStatus: PaymentStatus,
-    orderDate: Date
+    createdAt: Date
 }
 
 type Receipt = {
@@ -200,7 +200,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @import '../../../assets/variable.scss';
 
 .order-history {

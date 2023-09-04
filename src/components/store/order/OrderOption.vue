@@ -10,8 +10,8 @@
 </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang='ts'>
+import { defineComponent } from 'vue';
 import { mapState, mapMutations } from 'vuex';
 
 export default defineComponent({
@@ -24,10 +24,10 @@ export default defineComponent({
     this.updateTime(); // 컴포넌트가 마운트되면 실시간 시간 업데이트 시작
   },
   computed: {
-    ...mapState(["orderType"]),
+    ...mapState(['orderType']),
   },
   methods: {
-    ...mapMutations(["setOrderType"]),
+    ...mapMutations(['setOrderType']),
     updateOption(event: Event) {
       const selectedValue = (event.target as HTMLSelectElement).value;
       this.setOrderType(selectedValue);
@@ -42,7 +42,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @import '../../../assets/variable.scss';
 
 .order-detail{

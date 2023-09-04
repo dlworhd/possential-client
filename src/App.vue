@@ -1,14 +1,20 @@
-<script lang="ts">
+<template>
+  <div id="app">
+    <NavBar/>
+    <RouterView/>
+  </div>
+</template>
+
+<script lang='ts'>
 import { RouterView } from 'vue-router'
 import { defineComponent } from 'vue';
 import NavBar from './components/common/NavBar.vue';
-
 
 export default defineComponent({
     data() {
         return {
             style: {
-                backgroundColor: "black"
+                backgroundColor: 'black'
             }
         };
     }, 
@@ -20,16 +26,8 @@ export default defineComponent({
 
 </script>
 
-<template>
-  <div id="app">
-    <NavBar/>
-    <RouterView/>
-  </div>
-</template>
-
-<style lang="scss">
+<style lang='scss'>
 @import './assets/main.scss';
-
 
 body {
   background-color: $main--background-color;

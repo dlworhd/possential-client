@@ -9,7 +9,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from 'vue';
 import { Menu } from '../menu/MenuBoard.vue';
 
@@ -23,8 +23,3 @@ export default defineComponent({
     }
 })
 </script>
-
-<style lang="scss" scoped>
-@import '../../../assets/variable.scss';
-
-</style>

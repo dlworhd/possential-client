@@ -17,7 +17,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import store from '@/store';
 import { defineComponent } from 'vue';
 import { mapState } from 'vuex';
@@ -55,12 +55,10 @@ methods: {
         }
     }
 }
-
 })
-
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @import '../../../assets/variable.scss';
 
 .order-btn {
@@ -80,7 +78,6 @@ methods: {
     cursor: pointer;
 }
 
-
 .order-modal__cash-type-btn{
     flex-grow: 1;
     flex-basis: 0;
@@ -92,7 +89,6 @@ methods: {
     color: black;
     background-color: white;
 }
-
 
 .order-modal__kakaopay-type-btn{
     flex-grow: 1;
