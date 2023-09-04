@@ -1,9 +1,12 @@
 <template>
-    
-    <div class="message">
-        <img class="kakaopay-logo" src="../../assets/kakaopay.png">
-        <span>결제가 완료되었습니다.</span>
+
+
+    <div class="pay-success">
+        <div class="pay-success__message">🎉🎉🎉결제 완료🎉🎉🎉</div>
+        <img class="pay-success__image" src="../../assets/kakaopay.png">
     </div>
+
+
     
 </template>
 
@@ -17,12 +20,20 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-.message {
-    position: fixed;
-    top: 40vh;
-    width: 100%;
-    color: yellow;
-    text-align: center;
+.pay-success {
+    margin-top: 10vh;
+}
+.pay-success__image {
+    display: block;
+    width: 300px;
+    margin: 0 auto;
 }
 
+
+.pay-success__message {
+    color: white;    
+    margin: 0 auto 2vh auto;
+    width: 200px;
+    text-align: center;
+}
 </style>
