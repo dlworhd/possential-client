@@ -33,16 +33,14 @@
 </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { mapState, mapMutations, mapGetters } from "vuex";
-import instance from "@/plugin/CustomAxios";
-import MenuRegistrationModal from "./MenuRegistrationModal.vue";
-import axios, { AxiosResponse } from "axios";
-import MenuBoardPage from "./MenuBoardPage.vue";
-import store from "@/store";
-
-
+<script lang='ts'>
+import { defineComponent } from 'vue';
+import { mapState, mapMutations, mapGetters } from 'vuex';
+import instance from '@/plugin/CustomAxios';
+import MenuRegistrationModal from './MenuRegistrationModal.vue';
+import axios, { AxiosResponse } from 'axios';
+import MenuBoardPage from './MenuBoardPage.vue';
+import store from '@/store';
 
 export interface Menu {
   menuId: number;
@@ -53,7 +51,6 @@ export interface Menu {
 
 export default defineComponent({
   data() {
-    // 데이터 초기화
     return {
       pageInfo: {},
       currentPage: 0,
@@ -62,15 +59,13 @@ export default defineComponent({
       isModalVisible: false,
       isEditMode: false,
       editedMenu: {
-        menuName: "",
+        menuName: '',
         price: 0,
       },
       allEditMode: false
     };
   },
-  //Component가 DOM에 마운트 된 후에 실행
   created() {
-    //아이디를 기준으로 StoreMenu들을 가져옴
     this.fetchMenuList();
   },
   components: {
@@ -78,7 +73,7 @@ export default defineComponent({
     MenuBoardPage
   },
   computed: {
-    ...mapState(["cartItems", "menuItems", 'isLogin']),
+    ...mapState(['cartItems', 'menuItems', 'isLogin']),
     ...mapGetters(['getMenuItems', 'getCartItems']),
   },
   methods: {
@@ -144,8 +139,6 @@ export default defineComponent({
       .catch((error) => {
           if (error.code) console.log(error);
       });
-      console.log('fetchMenuList종료');
-      
     },
     openEditModal() {
       this.isEditMode = true;
@@ -174,11 +167,9 @@ export default defineComponent({
     async deleteItem(menuId: number){
       try{
         await instance.delete(`/api/menu/${menuId}`).then(() => {
-          //Delete Item -> Fetch MenuList 순서의 보장을 위한 코드 작성
           this.fetchMenuList();
         }).catch(error => {
           console.log(error);
-          
         })
       }catch(error){
         console.log(error);
@@ -186,12 +177,9 @@ export default defineComponent({
       }
     },
     handleButtonClick(event: Event, menu: Menu) {
-      event.stopPropagation(); // 이벤트 버블링 중지
+      event.stopPropagation();
       this.deleteItem(menu.menuId);
     },
-
-    //mapMutations을 사용하여 'addCartItem' 뮤테이션을 컴포넌트에 매핑한다.
-    //이렇게 매핑하면 this.addCartItem 메서드를 컴포넌트 내에서 사용할 수 있음
     ...mapMutations(['addCartItem']),
   },
 });
@@ -238,7 +226,6 @@ export default defineComponent({
   transform: scale(1.1);
 }
 
-
 .menu-board__grid-container {
   position: relative;
   margin-top: 8vh;
@@ -265,14 +252,11 @@ export default defineComponent({
 .menu-board__grid {
   display: grid;
   grid-template-columns: repeat(5, 150px);
-  /* grid-template-rows: repeat(3, 100px); */
   gap: 10px;
   list-style: none;
-  /* padding: 100px; */
   text-align: center;
   flex-wrap: wrap;
   justify-content: center;
-  /* margin: 50px; */
 }
 
 .menu-board__item-name {

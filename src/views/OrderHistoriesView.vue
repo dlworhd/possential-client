@@ -2,7 +2,7 @@
     <OrderHistory/>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import OrderHistory from '@/components/store/order/OrderHistory.vue';
 import { defineComponent } from 'vue';
 

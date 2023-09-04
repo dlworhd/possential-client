@@ -7,12 +7,12 @@
 </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import OrderTotalPrice from "./OrderTotalPrice.vue";
-import OrderButton from "./OrderButton.vue";
-import OrderOption from "./OrderOption.vue";
-import OrderCart from "./OrderCart.vue";
+<script lang='ts'>
+import { defineComponent } from 'vue';
+import OrderTotalPrice from './OrderTotalPrice.vue';
+import OrderButton from './OrderButton.vue';
+import OrderOption from './OrderOption.vue';
+import OrderCart from './OrderCart.vue';
 
 export default defineComponent({
   data() {
@@ -27,13 +27,11 @@ export default defineComponent({
     OrderTotalPrice,
     OrderButton,
 },
-
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @import '../../../assets/variable.scss';
-
 
 .menu-name {
   position: relative;

@@ -56,7 +56,7 @@
         </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import instance from '@/plugin/CustomAxios';
 import { defineComponent } from 'vue';
 import { OrderByType } from '../common/HomeBoard.vue';
@@ -152,8 +152,7 @@ export default defineComponent({
 </script>
 
 
-<style lang="scss" scoped>
-
+<style lang='scss' scoped>
 .payment-board{
     width: 98vw;
     margin: 0 auto;
@@ -277,7 +276,4 @@ export default defineComponent({
 .btn {
     color: white;
 }
-
-
-
 </style>

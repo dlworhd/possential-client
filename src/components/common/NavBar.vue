@@ -102,14 +102,12 @@ export default defineComponent({
   right: 1vw;
 }
 
-
 .nav-bar__item-group {
   display: flex;
   justify-content: center;
   margin: 0;
   // padding: 10px 0;
 }
-
 
 .nav-bar__logo {
   height: 50%;

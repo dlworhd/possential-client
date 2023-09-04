@@ -2,7 +2,7 @@
         <LoginForm class="view" />
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from 'vue';
 import LoginForm from '@/components/user/LoginForm.vue';
 

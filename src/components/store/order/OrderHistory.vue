@@ -74,7 +74,7 @@
 </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from 'vue';
 import { mapGetters, mapMutations } from 'vuex';
 import { OrderByType } from '../common/HomeBoard.vue';
@@ -200,7 +200,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @import '../../../assets/variable.scss';
 
 .order-history {

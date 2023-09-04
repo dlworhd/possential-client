@@ -9,7 +9,7 @@
 </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -22,10 +22,9 @@ export default defineComponent({
         },
     }
 })
-
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @import '../../../assets/variable.scss';
 .page-btn {
     margin-top: 5vh;
@@ -39,7 +38,5 @@ export default defineComponent({
     margin: 0 5px;
     border-right-color: $main--background-color;
 }
-
-
 
 </style>

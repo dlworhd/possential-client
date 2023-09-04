@@ -30,6 +30,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '../../assets/variable.scss';
+
 .modal-overlay {
   position: fixed;
   top: 0;

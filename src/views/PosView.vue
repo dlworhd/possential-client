@@ -2,7 +2,7 @@
         <HomeBoard class="view"/>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import HomeBoard from '@/components/store/common/HomeBoard.vue';
 import { defineComponent } from 'vue';
 
