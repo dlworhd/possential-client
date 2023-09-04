@@ -32,9 +32,8 @@
 </template>
 
 <script lang="ts">
+import instance from '@/plugin/CustomAxios';
 import { defineComponent } from 'vue';
-import axios from 'axios';
-
 
 export default defineComponent({
     data(){
@@ -45,16 +44,14 @@ export default defineComponent({
                 password: "",
                 name: "",
                 phoneNumber: "",
-                gender: "",
                 birth: ""
             }
         }
     },
     methods: {
         async register(){
-            console.log(this.user.gender)
             try {
-                await axios.post(`http://${process.env.VUE_APP_API_SERVER_HOST}:${process.env.VUE_APP_API_SERVER_PORT}/api/users`, this.user)
+                await instance.post(`/api/users`, this.user)
                 .then(() => {
                     alert("회원가입을 축하합니다.")
                     this.$router.push('/')

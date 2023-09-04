@@ -1,5 +1,5 @@
 module.exports = {
     devServer: {
-      port: process.env.VUE_APP_WEB_SERVER_PORT
+      port: process.env-local.VUE_APP_WEB_SERVER_PORT
     }
   };
