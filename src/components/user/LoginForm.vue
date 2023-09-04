@@ -20,7 +20,7 @@
     </form>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from 'vue';
 import instance from '@/plugin/CustomAxios';
 import { mapMutations } from 'vuex';
@@ -30,8 +30,8 @@ export default defineComponent({
         return {
             user: 
             {
-                email: "",
-                password: "",
+                email: '',
+                password: '',
             }
         }
     },
@@ -43,7 +43,7 @@ export default defineComponent({
         },
         async login(){
             try{
-                await instance.post("/api/auth/login", this.user).then(response => {
+                await instance.post('/api/auth/login', this.user).then(response => {
                     if(response && response.status === 200){
                         const accessToken = response.data.value;
                         localStorage.setItem('accessToken', accessToken);
@@ -61,7 +61,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @import '../../assets/variable.scss';
 
 .login-form {
@@ -87,6 +87,4 @@ export default defineComponent({
 .login-form__label {
     color: white;
 }
-
-
 </style>

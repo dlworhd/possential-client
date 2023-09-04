@@ -3,7 +3,7 @@
         총액 = {{ `${totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원` }}
     </div>
 </template>
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from 'vue';
 import { mapState } from 'vuex';
 
@@ -13,10 +13,9 @@ export default defineComponent({
     },
   },
 )
-
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 @import '../../../assets/variable.scss';
 
 .order-total-price {

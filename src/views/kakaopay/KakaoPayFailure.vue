@@ -1,8 +1,13 @@
 <template>
-    <div class="pay-success">
-        <div class="pay-success__message">🎉🎉🎉결제 완료🎉🎉🎉</div>
-        <img class="pay-success__image" src="../../assets/kakaopay.png">
+
+
+    <div class="pay-failure">
+        <div class="pay-failur__message">☠️☠️☠️결제 실패☠️☠️☠️</div>
+        <img class="pay-failure__image" src="../../assets/kakaopay.png">
     </div>
+
+
+    
 </template>
 
 <script lang="ts">
@@ -15,17 +20,17 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-.pay-success {
-    margin-top: 30vh;
+.pay-failure {
+    margin-top: 10vh;
 }
-.pay-success__image {
+.pay-failure__image {
     display: block;
     width: 300px;
     margin: 0 auto;
 }
 
 
-.pay-success__message {
+.pay-failur__message {
     color: white;    
     margin: 0 auto 2vh auto;
     width: 200px;

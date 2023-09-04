@@ -9,11 +9,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import instance from "@/plugin/CustomAxios";
-import { defineComponent } from "vue";
-import { mapMutations } from "vuex";
-import ModalComponent from "@/components/common/ModalComponent.vue";
+<script lang='ts'>
+import instance from '@/plugin/CustomAxios';
+import { defineComponent } from 'vue';
+import { mapMutations } from 'vuex';
+import ModalComponent from '@/components/common/ModalComponent.vue';
 
 export interface NewMenu {
   menuName: string;
@@ -27,7 +27,7 @@ export default defineComponent({
   data() {
     return {
       newMenu: {
-        menuName: "",
+        menuName: '',
         price: 0,
       },
     };
@@ -37,7 +37,7 @@ export default defineComponent({
       this.createNewMenu();
     },
     cancel() {
-      this.$emit("closeModal");
+      this.$emit('closeModal');
     },
     async createNewMenu() {
       try {
@@ -47,20 +47,19 @@ export default defineComponent({
         };
         await instance.post(`/api/menu`, newMenu).then(response => {
           if(response && response.status === 200){
-            this.$router.push("/");
+            this.$router.push('/');
             console.log(response);
-            this.$emit("closeModal");
-            this.$emit("fetchMenuList");
+            this.$emit('closeModal');
+            this.$emit('fetchMenuList');
           } else {
             alert('등록에 실패하였습니다');
-            
           }
         })
       } catch {
-        console.log("error");
+        console.log('error');
       }
     },
-    ...mapMutations(["addCartItem"]),
+    ...mapMutations(['addCartItem']),
   },
   components: {
     ModalComponent,
@@ -68,7 +67,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 input {
   width: 300px;
   height: 30px;
