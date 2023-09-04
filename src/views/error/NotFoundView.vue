@@ -14,7 +14,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/variable.scss';
+@import '../../assets/variable.scss';
 
 .message-container {
     padding-top: 50vh;
