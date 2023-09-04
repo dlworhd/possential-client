@@ -3,12 +3,6 @@
   <div v-if="isLogin" class="menu-board__grid-container">
     <div class="menu-board__grid">
       <button @click="addCartItem(menu)" v-for="menu in getMenuItems" :key="menu.menuId" class="menu-board__item" @mouseleave="handleMouseOut">
-          <div class="menu-board__item-name">
-            {{ menu.menuName }}
-          </div>
-          <div class="menu-board__item-price">
-            {{ menu.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
-          </div>
         <div class="menu-board__item-option-group">
           <div @click="handleButtonClick($event, menu)" class="menu-board__item-delete-btn">
             X
@@ -18,6 +12,13 @@
               <input class="menu-board__item-price-input" type="text" v-model="editedMenu.price" placeholder="메뉴 가격"/>
           </div>
         </div>
+        <div class="menu-board__item-name">
+          {{ menu.menuName }}
+        </div>
+        <div class="menu-board__item-price">
+          {{ menu.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
+        </div>
+        
       </button>
       <button @click="openModal" v-for="i in 15 - menuItems.length" :key="'add-button-' + i" class="menu-board__item">
         +
@@ -212,7 +213,7 @@ export default defineComponent({
 }
 
 .menu-board__item-option-group:hover .menu-board__item-delete-btn{
-  display: block;
+  display: inline;
   position: absolute;
   top: 10px;
   right: 10px;
@@ -241,6 +242,7 @@ export default defineComponent({
   height: 150px;
   border: 1px solid white;
   border-radius: 15px;
+  position: relative;
   cursor: pointer;
 }
 
