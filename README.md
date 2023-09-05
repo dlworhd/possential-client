@@ -1,4 +1,4 @@
-# possential-client
+# possential
 
 ## Project setup
 ```

@@ -236,11 +236,11 @@ export default defineComponent({
   /* height: 100vh; */
 }
 .menu-board__item {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: #ffffff3d;
   color: rgb(255, 255, 255);
   width: 150px;
   height: 150px;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.326);
   border-radius: 15px;
   position: relative;
   cursor: pointer;

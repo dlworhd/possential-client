@@ -37,6 +37,9 @@ export default defineComponent({
     height: 5vh;
     margin: 0 5px;
     border-right-color: $main--background-color;
+    border: 0;
+    border-radius: 4px;
+    background-color: #ffffff;
 }
 
 </style>

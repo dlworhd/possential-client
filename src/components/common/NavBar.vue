@@ -94,7 +94,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   border-bottom: 1px solid rgba(142, 117, 117, 0.652);
-  background-color: rgba(1, 0, 86, 0.847);
+  background-color: #080028;
 }
 
 .nav-bar__inner-container {
