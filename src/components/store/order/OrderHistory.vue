@@ -44,7 +44,7 @@
               </div>
               <div class="order-history__menu-quantity">{{ orderMenu.quantity }}개</div>
               <div class="order-history__menu-total-amount">
-                {{ orderMenu.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
+                {{ (orderMenu.price * orderMenu.quantity).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
               </div>
             </div>
           </div>

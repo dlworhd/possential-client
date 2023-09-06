@@ -2,7 +2,6 @@ import { createStore } from 'vuex';
 import instance from '../plugin/CustomAxios';
 import { Order } from '../components/store/order/OrderHistory.vue';
 import { Menu } from '../components/store/menu/MenuBoard.vue';
-const BASE_URL = 'https://possential.site';
 
 interface State {
   email: string;
@@ -14,8 +13,6 @@ interface State {
   orderType: string;
   paymentType: string;
 }
-
-
 
 /**
  * 1. Menu Item 클릭
@@ -137,7 +134,7 @@ export default createStore({
           orderType: state.orderType,
           paymentType: state.paymentType,
         };
-        const response = await instance.post(`${BASE_URL}/api/orders`, data);
+        const response = await instance.post(`/api/orders`, data);
         if (response.data.next_redirect_pc_url != null) {
           const redirectUrl = response.data.next_redirect_pc_url;
           window.open(redirectUrl, '_blank');

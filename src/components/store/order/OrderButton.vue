@@ -66,13 +66,13 @@ methods: {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid white;
+    border-bottom: 0.5px solid white;
     height: 10vh;
 }
 
 .btn {
     color: white;
-    border: 1px solid white;
+    border: 0.5px solid white;
     text-align: center;
     padding: 10px;
     cursor: pointer;
@@ -95,12 +95,12 @@ methods: {
     flex-basis: 0;
     color: yellow;
     margin-left: 5px;
-    border: 1px solid yellow;
+    border: 0.5px solid yellow;
 }
 
 .order-modal__kakaopay-type-btn:hover{
     color: black;
-    border: 1px solid yellow;
+    border: 0.5px solid yellow;
     background-color: yellow;
 }
 
@@ -132,7 +132,7 @@ methods: {
 
 .btn {
   width: 100%;
-  border: 1px solid white;
+  border: 0.5px solid white;
   padding: 10px;
   background-color: $main--background-color;
 }

@@ -39,8 +39,8 @@ export default defineComponent({
 
 .order-board {
     width: 30vw;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
+    border-left: 0.5px solid white;
+    border-right: 0.5px solid white;
     background-color: $main--background-color;
 }
 

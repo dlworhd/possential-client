@@ -110,7 +110,7 @@ export default defineComponent({
 }
 
 .nav-bar__logo {
-  height: 50%;
+  height: 60%;
   max-height:5vh; 
   cursor: pointer;
 }

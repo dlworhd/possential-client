@@ -3,21 +3,20 @@
   <div v-if="isLogin" class="menu-board__grid-container">
     <div class="menu-board__grid">
       <button @click="addCartItem(menu)" v-for="menu in getMenuItems" :key="menu.menuId" class="menu-board__item" @mouseleave="handleMouseOut">
-          <div class="menu-board__item-name">
-            {{ menu.menuName }}
-          </div>
-          <div class="menu-board__item-price">
-            {{ menu.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
-          </div>
         <div class="menu-board__item-option-group">
-          <div @click="handleButtonClick($event, menu)" class="menu-board__item-delete-btn">
-            X
-          </div>
+          <img @click="handleButtonClick($event, menu)" class="menu-board__item-x-btn" src="../../../assets/x-btn.svg">
           <div v-if="isEditMode" class="menu-board__item-edit-input-group">            
               <input class="menu-board__item-name-input" type="text" v-model="editedMenu.menuName" placeholder="메뉴 이름"/>
               <input class="menu-board__item-price-input" type="text" v-model="editedMenu.price" placeholder="메뉴 가격"/>
           </div>
         </div>
+        <div class="menu-board__item-name">
+          {{ menu.menuName }}
+        </div>
+        <div class="menu-board__item-price">
+          {{ menu.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
+        </div>
+        
       </button>
       <button @click="openModal" v-for="i in 15 - menuItems.length" :key="'add-button-' + i" class="menu-board__item">
         +
@@ -155,6 +154,7 @@ export default defineComponent({
     previousPage() {
       if (this.currentPage > 0) {
           this.currentPage -= 1;
+
           this.fetchMenuList();
       }
     },
@@ -189,7 +189,7 @@ export default defineComponent({
 @import '../../../assets/variable.scss';
 
 .notice {
-  color: white;
+  color: black;
   display: flex;
   height: 70vh;
   justify-content: center;
@@ -211,19 +211,11 @@ export default defineComponent({
   right: 0;
 }
 
-.menu-board__item-option-group:hover .menu-board__item-delete-btn{
-  display: block;
+.menu-board__item-option-group:hover .menu-board__item-x-btn {
+  display: inline;
   position: absolute;
   top: 10px;
   right: 10px;
-}
-
-.menu-board__item-delete-btn {
-  display: none;
-}
-
-.menu-board__item-delete-btn:hover {
-  transform: scale(1.1);
 }
 
 .menu-board__grid-container {
@@ -235,17 +227,34 @@ export default defineComponent({
   /* height: 100vh; */
 }
 .menu-board__item {
-  background-color: rgba(255, 255, 255, 0);
+
   color: rgb(255, 255, 255);
   width: 150px;
   height: 150px;
-  border: 1px solid white;
+  background: rgba(255, 255, 255, 0.2);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  padding: 20px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: relative;
   border-radius: 15px;
   cursor: pointer;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    border-radius: 15px;
+    transform: blur(10px); /* 블러 효과 적용 */
+    opacity: 0.7; /* 투명도 조정 */
+    z-index: -1; /* 가상 요소를 내용 뒤로 이동 */
+  }
 }
 
 .menu-board__item:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   transition-duration: 100ms;
 }
 
@@ -257,10 +266,10 @@ export default defineComponent({
   text-align: center;
   flex-wrap: wrap;
   justify-content: center;
+  border-radius: 15px;
 }
 
 .menu-board__item-name {
-
   margin-bottom: 20px;
   font-size: 15px;
   word-wrap: normal;
@@ -269,8 +278,17 @@ export default defineComponent({
 .menu-board {
     width: 75vw;
     padding-top: 5vh;
-    border-left: 1px solid white;
-    border-bottom: 1px solid white;
+    border-left: 0.5px solid white;
+    border-bottom: 0.5px solid white;
     box-sizing: border-box;
+}
+
+.menu-board__item-x-btn {
+  display: none;
+  width: 10%;
+}
+
+.menu-board__item-x-btn:hover {
+  transform: scale(1.1);
 }
 </style>
