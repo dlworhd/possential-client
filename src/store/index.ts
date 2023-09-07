@@ -63,6 +63,9 @@ export default createStore({
     setPaymentType(state, option: string) {
       state.paymentType = option;
     },
+    removeCartItem(state: State, menu: Menu){
+      state.cartItems = state.cartItems.filter(item => item.menuId !== menu.menuId);
+    },
     // Cart Mutations
     setCartItems(state: State, menuList: Menu[]) {
       state.cartItems = menuList;
