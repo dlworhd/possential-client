@@ -164,9 +164,10 @@ export default defineComponent({
           this.fetchMenuList();
       }
     },
-    async deleteItem(menuId: number){
+    async deleteItem(menu: Menu){
       try{
-        await instance.delete(`/api/menu/${menuId}`).then(() => {
+        await instance.delete(`/api/menu/${menu.menuId}`).then(() => {
+              this.removeCartItem(menu)
           this.fetchMenuList();
         }).catch(error => {
           console.log(error);
@@ -178,9 +179,9 @@ export default defineComponent({
     },
     handleButtonClick(event: Event, menu: Menu) {
       event.stopPropagation();
-      this.deleteItem(menu.menuId);
+      this.deleteItem(menu);
     },
-    ...mapMutations(['addCartItem']),
+    ...mapMutations(['addCartItem', 'removeCartItem']),
   },
 });
 </script>
