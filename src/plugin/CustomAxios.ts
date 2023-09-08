@@ -19,6 +19,7 @@ import store from "@/store";
 
 const instance: AxiosInstance = axios.create({
   baseURL: `https://possential.site`,
+  // baseURL: `http://localhost:8080`,
   withCredentials: true,
 });
 
