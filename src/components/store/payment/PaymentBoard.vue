@@ -1,9 +1,15 @@
 <template>
+    
     <div class="monthly">
-        <select @change="updateCurrentMonth" class="monthly__month">
-            <option v-for="i in 12" :key="i">{{ i }}월</option>
-        </select>
+        
+        <div class="monthly__total-sales">
+            월별 매출액: {{ totalSales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
+        </div>
 
+        <select v-model="month" @change="updateCurrentMonth" class="monthly__month">
+            <option v-for="i in 12" :key="i" :value="i">{{ i }}월</option>
+        </select>
+        
         <div class="monthly__order-by-type-container">
             <div @click="setOrderByType(type)" :class="{ 'payment_board__selected-order-by-type': type ===  currentOrderByType}" class="monthly__order-by-type btn" v-for="(type, index) in getOrderByTypes" :key="index" >
                     {{ type === 'LATEST' ? '최신순' : ' 오래된순'}}
@@ -63,6 +69,7 @@ import { OrderByType } from '../common/HomeBoard.vue';
 import { AxiosResponse } from 'axios';
 
 interface Payment {
+
     paymentId: string,
     orderTitle: string,
     totalAmount: number,
@@ -87,7 +94,8 @@ export enum PaymentType {
 export default defineComponent({
         data(){
             return {
-                month: new Date().getMonth(),
+                totalSales: 0,
+                month: new Date().getMonth() + 1,
                 year: new Date().getFullYear(),
                 totalPages: 0,
                 currentPage: 0,
@@ -106,14 +114,16 @@ export default defineComponent({
             },
             getOrderByTypes(): OrderByType[]{
                 return this.orderByTypes;
-            }
+            },
         },
         methods: {
             async fetchPaymentItems(month: number, year: number, size: number,  page: number, orderByType: OrderByType){
                 await instance.get(`/api/payments?month=${month}&year=${year}&size=${size}&page=${page}&orderByType=${orderByType}`).then((response: AxiosResponse) => {
                     if(response){
-                        this.totalPages = response.data.totalPages;
-                        this.paymentItems = response.data.content;
+                        console.log(response);
+                        this.totalSales = response.data.totalSales;
+                        this.totalPages = response.data.page.totalPages;
+                        this.paymentItems = response.data.page.content;
                     }else {
                         console.log('에러');
                     }
@@ -146,13 +156,20 @@ export default defineComponent({
             goToPage(pageNumber: number) {
                this.currentPage = pageNumber;
                this.fetchPaymentItems(this.month, this.year, this.perSize, this.currentPage, this.currentOrderByType);
-            }
+            },
+            
         }
 })
 </script>
 
 
 <style lang='scss' scoped>
+
+.monthly__total-sales {
+    color: white;
+    cursor: pointer;
+}
+
 .payment-board{
     width: 98vw;
     margin: 0 auto;
@@ -180,7 +197,6 @@ export default defineComponent({
     margin-top: 10vh;
     justify-content: center;
     display: flex;
-
 }
 
 .monthly__month{
@@ -191,6 +207,12 @@ export default defineComponent({
 
 .title {
     color: white;
+}
+
+.monthly__total-sales {
+    display: flex;
+    position: absolute;
+    left: 1vw;
 }
 
 .monthly__order-by-type-container {
