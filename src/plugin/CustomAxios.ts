@@ -7,6 +7,7 @@ import axios, {
 
 import store from "@/store";
 
+
 /**
  *
  * Request Interceptors
@@ -18,8 +19,8 @@ import store from "@/store";
  */
 
 const instance: AxiosInstance = axios.create({
-  baseURL: `https://possential.site`,
-  // baseURL: `http://localhost:8080`,
+  // baseURL: `https://possential.site`,
+  baseURL: `http://localhost:8080`,
   withCredentials: true,
 });
 
@@ -31,7 +32,6 @@ function accessToken(): string | null {
 instance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const token = accessToken();
-
     console.log('Request URL:', config.headers);
 
     if (token) {
@@ -57,38 +57,44 @@ instance.interceptors.request.use(
  * 토큰 재발급: /api/auth/reissue
  *
  */
-instance.interceptors.response.use(
-  (response) => response,
-  async (error: AxiosError) => {
-    const errorResponse = error.response;
 
-    if (errorResponse) {
-      if (errorResponse.status === 401 || errorResponse.status === 403) {
-        try {
-          //
-          localStorage.removeItem("accessToken");
-          const reissueResponse = await instance.post("/api/auth/reissue");
-          if(reissueResponse){
-            const newAccessToken = reissueResponse.data.value;
-            // 새로 발급받은 액세스 토큰을 로컬 스토리지에 저장
-            localStorage.setItem("accessToken", newAccessToken);
-            if (error.config) {
-              error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
-              return instance.request(error.config);
-            }
-            store.commit("setLogin", true);
+interface ApiResponse<T>{
+  data: T;
+  status: number;
+  error: string
+}
+
+  instance.interceptors.response.use(
+    (response) => response,
+    async (error: AxiosError<ApiResponse<any>>) => {
+      const errorResponse = error.response;
+
+      if (errorResponse) {
+        if (errorResponse.status === 401 || errorResponse.status === 403) {
+          try {
+            //
+            localStorage.removeItem("accessToken");
+            const reissueResponse = await instance.post("/api/auth/reissue");
+            if(reissueResponse){
+              const newAccessToken = reissueResponse.data.value;
+              localStorage.setItem("accessToken", newAccessToken);
+              if (error.config) {
+                error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
+                  instance.request(error.config).then(() => {
+                    store.commit("setLogin", true);
+                  })
+                }
+              }
+            } catch(error) {
+              alert(error)
           }
-          // 원래 요청을 수정하고 새 액세스 토큰을 사용하여 다시 요청 보냄
-        } catch (reissueError) {
-          console.log("Failed Reissue:", reissueError);
-          store.commit("setLogin", false);
-          return Promise.reject(error);
+        } else if(errorResponse.status === 400 && errorResponse.data) {
+          if(!(errorResponse.data.error === 'REFRESH_TOKEN_NOT_FOUND')){
+            alert(errorResponse.data?.error)
+            return Promise.reject(error);
+          }
         }
       }
-    } else {
-      console.log('Error:',error)
-      return Promise.reject(error);
     }
-  }
-);
+  );
 export default instance;

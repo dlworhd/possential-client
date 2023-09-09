@@ -1,19 +1,21 @@
 <template>
     <div v-if="isLogin" @click="openModal" class="order-btn">주문/결제</div>
-    <div v-if="isModalVisible" class="order-modal">
-        <div class="order-modal__overlay">
-        <div class="order-modal__content">
-        <div class="order-modal__order-type">
-            <div class="order-modal__order-type-container">
-                <div class="order-modal__cash-type-btn btn" @click="execute('CASH')">현금</div>
-                <div class="order-modal__kakaopay-type-btn btn" @click="execute('KAKAOPAY')">카카오페이</div>
+        <div v-if="isModalVisible" class="order-modal">
+            <div class="order-modal__overlay">
+            <div class="order-modal__content">
+            <div class="order-modal__order-type">
+                <div class="order-modal__order-type-container">
+                    <div class="order-modal__cash-type-btn btn" @click="execute('CASH')">현금</div>
+                    <div class="order-modal__kakaopay-type-btn btn" @click="execute('KAKAOPAY')">카카오페이</div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <button class="order-modal__cancel-btn btn" @click="cancel">닫기</button>
+                </div>
+            </div>
             </div>
         </div>
-          <div>
-            <div><button class="order-modal__cancel-btn btn" @click="cancel">닫기</button></div>
-          </div>
-        </div>
-    </div>
     </div>
 </template>
 
@@ -51,7 +53,6 @@ methods: {
             store.commit('setPaymentType', option);
             store.dispatch('sendOrder');
             this.isModalVisible = false
-
         }
     }
 }

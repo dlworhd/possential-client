@@ -1,9 +1,8 @@
 <template>
     
     <div class="monthly">
-        
         <div class="monthly__total-sales">
-            월별 매출액: {{ totalSales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
+            당월 매출액 = {{ totalSales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원
         </div>
 
         <select v-model="month" @change="updateCurrentMonth" class="monthly__month">
@@ -69,7 +68,6 @@ import { OrderByType } from '../common/HomeBoard.vue';
 import { AxiosResponse } from 'axios';
 
 interface Payment {
-
     paymentId: string,
     orderTitle: string,
     totalAmount: number,
@@ -83,7 +81,7 @@ export enum PaymentStatus {
     PAYMENT_READY = 'PAYMENT_READY',
     PAYMENT_SUCCESS = 'PAYMENT_SUCCESS',
     PAYMENT_FAILURE = 'PAYMENT_FAILURE',
-    PAYMENT_CANCELLATION = 'PAYMENT_CANCELLATION'
+    PAYMENT_CANCEL = 'PAYMENT_CANCEL'
 }
 
 export enum PaymentType {

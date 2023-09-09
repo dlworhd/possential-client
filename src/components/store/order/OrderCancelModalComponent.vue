@@ -1,8 +1,12 @@
 <template>
   <div v-if="visible" class="modal-overlay">
     <div class="modal">
-        <button class="btn" @click="handlePaymentCancel">결제 취소</button>
-        <button class="btn" @click="handleCancel">닫기</button>
+      <div @click="handlePaymentCancel" class="modal__payment-cancel-btn btn">
+        결제 취소
+      </div>
+      <div @click="handleCancel" class="modal__cancel-btn btn">
+        닫기
+      </div>
     </div>
     
     </div>
@@ -27,6 +31,7 @@ export default defineComponent({
 </script>
 <style lang='scss' scoped>
 @import '../../../assets/variable.scss';
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -43,16 +48,21 @@ export default defineComponent({
   background-color: $main--background-color;
 //   padding: 20px;
   width: 15vw;
-  height: 10vh;
+  // height: 10vh;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .btn {
     background: none;
     color: white;
+    text-align: center;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.btn:hover {
+  background-color: white;
+  color: $main--text-hover-color;
 }
 </style>

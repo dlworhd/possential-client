@@ -92,7 +92,7 @@ export enum OrderStatus {
     ORDER_NOT_PAID = 'ORDER_NOT_PAID',
     ORDER_SUCCESS = 'ORDER_SUCCESS',
     ORDER_READY = 'ORDER_READY',
-    ORDER_CANCELLATION = 'ORDER_CANCELLATION'
+    ORDER_CANCEL = 'ORDER_CANCEL'
 }
 
 export interface Order {
