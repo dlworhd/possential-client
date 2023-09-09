@@ -57,12 +57,12 @@ export default defineComponent({
     },
     async logout() {
       try {
-        const requestEmail = {
-          email: this.email,
-        };
+        // const requestEmail = {
+        //   email: this.email,
+        // };
 
         await instance
-          .post('/api/auth/logout', requestEmail)
+          .post('/api/auth/logout')
           .then((response) => {
             if (response.status === 200) {
               localStorage.removeItem('accessToken');

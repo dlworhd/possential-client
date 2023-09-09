@@ -37,7 +37,6 @@ import { defineComponent } from 'vue';
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import instance from '@/plugin/CustomAxios';
 import MenuRegistrationModal from './MenuRegistrationModal.vue';
-import axios, { AxiosResponse } from 'axios';
 import MenuBoardPage from './MenuBoardPage.vue';
 import store from '@/store';
 
@@ -90,54 +89,17 @@ export default defineComponent({
         price: 0,
       }
     },
-    menuEditCancel() {
-      this.editedMenu = {
-        menuName: '',
-        price: 0,
-      };
-      this.isEditMode = false;
-    },
-    async menuEdit(menu: Menu) {
-      const requestMenu = {
-        menuName: this.editedMenu.menuName,
-        price: this.editedMenu.price,
-      };
-
-      try {
-        await instance.put(`/api/menu/${menu.menuId}`, requestMenu).then((response: AxiosResponse) => {
-          if (response && response.status === 200) {
-            this.fetchMenuList();
-            this.editedMenu = {
-              menuName: '',
-              price: 0,
-            };
-            alert('수정 완료');
-        }
-      })
-     } catch (error) {
-        if (
-          axios.isAxiosError(error) &&
-          error.response &&
-          error.response.status === 400 &&
-          error.response.data.message === 'DUPLICATED_MENU'
-        ) {
-          alert('중복된 메뉴 이름입니다.');
-        }
-        this.editedMenu = {
-          menuName: '',
-          price: 0,
-        };
-      }
-    },
     async fetchMenuList() {
-      await instance.get(`/api/menu?size=${this.maxSize}&page=${this.currentPage}`).then((response) => {
-        store.commit('setMenuItems', response.data.content);
-        this.currentPage = response.data.pageable.pageNumber;
-        this.totalPages = response.data.totalPages;
-      })
-      .catch((error) => {
-          if (error.code) console.log(error);
-      });
+      if(this.isLogin){
+        await instance.get(`/api/menu?size=${this.maxSize}&page=${this.currentPage}`).then((response) => {
+          store.commit('setMenuItems', response.data.content);
+          this.currentPage = response.data.pageable.pageNumber;
+          this.totalPages = response.data.totalPages;
+        })
+        .catch((error) => {
+            if (error.code) console.log(error);
+        });
+      }
     },
     openEditModal() {
       this.isEditMode = true;
