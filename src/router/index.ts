@@ -8,7 +8,7 @@ import KakaoPayFailure from "@/views/kakaopay/KakaoPayFailure.vue";
 import store from "@/store";
 import PaymentView from "@/views/PaymentView.vue";
 import NotFoundView from "@/views/error/NotFoundView.vue";
-
+import CashView from "@/views/CashView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -27,6 +27,11 @@ const router = createRouter({
       path: "/login",
       component: LoginForm,
       meta: { requiresAuth: false },
+    },
+    {
+      path: "/cash",
+      component: CashView,
+      meta: { requiresAuth: true },
     },
     {
       path: "/orders",

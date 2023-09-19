@@ -45,7 +45,7 @@ export default defineComponent({
             try{
                 await instance.post('/api/auth/login', this.user).then(response => {
                     if(response && response.status === 200){
-                        const accessToken = response.data.value;
+                        const accessToken = response.data.accessToken.value;
                         localStorage.setItem('accessToken', accessToken);
                         this.setLogin(true);
                         this.setEmail(this.user.email);

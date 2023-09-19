@@ -63,7 +63,7 @@ export default defineComponent({
       allEditMode: false
     };
   },
-  created() {
+  mounted() {
     this.fetchMenuList();
   },
   components: {
@@ -91,15 +91,15 @@ export default defineComponent({
     },
     async fetchMenuList() {
       if(this.isLogin){
-        await instance.get(`/api/menu?size=${this.maxSize}&page=${this.currentPage}`).then((response) => {
-          store.commit('setMenuItems', response.data.content);
-          this.currentPage = response.data.pageable.pageNumber;
-          this.totalPages = response.data.totalPages;
-        })
-        .catch((error) => {
-            if (error.code) console.log(error);
-        });
-      }
+      await instance.get(`/api/menu?size=${this.maxSize}&page=${this.currentPage}`).then((response) => {
+        store.commit('setMenuItems', response.data.content);
+        // this.currentPage = response.data.pageable.pageNumber;
+        this.totalPages = response.data.totalPages;
+      })
+      .catch((error) => {
+          if (error.code) console.log(error);
+      });
+    }
     },
     openEditModal() {
       this.isEditMode = true;
@@ -190,7 +190,6 @@ export default defineComponent({
   /* height: 100vh; */
 }
 .menu-board__item {
-
   color: rgb(255, 255, 255);
   width: 150px;
   height: 150px;
@@ -200,6 +199,7 @@ export default defineComponent({
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: relative;
   border-radius: 15px;
+
   cursor: pointer;
   &::before {
     content: "";
@@ -235,7 +235,15 @@ export default defineComponent({
 .menu-board__item-name {
   margin-bottom: 20px;
   font-size: 15px;
-  word-wrap: normal;
+  word-wrap: break-word;
+}
+
+.menu-board__item-price {
+  position: absolute;
+  left: 50%;
+  top: 65%; /* 상단 기준으로 50% 위치로 이동합니다. */
+  transform: translate(-50%, -50%); /* 요소의 중심을 가운데로 이동합니다. */
+  word-wrap: break-word;
 }
 
 .menu-board {

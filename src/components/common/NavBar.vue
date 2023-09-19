@@ -10,6 +10,9 @@
           <RouterLink to="/login" class="btn">로그인</RouterLink>
         </li>
         <li v-if="isLogin" class="nav-bar__item">
+          <RouterLink to="/cash" class="btn">시재 점검</RouterLink>
+        </li>
+        <li v-if="isLogin" class="nav-bar__item">
           <RouterLink to="/orders" class="btn">주문 내역</RouterLink>
         </li>
         <li v-if="isLogin" class="nav-bar__item">

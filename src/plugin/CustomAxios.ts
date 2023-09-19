@@ -19,8 +19,8 @@ import store from "@/store";
  */
 
 const instance: AxiosInstance = axios.create({
-  // baseURL: `https://possential.site`,
-  baseURL: `http://localhost:8080`,
+  baseURL: `https://possential.site`,
+  // baseURL: `http://localhost:8080`,
   withCredentials: true,
 });
 
@@ -76,7 +76,8 @@ interface ApiResponse<T>{
             localStorage.removeItem("accessToken");
             const reissueResponse = await instance.post("/api/auth/reissue");
             if(reissueResponse){
-              const newAccessToken = reissueResponse.data.value;
+              console.log(reissueResponse.data);
+              const newAccessToken = reissueResponse.data.accessToken.value;
               localStorage.setItem("accessToken", newAccessToken);
               if (error.config) {
                 error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;

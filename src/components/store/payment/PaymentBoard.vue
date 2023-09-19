@@ -41,24 +41,24 @@
                 <div class="payment_board__item-payment-status">{{ payment.paymentStatus }}</div>
                 <div class="payment_board__item-total-amount">{{ payment.totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}원</div>
                 <div class="payment_board__item-created-at">
-                    {{ payment.createdAt.toString().split('T')[0] }} 
-                    {{ payment.createdAt.toString().split('T')[1] }}
+                    {{ payment.createdAt.toString().split(' ')[0] }} 
+                    {{ payment.createdAt.toString().split(' ')[1] }}
                 </div>
             </div>
         </div>
     </div>
 
     <div class="pagination">
-            <button @click="prevPage" :disabled="currentPage === 0">
-                이전
-            </button>
-            <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber - 1)">
-                {{ pageNumber }}
-            </button>
-            <button @click="nextPage" :disabled="currentPage === totalPages - 1">
-                다음
-            </button>
-        </div>
+        <button @click="prevPage" :disabled="currentPage === 0">
+            이전
+        </button>
+        <button v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber - 1)">
+            {{ pageNumber }}
+        </button>
+        <button @click="nextPage" :disabled="currentPage === totalPages - 1">
+            다음
+        </button>
+    </div>
 </template>
 
 <script lang='ts'>
